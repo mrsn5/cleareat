@@ -38,7 +38,6 @@ buildSrc/build
 /framework-bom/build
 /integration-tests/build
 /src/asciidoc/build
-target/
 
 # Eclipse artifacts, including WTP generated manifests
 .classpath
@@ -110,11 +109,8 @@ baseline.json
 
 # IDEs and editors
 /.idea
-.project
-.classpath
 .c9/
 *.launch
-.settings/
 *.sublime-workspace
 
 # IDE - VSCode
@@ -129,7 +125,6 @@ baseline.json
 /connect.lock
 /coverage
 /libpeerconnection.log
-npm-debug.log
 testem.log
 /typings
 
@@ -138,5 +133,38 @@ testem.log
 /e2e/*.map
 
 # System Files
-.DS_Store
 Thumbs.db
+
+
+HELP.md
+backend/target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+### STS ###
+.apt_generated
+.factorypath
+.sts4-cache
+
+### VS Code ###
+.vscode/
+
+
+# compiled output
+frontend/dist
+frontend/tmp
+frontend/out-tsc
+# Only exists if Bazel was run
+frontend/bazel-out
+
+# dependencies
+frontend/node_modules
+
+# profiling files
+chrome-profiler-events*.json
+speed-measure-plugin*.json
+
+# IDEs and editors
+frontend/.idea
+/backend/src/main/resources/public/**

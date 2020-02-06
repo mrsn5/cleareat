@@ -16,13 +16,13 @@ public class RootController {
     @Autowired
     private AppUserService userService;
 
-    @GetMapping("/")
-    public RedirectView redirectWithUsingRedirectView(
-            RedirectAttributes attributes) {
-        attributes.addFlashAttribute("flashAttribute", "redirectWithRedirectView");
-        attributes.addAttribute("attribute", "redirectWithRedirectView");
-        return new RedirectView("index.html");
-    }
+//    @GetMapping("/")
+//    public RedirectView redirectWithUsingRedirectView(
+//            RedirectAttributes attributes) {
+////        attributes.addFlashAttribute("flashAttribute", "redirectWithRedirectView");
+////        attributes.addAttribute("attribute", "redirectWithRedirectView");
+//        return new RedirectView("index.html");
+//    }
 
     @PostMapping("api/register")
     public ResponseEntity<AppUser> registerUser(@RequestBody AppUser appUser) throws AlreadyExistsException {

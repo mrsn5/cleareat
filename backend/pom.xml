@@ -169,8 +169,7 @@
 							<outputDirectory>${project.build.directory}/classes/resources/</outputDirectory>
 							<resources>
 								<resource>
-									<!--suppress UnresolvedMavenProperty -->
-									<directory>../frontend/src/main/web/dist/frontendApp/</directory>
+									<directory>../frontend/dist/caprezzy/</directory>
 								</resource>
 							</resources>
 						</configuration>

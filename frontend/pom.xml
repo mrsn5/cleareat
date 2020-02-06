@@ -55,7 +55,7 @@
                         <phase>validate</phase>
                         <goals><goal>copy-resources</goal></goals>
                         <configuration>
-                            <outputDirectory>../backend/src/main/resources/public</outputDirectory >
+                            <outputDirectory>../backend/src/main/resources/static</outputDirectory >
                             <resources>
                                 <resource>
                                     <directory>dist/caprezzy</directory>

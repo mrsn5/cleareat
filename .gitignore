@@ -167,3 +167,4 @@ speed-measure-plugin*.json
 # IDEs and editors
 frontend/.idea
 /backend/src/main/resources/public/**
+/backend/src/main/resources/static/

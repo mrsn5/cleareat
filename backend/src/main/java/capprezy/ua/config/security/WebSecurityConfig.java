@@ -107,8 +107,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // dont authenticate this particular request
                 .authorizeRequests()
-                .antMatchers("/resources/public/**", "/", "/api/authenticate**", "/api/register**", "/oauth/token").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/api/authenticate**", "/api/register**").permitAll()
+//                .antMatchers("/api/user/deactivate/**", "/api/user/activate/**").hasRole("ADMIN")
+                .antMatchers("/api/**").authenticated()
+                .antMatchers("/", "/index.html**", "/**", "/resources/public**").permitAll()
 
                 // make sure we use stateless session; session won't be used to
                 // store user's state.

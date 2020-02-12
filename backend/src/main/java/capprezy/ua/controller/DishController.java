@@ -42,7 +42,8 @@ public class DishController {
                 categoryIn == null      ? new ArrayList<>() : Arrays.asList(categoryIn),
                 categoryNotIn == null   ? new ArrayList<>() : Arrays.asList(categoryNotIn),
                 ingredientIn == null    ? new ArrayList<>() : Arrays.asList(ingredientIn),
-                ingredientNotIn == null ? new ArrayList<>() : Arrays.asList(ingredientNotIn));
+                ingredientNotIn == null ? new ArrayList<>() : Arrays.asList(ingredientNotIn),
+                pageable);
         return ResponseEntity.ok(res);
     }
 }

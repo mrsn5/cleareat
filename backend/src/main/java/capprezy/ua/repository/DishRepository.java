@@ -3,6 +3,7 @@ package capprezy.ua.repository;
 import capprezy.ua.model.Category;
 import capprezy.ua.model.Dish;
 import capprezy.ua.model.Ingredient;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -35,7 +36,8 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
     List<Dish> findByCriteria(List<String> categoriesIn,
                               List<String> categoriesNotIn,
                               List<String> ingredientsIn,
-                              List<String> ingredientsNotIn);
+                              List<String> ingredientsNotIn,
+                              Pageable pageable);
 
 
 

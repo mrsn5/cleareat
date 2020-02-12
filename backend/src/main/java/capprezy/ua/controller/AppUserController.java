@@ -1,6 +1,7 @@
 package capprezy.ua.controller;
 
 import capprezy.ua.model.AppUser;
+import capprezy.ua.model.AppUserWithToken;
 import capprezy.ua.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +15,8 @@ public class AppUserController {
     private AppUserService userService;
 
     @GetMapping(value = "{id}", produces = "application/json")
-    public AppUser getUserDetail(@PathVariable Integer id){
-        return userService.findById(id);
+    public ResponseEntity<AppUser> getUserDetail(@PathVariable Integer id){
+        return ResponseEntity.ok(userService.findById(id));
     }
 
 

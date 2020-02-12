@@ -7,6 +7,7 @@ import capprezy.ua.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -27,35 +28,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Override
-//    public void configure(final WebSecurity webSecurity) {
-//        webSecurity.ignoring().antMatchers("/api/login", "/api/register");
-//    }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.cors()
-//                .and()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//
-//                .and()
-//
-//                .authorizeRequests()
-//                .antMatchers("/resources/public/**", "/", "/api/login**", "/api/register**", "/oauth/token").permitAll()
-//                .anyRequest().authenticated()
-//
-//                .and()
-//                .csrf().disable()
-//                .formLogin().disable()
-//                .httpBasic().disable()
-//                .logout().disable();
-//    }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
@@ -75,8 +51,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-
-
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     @Autowired
@@ -86,9 +60,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        // configure AuthenticationManager so that it knows from where to load
-        // user for matching credentials
-        // Use BCryptPasswordEncoder
         auth.userDetailsService(appUserService).passwordEncoder(passwordEncoder());
     }
 
@@ -105,19 +76,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic().disable()
                 .logout().disable()
 
-                // dont authenticate this particular request
                 .authorizeRequests()
+                .antMatchers("/api/admin").hasAuthority("ADMIN")
                 .antMatchers("/api/authenticate**", "/api/register**").permitAll()
-//                .antMatchers("/api/user/deactivate/**", "/api/user/activate/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/dish**").permitAll()
+
                 .antMatchers("/api/**").authenticated()
                 .antMatchers("/", "/index.html**", "/**", "/resources/static**").permitAll()
 
-                // make sure we use stateless session; session won't be used to
-                // store user's state.
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        // Add a filter to validate the tokens with every request
+
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 

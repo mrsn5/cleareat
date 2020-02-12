@@ -1,6 +1,6 @@
 package capprezy.ua.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,18 +15,11 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Entity(name = "_user")
-public class AppUser {
+@Entity(name = "_ingredient")
+public class Ingredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer uid;
-    private String mail;
-    private String fullName;
-    private String phone;
-
-    @JsonIgnore
-    private String password;
-    private String role;
+    private String name;
 }
-

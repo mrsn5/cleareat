@@ -32,12 +32,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
         User user = appUserService.loadUserByUsername(username);
 
-        System.out.println(passwordEncoder.matches(password, user.getPassword()));
+        if (user == null) throw new BadCredentialsException("No such user");
 
         if (passwordEncoder.matches(password, user.getPassword())) {
             return new UsernamePasswordAuthenticationToken(username, password, appUserService.loadUserByUsername(username).getAuthorities());
         } else {
-            throw new BadCredentialsException("Authentication failed");
+            throw new BadCredentialsException("Password is not correct");
         }
     }
 

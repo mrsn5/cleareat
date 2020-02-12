@@ -1,25 +1,25 @@
-package capprezy.ua.service;
+package capprezy.ua.service.impl;
 
 
 import capprezy.ua.controller.exception.AlreadyExistsException;
 import capprezy.ua.model.AppUser;
 import capprezy.ua.repository.UserRepository;
-import org.apache.commons.lang3.StringUtils;
+import capprezy.ua.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service("userService")
 public class DefaultUserService implements AppUserService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -43,8 +43,10 @@ public class DefaultUserService implements AppUserService {
         Optional<AppUser> _appUser = userRepository.findByMail(username);
         if(_appUser.isPresent()){
             AppUser appUser = _appUser.get();
+
+            List<GrantedAuthority> ga = AuthorityUtils.createAuthorityList("USER", appUser.getRole().toUpperCase());
             return new User(appUser.getMail(), appUser.getPassword(), true, true, true, true,
-                    AuthorityUtils.createAuthorityList("USER"));
+                    ga);
         }
         return null;
     }

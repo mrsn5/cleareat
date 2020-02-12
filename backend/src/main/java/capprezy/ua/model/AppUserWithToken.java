@@ -1,30 +1,20 @@
 package capprezy.ua.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @ToString
-public class AppUserWithToken {
-    private Integer uid;
-    private String mail;
-    private String fullName;
-    private String phone;
+public class AppUserWithToken extends AppUser {
+
     private String token;
 
     public AppUserWithToken(AppUser user, String token) {
-        uid = user.getUid();
-        mail = user.getMail();
-        fullName = user.getFullName();
-        phone = user.getPhone();
+        super(user.getUid(), user.getMail(), user.getFullName(), user.getPhone(), user.getPassword(), user.getRole());
         this.token = token;
     }
 }

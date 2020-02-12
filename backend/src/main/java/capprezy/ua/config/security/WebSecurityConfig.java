@@ -51,6 +51,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
+
+
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     @Autowired
@@ -68,6 +70,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and()
@@ -77,7 +81,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().disable()
 
                 .authorizeRequests()
-                .antMatchers("/api/admin").hasAuthority("ADMIN")
+//                .antMatchers("/api/admin").hasAuthority("ADMIN")
                 .antMatchers("/api/authenticate**", "/api/register**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/dish**").permitAll()
 

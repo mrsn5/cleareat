@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -39,10 +40,10 @@ public class DishController {
             String[] ingredientNotIn
     ) {
         List res = dishRepository.findByCriteria(
-                categoryIn == null      ? new ArrayList<>() : Arrays.asList(categoryIn),
-                categoryNotIn == null   ? new ArrayList<>() : Arrays.asList(categoryNotIn),
-                ingredientIn == null    ? new ArrayList<>() : Arrays.asList(ingredientIn),
-                ingredientNotIn == null ? new ArrayList<>() : Arrays.asList(ingredientNotIn),
+                categoryIn == null      ? new ArrayList<>() : Arrays.stream(categoryIn).map(String::toLowerCase).collect(Collectors.toList()),
+                categoryNotIn == null   ? new ArrayList<>() : Arrays.stream(categoryNotIn).map(String::toLowerCase).collect(Collectors.toList()),
+                ingredientIn == null    ? new ArrayList<>() : Arrays.stream(ingredientIn).map(String::toLowerCase).collect(Collectors.toList()),
+                ingredientNotIn == null ? new ArrayList<>() : Arrays.stream(ingredientNotIn).map(String::toLowerCase).collect(Collectors.toList()),
                 pageable);
         return ResponseEntity.ok(res);
     }

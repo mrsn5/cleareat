@@ -29,7 +29,8 @@ public class DefaultUserService implements AppUserService {
         Optional<AppUser> _user = userRepository.findByMail(appUser.getMail());
         Optional<AppUser> _user2 = userRepository.findByPhone(appUser.getPhone());
         if (_user.isEmpty() && _user2.isEmpty()) {
-            appUser.setPassword(passwordEncoder.encode(appUser.getPassword())); //todo hash
+            System.out.println(appUser.getPassword());
+            appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
             userRepository.save(appUser);
         } else if (_user.isPresent()) {
             throw AlreadyExistsException.createWith("This mail is already in system");
@@ -44,7 +45,7 @@ public class DefaultUserService implements AppUserService {
         if(_appUser.isPresent()){
             AppUser appUser = _appUser.get();
 
-            List<GrantedAuthority> ga = AuthorityUtils.createAuthorityList("USER", appUser.getRole().toUpperCase());
+            List<GrantedAuthority> ga = AuthorityUtils.createAuthorityList(appUser.getRole() == AppUser.RoleType.admin ? "ADMIN" : "USER");
             return new User(appUser.getMail(), appUser.getPassword(), true, true, true, true,
                     ga);
         }

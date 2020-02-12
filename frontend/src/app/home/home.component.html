@@ -1,1 +1,4 @@
 <p><b>Current user:</b> {{this.user.fullName}} </p>
+<ng-container *ngFor="let dish of (dishes$ | async)">
+  <dish [dish]="dish"></dish>
+</ng-container>

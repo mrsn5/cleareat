@@ -10,12 +10,15 @@ import {JwtInterceptor} from "./_helpers/jwt.interceptor";
 import {ErrorInterceptor} from "./_helpers/error.interceptor";
 import {ReactiveFormsModule} from "@angular/forms";
 import { ApiClientService } from './_services/api-client.service';
+import { DishComponent } from './common/dish.component';
+import { DishesRepository } from './_services/dishes-repository.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    DishComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,8 @@ import { ApiClientService } from './_services/api-client.service';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    ApiClientService
+    ApiClientService,
+    DishesRepository
   ],
   bootstrap: [AppComponent]
 })

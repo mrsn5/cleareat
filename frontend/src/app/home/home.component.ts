@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from "../_models/user";
 import {UserService} from "../_services/user.service";
-import {first} from "rxjs/operators";
 import {AppComponent} from "../app.component";
+import { Observable, merge, concat, forkJoin, Subject } from 'rxjs';
+import { Dish } from '../_models/dish';
+import { ApiClientService } from '../_services/api-client.service';
+import { DishesRepository } from '../_services/dishes-repository.service';
 
 @Component({
   selector: 'app-home',
@@ -11,16 +14,26 @@ import {AppComponent} from "../app.component";
 })
 export class HomeComponent implements OnInit {
 
-  loading = false;
-  user = new User();
-
+  public loading = false;
+  public user = new User();
+  private dishes: Subject<Dish[]> = new Subject<Dish[]>();
+  public dishes$: Observable<Dish[]>;
   constructor(private userService: UserService,
-              private app: AppComponent) { }
+              private dishesRepository: DishesRepository,
+              private app: AppComponent) {
+    this.dishes$ = this.dishes.asObservable();
+  }
 
   ngOnInit() {
     this.loading = true;
-    this.userService.get(this.app.currentUser.uid).subscribe(user => {
-      this.user = user
+    forkJoin(
+      this.userService.get(this.app.currentUser.uid),
+      this.dishesRepository.get()
+    )
+    .subscribe(([user, dishes]) => {
+      this.user = user;
+      this.dishes.next(dishes);
+      this.loading = false;
     });
   }
 

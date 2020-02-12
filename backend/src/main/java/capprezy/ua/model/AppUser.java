@@ -5,17 +5,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Entity(name = "_user")
+@TypeDef(
+        name = "pgsql_enum",
+        typeClass = PostgreSQLEnumType.class
+)
 public class AppUser {
 
     @Id
@@ -25,8 +28,16 @@ public class AppUser {
     private String fullName;
     private String phone;
 
-    @JsonIgnore
     private String password;
-    private String role;
+
+
+    public enum RoleType {
+        admin, user
+    }
+
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "role_type")
+    @Type( type = "pgsql_enum" )
+    private RoleType role;
 }
 

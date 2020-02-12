@@ -25,13 +25,13 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
 
     @Query(value = "select * from caprezzy._dish d\n" +
             "where ((?1) is null or d.uid in (select dc.dish_uid from caprezzy._dish_category dc " +
-            "                where dc.category_uid in (select c.uid from caprezzy._category c where c.name in (?1)))) " +
+            "                where dc.category_uid in (select c.uid from caprezzy._category c where lower(c.name) in (?1)))) " +
             "  and ((?2) is null or d.uid not in (select dc.dish_uid from caprezzy._dish_category dc " +
-            "                                 where dc.category_uid in (select c.uid from caprezzy._category c where c.name in (?2)))) " +
+            "                                 where dc.category_uid in (select c.uid from caprezzy._category c where lower(c.name) in (?2)))) " +
             "  and ((?3) is null or d.uid in (select di.dish_uid from caprezzy._dish_ingredient di " +
-            "    where di.ingredient_uid in (select i.uid from caprezzy._ingredient i where i.name in (?3)))) " +
+            "    where di.ingredient_uid in (select i.uid from caprezzy._ingredient i where lower(i.name) in (?3)))) " +
             "  and ((?4) is null or d.uid not in (select di.dish_uid from caprezzy._dish_ingredient di " +
-            "                                 where di.ingredient_uid in (select i.uid from caprezzy._ingredient i where i.name in (?4)))) ",
+            "                                 where di.ingredient_uid in (select i.uid from caprezzy._ingredient i where lower(i.name) in (?4)))) ",
             nativeQuery = true)
     List<Dish> findByCriteria(List<String> categoriesIn,
                               List<String> categoriesNotIn,

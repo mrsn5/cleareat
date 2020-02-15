@@ -10,9 +10,4 @@ export class Dish {
     public photo: string;
     public categories: DishCategory[];
     public dishIngredients: DishIngredient[];
-    public unit() {
-        return this.categories.some(c => c.uid === 4) ?
-        'мл' :
-        'гр';
-    }
 }

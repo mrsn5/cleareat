@@ -1,4 +1,13 @@
-<p><b>Current user:</b> {{this.user.fullName}} </p>
-<ng-container *ngFor="let dish of (dishes$ | async)">
-  <dish [dish]="dish"></dish>
-</ng-container>
+<div class="home-page">
+  <mat-selection-list #shoes class="list">
+    <mat-list-option *ngFor="let shoe of typesOfShoes">
+      {{shoe}}
+    </mat-list-option>
+  </mat-selection-list>
+  
+  <div class="menu">
+    <ng-container *ngFor="let dish of (dishes$ | async)">
+      <dish class="dish" [dish]="dish"></dish>
+    </ng-container>  
+  </div>
+</div>

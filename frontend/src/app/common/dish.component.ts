@@ -9,5 +9,18 @@ import { Dish } from '../_models/dish';
   })
 export class DishComponent {
     @Input() public dish: Dish;
+    public get unit() {
+      return this.dish.categories.some(c => c.uid === 4) ?
+      'мл' :
+      'гр';
+    }
 
+    public get contents() {
+      return this.dish.dishIngredients.map(i => i.ingredient.name.toLowerCase()).join(', ');
+    }
+    
+    public get categories() {
+      return this.dish
+            .categories.map(i => i.name.toLowerCase()).join(', ');
+    }
 }

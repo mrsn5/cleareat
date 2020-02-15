@@ -4,7 +4,6 @@ import {UserService} from "../_services/user.service";
 import {AppComponent} from "../app.component";
 import { Observable, merge, concat, forkJoin, Subject } from 'rxjs';
 import { Dish } from '../_models/dish';
-import { ApiClientService } from '../_services/api-client.service';
 import { DishesRepository } from '../_services/dishes-repository.service';
 
 @Component({

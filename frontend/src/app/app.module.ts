@@ -12,6 +12,8 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { ApiClientService } from './_services/api-client.service';
 import { DishComponent } from './common/dish.component';
 import { DishesRepository } from './_services/dishes-repository.service';
+import { MatCardModule } from '@angular/material/card';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { DishesRepository } from './_services/dishes-repository.service';
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
-    appRoutingModule
+    appRoutingModule,
+    MatCardModule,
+    BrowserAnimationsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

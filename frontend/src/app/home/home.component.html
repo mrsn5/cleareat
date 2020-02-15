@@ -1,7 +1,7 @@
 <div class="home-page">
-  <mat-selection-list #shoes class="list">
-    <mat-list-option *ngFor="let shoe of typesOfShoes">
-      {{shoe}}
+  <mat-selection-list class="list" (selectionChange)="categoriesChanged($event)">
+    <mat-list-option  [value]="cat.name" *ngFor="let cat of categories">
+      {{cat.name}}
     </mat-list-option>
   </mat-selection-list>
   

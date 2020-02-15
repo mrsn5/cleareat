@@ -10,4 +10,4 @@
 .home-page{
     display: flex;
 }
-::ng-deep .mat-pseudo-checkbox{ display: none !important; }
+/* ::ng-deep .mat-pseudo-checkbox{ display: none !important; } */

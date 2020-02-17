@@ -10,8 +10,7 @@ import java.util.Set;
 
 @Repository
 public interface CategoryRepository extends CrudRepository<Category, Integer> {
-    List<Category> findByNameInIgnoreCase(String[] names);
-    List<Category> findByNameNotInIgnoreCase(String[] names);
+    List<Category> findAll();
     List<Category> findByUidIn(Integer[] uids);
 
 }

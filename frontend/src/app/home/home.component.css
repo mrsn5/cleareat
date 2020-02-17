@@ -1,0 +1,13 @@
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex: 1;
+}
+.dish {
+    flex: 0 1 24%;
+}
+.home-page{
+    display: flex;
+}
+/* ::ng-deep .mat-pseudo-checkbox{ display: none !important; } */

@@ -1,0 +1,19 @@
+<mat-card class="dish-card">
+    <mat-card-title> {{dish.name}} </mat-card-title>
+    <mat-card-subtitle>{{ dish.price }} грн, {{dish.weight}} {{unit}}</mat-card-subtitle>
+    <img mat-card-image src={{dish.photo}} alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <p>
+       Інгредієнти: {{contents}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>LIKE</button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions>
+    <mat-card-footer>
+        <div class="footer">
+            Категорії: {{categories}}
+        </div>
+    </mat-card-footer>
+  </mat-card>

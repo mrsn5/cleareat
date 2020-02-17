@@ -1,0 +1,17 @@
+.dish-card {
+    max-width: 300px;
+}
+mat-card-title ::ng-deep * {
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+}
+img {
+    object-fit: cover; /*this makes the image in src fit to the size specified below*/
+    width: 100%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+    height: 80%;
+}
+.footer {
+    padding: 10px;
+    background-color: gray;
+}

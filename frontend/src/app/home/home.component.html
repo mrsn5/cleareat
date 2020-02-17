@@ -1,1 +1,13 @@
-<p><b>Current user:</b> {{this.user.fullName}} </p>
+<div class="home-page">
+  <mat-selection-list class="list" (selectionChange)="categoriesChanged($event)">
+    <mat-list-option  [value]="cat.name" *ngFor="let cat of categories">
+      {{cat.name}}
+    </mat-list-option>
+  </mat-selection-list>
+  
+  <div class="menu">
+    <ng-container *ngFor="let dish of (dishes$ | async)">
+      <dish class="dish" [dish]="dish"></dish>
+    </ng-container>  
+  </div>
+</div>

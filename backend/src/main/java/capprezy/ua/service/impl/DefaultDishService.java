@@ -11,7 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service("dishService")
@@ -28,12 +31,13 @@ public class DefaultDishService implements DishService {
     }
 
     @Override
-    public List<Dish> findByCriteria(String[] categoriesIn, String[] categoriesNotIn, String[] ingredientsIn, String[] ingredientsNotIn, Pageable pageable) {
-
-//        List<Category> cin = categoryRepository.findByNameInIgnoreCase(categoriesIn);
-//        List<Category> cnin = categoryRepository.findByNameNotInIgnoreCase(categoriesNotIn);
-        List<Ingredient> iin = ingredientRepository.findByNameInIgnoreCase(ingredientsIn);
-        return dishRepository.findByIngredientsIn(iin, pageable);
+    public List<Dish> findByCriteria(Integer[] categoryIn, Integer[] categoryNotIn, Integer[] ingredientIn, Integer[] ingredientNotIn, Pageable pageable) {
+        return dishRepository.findByCriteria(
+                categoryIn == null      ? new ArrayList<>() : Arrays.asList(categoryIn),
+                categoryNotIn == null   ? new ArrayList<>() : Arrays.asList(categoryNotIn),
+                ingredientIn == null    ? new ArrayList<>() : Arrays.asList(ingredientIn),
+                ingredientNotIn == null ? new ArrayList<>() : Arrays.asList(ingredientNotIn),
+                pageable);
     }
 
 }

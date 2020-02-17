@@ -8,10 +8,10 @@ import java.util.List;
 public interface DishService {
     List<Dish> findAll(Pageable pageable);
 
-    List<Dish> findByCriteria(String[] categoriesIn,
-                                  String[] categoriesNotIn,
-                                  String[] ingredientsIn,
-                                  String[] ingredientsNotIn,
+    List<Dish> findByCriteria(Integer[] categoriesIn,
+                              Integer[] categoriesNotIn,
+                              Integer[] ingredientsIn,
+                              Integer[] ingredientsNotIn,
                                   Pageable pageable);
 
 }

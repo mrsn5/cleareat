@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface DishRepository extends CrudRepository<Dish, Integer> {
     List<Dish> findAll(Pageable pageable);
+    Dish findByUid(Integer uid);
     Dish findByNameIgnoreCase(String name);
 
 

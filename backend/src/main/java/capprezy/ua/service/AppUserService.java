@@ -10,4 +10,5 @@ public interface AppUserService extends UserDetailsService {
     AppUser findById(Integer id);
     AppUser findByMail(String mail);
     User loadUserByUsername(String username);
+    AppUser getCurrentUser();
 }

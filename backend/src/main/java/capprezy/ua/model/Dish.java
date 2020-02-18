@@ -36,8 +36,8 @@ public class Dish {
     @NotNull
     private Double price;
 
-    private Integer calories;
-    private Boolean isAvailable;
+    private Integer calories = 0;
+    private Boolean isAvailable = true;
     private String photo;
 
 
@@ -51,13 +51,4 @@ public class Dish {
     @OneToMany(mappedBy = "dish")
     @JsonIgnoreProperties({"dish", "id"})
     private List<DishIngredient> dishIngredients = new ArrayList<>();
-
-//    @JsonIgnore
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(
-//            name = "_dish_ingredient",
-//            joinColumns = @JoinColumn(name = "dishUid"),
-//            inverseJoinColumns = @JoinColumn(name = "ingredientUid"))
-//    private Collection<Ingredient> ingredients;
-
 }

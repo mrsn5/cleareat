@@ -6,8 +6,10 @@ import capprezy.ua.model.AppUser;
 import capprezy.ua.repository.UserRepository;
 import capprezy.ua.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -49,6 +51,13 @@ public class DefaultUserService implements AppUserService {
                     ga);
         }
         return null;
+    }
+
+    @Override
+    public AppUser getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<AppUser> user = userRepository.findByMail(authentication.getName());
+        return user.orElse(null);
     }
 
     public AppUser findById(Integer id) {

@@ -46,6 +46,6 @@ public class AppUser {
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "role_type")
     @Type( type = "pgsql_enum" )
-    private RoleType role;
+    private RoleType role = RoleType.user;
 }
 

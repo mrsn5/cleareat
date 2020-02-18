@@ -1,5 +1,6 @@
 package capprezy.ua.service.impl;
 
+import capprezy.ua.controller.exception.model.AlreadyExistsException;
 import capprezy.ua.model.Category;
 import capprezy.ua.repository.CategoryRepository;
 import capprezy.ua.service.CategoryService;
@@ -17,5 +18,15 @@ public class DefaultCategoryRepository implements CategoryService {
     @Override
     public List<Category> getAll() {
         return categoryRepository.findAll();
+    }
+
+    @Override
+    public Category add(Category category) throws AlreadyExistsException {
+        Category c = categoryRepository.findByNameIgnoreCase(category.getName());
+        if (c == null) {
+            return categoryRepository.save(category);
+        } else {
+            throw AlreadyExistsException.createWith("This category is already existed: " + c.getName());
+        }
     }
 }

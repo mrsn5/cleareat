@@ -1,7 +1,7 @@
 package capprezy.ua.service.impl;
 
 
-import capprezy.ua.controller.exception.AlreadyExistsException;
+import capprezy.ua.controller.exception.model.AlreadyExistsException;
 import capprezy.ua.model.AppUser;
 import capprezy.ua.repository.UserRepository;
 import capprezy.ua.service.AppUserService;
@@ -29,7 +29,6 @@ public class DefaultUserService implements AppUserService {
         Optional<AppUser> _user = userRepository.findByMail(appUser.getMail());
         Optional<AppUser> _user2 = userRepository.findByPhone(appUser.getPhone());
         if (_user.isEmpty() && _user2.isEmpty()) {
-            System.out.println(appUser.getPassword());
             appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
             userRepository.save(appUser);
         } else if (_user.isPresent()) {

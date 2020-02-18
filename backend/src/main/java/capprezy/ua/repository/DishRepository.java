@@ -1,27 +1,18 @@
 package capprezy.ua.repository;
 
-import capprezy.ua.model.Category;
 import capprezy.ua.model.Dish;
-import capprezy.ua.model.Ingredient;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
 import java.util.List;
 
 @Repository
 public interface DishRepository extends CrudRepository<Dish, Integer> {
     List<Dish> findAll(Pageable pageable);
+    Dish findByNameIgnoreCase(String name);
 
-    List<Dish> findByCategoriesIn(Iterable<Category> categories, Pageable pageable);
-    List<Dish> findByCategoriesNotIn(Iterable<Category> categories, Pageable pageable);
-    List<Dish> findByIngredientsIn(Iterable<Ingredient> ingredients, Pageable pageable);
-    List<Dish> findByIngredientsNotIn(Iterable<Ingredient> ingredients, Pageable pageable);
 
     @Query(value = "select * from caprezzy._dish d " +
             "where ((?1) is null or d.uid in (select dc.dish_uid from caprezzy._dish_category dc " +

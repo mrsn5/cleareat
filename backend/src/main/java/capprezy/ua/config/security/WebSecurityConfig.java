@@ -51,8 +51,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-
-
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     @Autowired
@@ -81,11 +79,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().disable()
 
                 .authorizeRequests()
-//                .antMatchers("/api/admin").hasAuthority("ADMIN")
+//               .antMatchers("/api/admin").hasAuthority("ADMIN")
                 .antMatchers("/api/authenticate**", "/api/register**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/**").permitAll()
-
-                .antMatchers("/api/**").authenticated()
+                .antMatchers(HttpMethod.POST,"/api/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/api/**").hasAuthority("ADMIN")
                 .antMatchers("/", "/index.html**", "/**", "/resources/static**").permitAll()
 
                 .and()
@@ -94,7 +92,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
-
 
     @Autowired
     private CustomAuthenticationProvider authProvider;

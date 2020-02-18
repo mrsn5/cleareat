@@ -1,4 +1,4 @@
-package capprezy.ua.model;
+package capprezy.ua.model.other;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;

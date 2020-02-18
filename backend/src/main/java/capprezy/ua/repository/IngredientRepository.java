@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface IngredientRepository extends CrudRepository<Ingredient, Integer> {
     List<Ingredient> findAll();
+    Ingredient findByNameIgnoreCase(String name);
     List<Ingredient> findByUidIn(Integer[] uids);
 }

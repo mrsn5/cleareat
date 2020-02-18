@@ -1,6 +1,8 @@
 package capprezy.ua.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,21 +16,20 @@ import java.io.Serializable;
 @NoArgsConstructor
 @ToString
 @Entity(name = "_dish_ingredient")
-public class DishIngredient implements Serializable {
+public class DishIngredient {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer dishUid;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer ingredientUid;
-
+    @EmbeddedId
+    private DishIngredientId id = new DishIngredientId();
 
     private Double quantity;
 
     @ManyToOne
-    @JoinColumn(name = "ingredientUid")
-    Ingredient ingredient;
+    @MapsId("dishUid")
+    @JsonIgnoreProperties("dishIngredients")
+    private Dish dish;
+
+    @ManyToOne
+    @MapsId("ingredientUid")
+    private Ingredient ingredient;
 }
 

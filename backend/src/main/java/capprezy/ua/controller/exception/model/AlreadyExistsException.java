@@ -1,4 +1,4 @@
-package capprezy.ua.controller.exception;
+package capprezy.ua.controller.exception.model;
 
 public class AlreadyExistsException extends Exception {
     String reason;

@@ -2,9 +2,9 @@ package capprezy.ua.controller;
 
 import capprezy.ua.config.security.jwt.JwtRequest;
 import capprezy.ua.config.security.jwt.JwtTokenUtil;
-import capprezy.ua.controller.exception.AlreadyExistsException;
+import capprezy.ua.controller.exception.model.AlreadyExistsException;
 import capprezy.ua.model.AppUser;
-import capprezy.ua.model.AppUserWithToken;
+import capprezy.ua.model.dto.AppUserWithToken;
 import capprezy.ua.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +16,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/")
@@ -38,7 +40,7 @@ public class RootController {
     }
 
     @PostMapping("api/register")
-    public ResponseEntity<AppUser> registerUser(@RequestBody AppUser appUser) throws AlreadyExistsException {
+    public ResponseEntity<AppUser> registerUser(@RequestBody @Valid AppUser appUser) throws AlreadyExistsException {
         System.out.println(appUser.toString());
         appUserService.register(appUser);
         return ResponseEntity.ok().build();

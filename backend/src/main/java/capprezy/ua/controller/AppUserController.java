@@ -1,7 +1,6 @@
 package capprezy.ua.controller;
 
 import capprezy.ua.model.AppUser;
-import capprezy.ua.model.AppUserWithToken;
 import capprezy.ua.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

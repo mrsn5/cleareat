@@ -1,5 +1,6 @@
-package capprezy.ua.model;
+package capprezy.ua.model.dto;
 
+import capprezy.ua.model.AppUser;
 import lombok.*;
 
 import javax.persistence.GeneratedValue;

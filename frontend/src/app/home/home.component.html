@@ -1,13 +1,17 @@
 <div class="home-page">
+  <div class="ingredients">
+    <ingredients [allIngredients] = "ingredients">
+
+    </ingredients>
+  </div>
+
   <mat-selection-list class="list" (selectionChange)="categoriesChanged($event)">
-    <mat-list-option  [value]="cat.name" *ngFor="let cat of categories">
+    <mat-list-option  [value]="cat.uid" *ngFor="let cat of categories">
       {{cat.name}}
     </mat-list-option>
   </mat-selection-list>
   
   <div class="menu">
-    <ng-container *ngFor="let dish of (dishes$ | async)">
-      <dish class="dish" [dish]="dish"></dish>
-    </ng-container>  
+    <dish class="dish" *ngFor="let dish of (dishes$ | async)" [dish]="dish"></dish>
   </div>
 </div>

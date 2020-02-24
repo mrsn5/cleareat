@@ -13,6 +13,8 @@ public interface DishService {
                               Integer[] categoriesNotIn,
                               Integer[] ingredientsIn,
                               Integer[] ingredientsNotIn,
-                                  Pageable pageable);
+                              Double maxPrice,
+                              String like,
+                              Pageable pageable);
 
 }

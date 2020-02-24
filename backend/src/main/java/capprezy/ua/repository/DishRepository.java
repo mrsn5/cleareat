@@ -4,6 +4,7 @@ import capprezy.ua.model.Dish;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,12 +24,16 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
             "  and ((?3) is null or d.uid in (select di.dish_uid from caprezzy._dish_ingredient di " +
             "                                 where di.ingredient_uid in (?3))) " +
             "  and ((?4) is null or d.uid not in (select di.dish_uid from caprezzy._dish_ingredient di " +
-            "                                 where di.ingredient_uid in (?4))) ",
+            "                                 where di.ingredient_uid in (?4))) " +
+            "  and ( ?5 <= 0 or d.price <= ?5  )" +
+            "  and ( lower(d.name) like %?6% )",
             nativeQuery = true)
     List<Dish> findByCriteria(List<Integer> categoriesIn,
                               List<Integer> categoriesNotIn,
                               List<Integer> ingredientsIn,
                               List<Integer> ingredientsNotIn,
+                              Double maxPrice,
+                              String query,
                               Pageable pageable);
 
 

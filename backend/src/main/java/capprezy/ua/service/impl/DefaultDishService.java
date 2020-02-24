@@ -56,12 +56,20 @@ public class DefaultDishService implements DishService {
     }
 
     @Override
-    public List<Dish> findByCriteria(Integer[] categoryIn, Integer[] categoryNotIn, Integer[] ingredientIn, Integer[] ingredientNotIn, Pageable pageable) {
+    public List<Dish> findByCriteria(Integer[] categoryIn,
+                                     Integer[] categoryNotIn,
+                                     Integer[] ingredientIn,
+                                     Integer[] ingredientNotIn,
+                                     Double maxPrice,
+                                     String like,
+                                     Pageable pageable) {
         return dishRepository.findByCriteria(
                 categoryIn == null ? new ArrayList<>() : Arrays.asList(categoryIn),
                 categoryNotIn == null ? new ArrayList<>() : Arrays.asList(categoryNotIn),
                 ingredientIn == null ? new ArrayList<>() : Arrays.asList(ingredientIn),
                 ingredientNotIn == null ? new ArrayList<>() : Arrays.asList(ingredientNotIn),
+                maxPrice == null ? -1 : maxPrice,
+                like == null ? "" : like.toLowerCase(),
                 pageable);
     }
 

@@ -31,9 +31,11 @@ public class DishController {
             Integer[] categoryIn,
             Integer[] categoryNotIn,
             Integer[] ingredientIn,
-            Integer[] ingredientNotIn
+            Integer[] ingredientNotIn,
+            Double maxPrice,
+            String like
     ) {
-        List res = dishService.findByCriteria(categoryIn, categoryNotIn, ingredientIn, ingredientNotIn, pageable);
+        List res = dishService.findByCriteria(categoryIn, categoryNotIn, ingredientIn, ingredientNotIn, maxPrice, like, pageable);
         return ResponseEntity.ok(res);
     }
 

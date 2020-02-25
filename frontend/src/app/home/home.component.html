@@ -1,17 +1,20 @@
 <div class="home-page">
-  <div class="ingredients">
-    <ingredients [allIngredients] = "ingredients">
-
+  
+  <div class="filters-panel">
+    <ingredients 
+      [allIngredients]="ingredients"
+      (selectionChanged)="ingredientsChanged($event)"> 
     </ingredients>
   </div>
 
-  <mat-selection-list class="list" (selectionChange)="categoriesChanged($event)">
-    <mat-list-option  [value]="cat.uid" *ngFor="let cat of categories">
-      {{cat.name}}
-    </mat-list-option>
-  </mat-selection-list>
-  
-  <div class="menu">
-    <dish class="dish" *ngFor="let dish of (dishes$ | async)" [dish]="dish"></dish>
+  <div class="menu-container">
+    <mat-selection-list class="categories-aside" (selectionChange)="categoriesChanged($event)">
+      <mat-list-option  [value]="cat.uid" *ngFor="let cat of categories">
+        {{cat.name}}
+      </mat-list-option>
+    </mat-selection-list>
+    <div class="menu">
+      <dish class="dish" *ngFor="let dish of (dishes$ | async)" [dish]="dish"></dish>
+    </div>
   </div>
 </div>

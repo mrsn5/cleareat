@@ -66,6 +66,11 @@ export class HomeComponent implements OnInit {
     this.filterState.next({...prevState, categories : nextprevCats})
   }
 
+  ingredientsChanged(ings: number[]) {
+    const prevState = this.filterState.value;
+    this.filterState.next({...prevState, ingredients : ings})
+  }
+
   private fetchUser(): Observable<User> {
     if (!this.authService.currentUserValue) {
       return of(null);

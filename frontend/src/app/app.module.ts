@@ -19,13 +19,17 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { OrderStateService } from './_services/order-state.service';
+import { OrderComponent } from './order/order.component';
+import { OrderGuard } from './_helpers/order.guard';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
     DishComponent,
-    IngredientsComponent
+    IngredientsComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +48,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     ApiClientService,
-    DishesRepository
+    DishesRepository,
+    OrderStateService,
+    OrderGuard
   ],
   bootstrap: [AppComponent]
 })

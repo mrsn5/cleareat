@@ -8,12 +8,16 @@ export class OrderStateService {
     constructor() { this.load(); }
 
     public setSelected(dishUid: number, count: number): void {
-        if (count !== 0) {
+        if (count > 0) {
             this.state[dishUid] = count;
         } else {
             delete this.state[dishUid];
         }
         this.save();
+    }
+
+    public getSelected(dishUid: number): number {
+        return this.state[dishUid] || 0;
     }
 
     public defined(): boolean {

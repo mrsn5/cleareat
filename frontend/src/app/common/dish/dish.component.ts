@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ApiClientService } from '../../_services/api-client.service';
 import { Dish } from '../../_models/dish';
 
@@ -9,6 +9,9 @@ import { Dish } from '../../_models/dish';
   })
 export class DishComponent {
     @Input() public dish: Dish;
+    @Input() public canOrder: boolean = true;
+    @Input() public ordered: number = 0;
+    @Output() public readonly orderedChange: EventEmitter<number> = new EventEmitter<number>();
     public get unit() {
       return this.dish.categories.some(c => c.uid === 4) ?
       'мл' :

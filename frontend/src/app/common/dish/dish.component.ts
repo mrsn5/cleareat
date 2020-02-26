@@ -1,6 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ApiClientService } from '../../_services/api-client.service';
 import { Dish } from '../../_models/dish';
+
+export enum DishDisplayMode {
+  Full, 
+  Compact
+}
 
 @Component({
     selector: 'dish',
@@ -9,9 +13,10 @@ import { Dish } from '../../_models/dish';
   })
 export class DishComponent {
     @Input() public dish: Dish;
-    @Input() public canOrder: boolean = true;
     @Input() public ordered: number = 0;
+    @Input() public displayMode: DishDisplayMode = DishDisplayMode.Full;
     @Output() public readonly orderedChange: EventEmitter<number> = new EventEmitter<number>();
+    public DishDisplayMode = DishDisplayMode;
     public get unit() {
       return this.dish.categories.some(c => c.uid === 4) ?
       'мл' :
@@ -20,6 +25,10 @@ export class DishComponent {
 
     public get contents() {
       return this.dish.dishIngredients.map(i => i.ingredient.name.toLowerCase()).join(', ');
+    }
+
+    public get backgroundImage() {
+      return `url(${this.dish.photo})`;
     }
     
     public get categories() {

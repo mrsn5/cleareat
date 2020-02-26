@@ -1,1 +1,38 @@
-<p>order works!</p>
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+    <mat-step>
+        <ng-template matStepLabel>Підтвердіть склад замовлення</ng-template>
+          <dish 
+            *ngFor="let dish of orderedDishes" 
+            [ordered]="getOrdered(dish.uid)"
+            [dish]="dish"
+            (orderedChange)="setOrdered(dish.uid, $event)"
+            [displayMode]="displayMode"
+            ></dish>
+        <div>
+          <button mat-button matStepperNext>Далі</button>
+        </div>
+    </mat-step>
+    <!-- <mat-step>
+        <ng-template matStepLabel>Fill out your address</ng-template>
+          <mat-label>Address</mat-label>
+          <input matInput placeholder="Ex. 1 Main St, New York, NY"
+                 required>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+    </mat-step> -->
+    <mat-step [stepControl]="preferForm"> 
+        <form [formGroup]="preferForm">
+            <ng-template matStepLabel>Особливі побажання</ng-template>
+            <mat-form-field>
+              <mat-label>Ваші побажання:</mat-label>
+              <input matInput formControlName="prefs">
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Назад</button>
+              <button mat-button (click)="confirm()">Підтвердити</button>
+            </div>
+          </form>
+    </mat-step>
+  </mat-horizontal-stepper>

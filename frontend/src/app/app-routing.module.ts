@@ -9,9 +9,9 @@ import { OrderGuard } from './_helpers/order.guard';
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'order', component: OrderComponent, canActivate: [OrderGuard] },
+  { path: 'order', component: OrderComponent, canActivate: [OrderGuard, AuthGuard] },
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];

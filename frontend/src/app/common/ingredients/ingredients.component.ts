@@ -21,15 +21,17 @@ export class IngredientsComponent {
   selectedIngredients$: Observable<Ingredient[]>;
   selectedIngredients: BehaviorSubject<Ingredient[]> = new BehaviorSubject<Ingredient[]>([]);
   @Input() allIngredients: Ingredient[] = [];
-  @Output() selectionChanged: EventEmitter<number[]> = new EventEmitter<number[]>();
+  @Output() readonly selectionChanged: EventEmitter<number[]> = new EventEmitter<number[]>();
 
   @ViewChild('fruitInput', {static: true}) fruitInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: true}) matAutocomplete: MatAutocomplete;
   constructor() {
     this.selectedIngredients$ = this.selectedIngredients.asObservable();
+    this.selectedIngredients$.subscribe(ings => 
+      this.selectionChanged.emit(ings.map(_ => _.uid)));
     this.filteredIngredients = combineLatest(
       this.fruitCtrl.valueChanges.pipe(startWith(null)),
-      this.selectedIngredients$
+      this.selectedIngredients$.pipe(startWith([]))
     )
     .pipe(
       map(([ing, _]) => {
@@ -43,18 +45,6 @@ export class IngredientsComponent {
         }
       })
     )
-    this.filteredIngredients = this.fruitCtrl.valueChanges.pipe(
-        startWith(null),
-        map((ing: String | null | Ingredient) => {
-          if(!ing) {
-            return this.notSelectedIngredients();
-          }
-          if(typeof(ing) === 'string') {
-            return this.filter(ing);
-          } else {
-            return this.filter((<Ingredient>ing).name);
-          }
-        }));
   }
 
   add(event: MatChipInputEvent): void {
@@ -90,6 +80,4 @@ export class IngredientsComponent {
     return this.allIngredients.filter(ing1 => 
       !this.selectedIngredients.value.some(ing2 => ing1.name === ing2.name));
   }
-
-
 }

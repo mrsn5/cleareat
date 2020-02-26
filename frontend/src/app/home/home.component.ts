@@ -13,6 +13,7 @@ import { skip, catchError } from 'rxjs/operators';
 import { AuthenticationService } from '../_services/authentication.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Ingredient } from '../_models/ingredient';
+import { OrderStateService } from '../_services/order-state.service';
 
 @Component({
   selector: 'app-home',
@@ -31,7 +32,8 @@ export class HomeComponent implements OnInit {
   public dishes$: Observable<Dish[]>;
   constructor(private userService: UserService,
               private dishesRepository: DishesRepository,
-              private authService: AuthenticationService) {
+              private authService: AuthenticationService,
+              private orderState: OrderStateService) {
     this.dishes$ = this.dishes.asObservable();
   }
 
@@ -64,6 +66,19 @@ export class HomeComponent implements OnInit {
     const prevCats = prevState.categories;
     const nextprevCats = option.selected ? [...prevCats, option.value] : prevCats.filter(_ => _ !== option.value);
     this.filterState.next({...prevState, categories : nextprevCats})
+  }
+
+  ingredientsChanged(ings: number[]) {
+    const prevState = this.filterState.value;
+    this.filterState.next({...prevState, ingredients : ings})
+  }
+
+  public getOrdered(uid: number) : number {
+    return this.orderState.getSelected(uid);
+  }
+
+  public setOrdered(uid: number, amount: number) : void {
+    this.orderState.setSelected(uid, amount);
   }
 
   private fetchUser(): Observable<User> {

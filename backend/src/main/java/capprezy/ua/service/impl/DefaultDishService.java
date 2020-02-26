@@ -39,6 +39,11 @@ public class DefaultDishService implements DishService {
     }
 
     @Override
+    public Dish findById(Integer id) {
+        return dishRepository.findByUid(id);
+    }
+
+    @Override
     public Dish add(Dish dish) throws AlreadyExistsException {
         Dish d = dishRepository.findByNameIgnoreCase(dish.getName());
         if (d == null) {

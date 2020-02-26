@@ -55,4 +55,9 @@ public class DefaultOrderService implements OrderService {
                 orderState == null ? new ArrayList<>() : Arrays.asList(orderState),
                 pageable);
     }
+
+    @Override
+    public Order findById(Integer id) {
+        return orderRepository.findByUid(id);
+    }
 }

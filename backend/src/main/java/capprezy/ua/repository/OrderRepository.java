@@ -12,6 +12,7 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends CrudRepository<Order, Integer> {
     List<Order> findAll();
+    Order findByUid(Integer id);
 
     List<Order> findByOrderStateIn(List<Order.OrderStateType> orderState, Pageable pageable);
 }

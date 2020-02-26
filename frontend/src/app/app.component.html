@@ -3,6 +3,7 @@
   <div class="navbar-nav">
     <a class="nav-item nav-link" routerLink="/">Home</a>
     <a class="nav-item nav-link" routerLink="/order">Order</a>
+    <a *ngIf="isAdmin()" class="nav-item nav-link" routerLink="/admin">Admin</a>
     <a class="nav-item nav-link" (click)="logout()">Logout</a>
   </div>
 </nav>

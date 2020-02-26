@@ -12,4 +12,6 @@ public interface OrderService {
     Order add(Order order);
 
     List<Order> getAll(Order.OrderStateType[] orderState, Pageable pageable);
+
+    Order findById(Integer id);
 }

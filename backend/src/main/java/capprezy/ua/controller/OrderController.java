@@ -35,6 +35,11 @@ public class OrderController {
         return ResponseEntity.ok(orderService.getAll(orderStates, pageable));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity getById(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(orderService.findById(id));
+    }
+
     @PostMapping
     public ResponseEntity add(@RequestBody @Valid Order order) throws AlreadyExistsException {
         return ResponseEntity.ok(orderService.add(order));

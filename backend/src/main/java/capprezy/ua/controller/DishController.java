@@ -39,6 +39,11 @@ public class DishController {
         return ResponseEntity.ok(res);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity getById(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(dishService.findById(id));
+    }
+
     @PostMapping
     public ResponseEntity add(@RequestBody @Valid Dish dish) throws AlreadyExistsException {
         return ResponseEntity.ok(dishService.add(dish));

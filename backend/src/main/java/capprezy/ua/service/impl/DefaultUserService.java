@@ -29,15 +29,16 @@ public class DefaultUserService implements AppUserService {
     @Override
     public void register(AppUser appUser) throws AlreadyExistsException {
         Optional<AppUser> _user = userRepository.findByMail(appUser.getMail());
-        Optional<AppUser> _user2 = userRepository.findByPhone(appUser.getPhone());
-        if (_user.isEmpty() && _user2.isEmpty()) {
+//        Optional<AppUser> _user2 = userRepository.findByPhone(appUser.getPhone());
+        if (_user.isEmpty() /* &&_user2.isEmpty()*/) {
             appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
             userRepository.save(appUser);
         } else if (_user.isPresent()) {
             throw AlreadyExistsException.createWith("This mail is already in system");
-        } else if (_user2.isPresent()) {
-            throw AlreadyExistsException.createWith("This phone is already in system");
         }
+//        else if (_user2.isPresent()) {
+//            throw AlreadyExistsException.createWith("This phone is already in system");
+//        }
     }
 
     @Override

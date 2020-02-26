@@ -24,6 +24,8 @@ import { OrderComponent } from './order/order.component';
 import { OrderGuard } from './_helpers/order.guard';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatInputModule} from '@angular/material/input';
+import { AdminOrderPageComponent } from './admin-order-page/admin-order-page.component';
+import { OrderInfoCardComponent } from './common/order/order-info-card/order-info-card.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +33,9 @@ import {MatInputModule} from '@angular/material/input';
     LoginComponent,
     DishComponent,
     IngredientsComponent,
-    OrderComponent
+    OrderComponent,
+    AdminOrderPageComponent,
+    OrderInfoCardComponent
   ],
   imports: [
     BrowserModule,

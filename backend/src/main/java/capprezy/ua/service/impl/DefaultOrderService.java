@@ -1,22 +1,19 @@
 package capprezy.ua.service.impl;
 
-import capprezy.ua.controller.exception.model.AlreadyExistsException;
 import capprezy.ua.model.AppUser;
-import capprezy.ua.model.Category;
 import capprezy.ua.model.Order;
 import capprezy.ua.model.Portion;
-import capprezy.ua.repository.CategoryRepository;
 import capprezy.ua.repository.DishRepository;
 import capprezy.ua.repository.OrderRepository;
 import capprezy.ua.repository.PortionRepository;
 import capprezy.ua.service.AppUserService;
-import capprezy.ua.service.CategoryService;
-import capprezy.ua.service.DishService;
 import capprezy.ua.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.sound.sampled.Port;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service("orderService")
@@ -50,5 +47,17 @@ public class DefaultOrderService implements OrderService {
             portionRepository.save(p);
         }
         return savedOrder;
+    }
+
+    @Override
+    public List<Order> getAll(Order.OrderStateType[] orderState, Pageable pageable) {
+        return orderRepository.findByOrderStateIn(
+                orderState == null ? new ArrayList<>() : Arrays.asList(orderState),
+                pageable);
+    }
+
+    @Override
+    public Order findById(Integer id) {
+        return orderRepository.findByUid(id);
     }
 }

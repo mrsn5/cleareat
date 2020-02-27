@@ -1,6 +1,7 @@
 package capprezy.ua.service;
 
 import capprezy.ua.controller.exception.model.AlreadyExistsException;
+import capprezy.ua.controller.exception.model.NotValidDataException;
 import capprezy.ua.model.Category;
 import capprezy.ua.model.Order;
 
@@ -14,4 +15,6 @@ public interface OrderService {
     List<Order> getAll(Order.OrderStateType[] orderState, Pageable pageable);
 
     Order findById(Integer id);
+
+    Order updateState(Order order) throws NotValidDataException;
 }

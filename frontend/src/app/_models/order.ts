@@ -6,7 +6,8 @@ export enum OrderState {
   confirmed = "confirmed",
   inProgress = "in_progress",
   ready = "ready",
-  tookAway = "took_away"
+  tookAway = "took_away",
+  cancelled = "cancelled"
 }
 
 export enum PaymentState {
@@ -27,4 +28,5 @@ export class Order {
 
   public paymentState: PaymentState;
   public orderState: OrderState;
+
 }

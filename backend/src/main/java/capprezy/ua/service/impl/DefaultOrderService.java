@@ -1,6 +1,8 @@
 package capprezy.ua.service.impl;
 
+import capprezy.ua.controller.exception.model.AlreadyExistsException;
 import capprezy.ua.controller.exception.model.NotValidDataException;
+import capprezy.ua.controller.exception.model.PermissionException;
 import capprezy.ua.model.AppUser;
 import capprezy.ua.model.Order;
 import capprezy.ua.model.Portion;
@@ -32,8 +34,9 @@ public class DefaultOrderService implements OrderService {
     }
 
     @Override
-    public Order add(Order order) {
+    public Order add(Order order) throws PermissionException, NotValidDataException, AlreadyExistsException {
         AppUser user = appUserService.getCurrentUser();
+        if (user == null) throw PermissionException.createWith("You have to be logged in");
 
         Double total = .0;
         for (Portion p: order.getPortions()) {
@@ -41,6 +44,19 @@ public class DefaultOrderService implements OrderService {
             p.setPrice(price);
             total += price;
         }
+
+//        if (user != null) {
+//            if (!user.getUid().equals(order.getClient().getUid())) {
+//                throw PermissionException.createWith("You cannot create order for other client");
+//            }
+//            AppUser client = order.getClient();
+//            if (client.getPhone() != null ) user.setPassword(client.getPhone());
+//        } else {
+//            if (order.getClient().getMail() == null) throw NotValidDataException.createWith("Email is nessesary");
+//            AppUser client = appUserService.findByMail(order.getClient().getMail());
+//            if (client == null) client = appUserService.register(order.getClient());
+//            order.setClient(client);
+//        }
         order.setClient(user);
         order.setTotal(total);
         Order savedOrder = orderRepository.save(order);

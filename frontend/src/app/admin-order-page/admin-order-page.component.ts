@@ -4,6 +4,7 @@ import {OrderService} from "../_services/order.service";
 import {PageFilter} from "../_models/page-filter";
 import {OrderFilter} from "../_models/order-filter";
 import {group} from "@angular/animations";
+import {forkJoin} from "rxjs";
 
 @Component({
   selector: 'app-admin-order-page',
@@ -25,7 +26,6 @@ export class AdminOrderPageComponent implements OnInit {
 
   ngOnInit() {
     this.load();
-    this.orderService.getCount(this.orderFilter).pipe().subscribe(c => this.allOrdersCount = c)
   }
 
   changeStateList(source) {
@@ -49,10 +49,13 @@ export class AdminOrderPageComponent implements OnInit {
   }
 
   load() {
-    this.orderService.getAll(this.orderFilter, this.pageFilter).pipe().subscribe(os => {
-      this.orders = os;
-      console.log(os);
-    })
+    forkJoin(
+      this.orderService.getAll(this.orderFilter, this.pageFilter),
+      this.orderService.getCount(this.orderFilter)
+    ).subscribe(([orders, count]) => {
+      this.orders = orders;
+      this.allOrdersCount = count
+    });
   }
 
 }

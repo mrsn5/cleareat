@@ -6,8 +6,4 @@ export class User {
   phone: string;
   token?: string;
   role: string;
-
-  isAdmin() {
-    return this.role == 'admin'
-  }
 }

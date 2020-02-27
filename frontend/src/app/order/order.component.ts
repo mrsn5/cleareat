@@ -19,7 +19,7 @@ export class OrderComponent implements OnInit {
   public displayMode = DishDisplayMode.Compact;
   public orderedDishes: Dish[] = [];
   public preferForm: FormGroup;
-  public contactsForm: FormGroup;
+  // public contactsForm: FormGroup;
   constructor(
     private orderState: OrderStateService,
     private dishesRepo: DishesRepository,
@@ -34,11 +34,11 @@ export class OrderComponent implements OnInit {
       prefs: ['', Validators.maxLength(150)]
     });
 
-    this.contactsForm = this.formBuilder.group({
-      name: ['', Validators.maxLength(150)],
-      email: ['', Validators.email],
-      phone: ['', Validators.maxLength(150)],
-      });
+    // this.contactsForm = this.formBuilder.group({
+    //   name: ['', Validators.maxLength(150)],
+    //   email: ['', Validators.email],
+    //   phone: ['', Validators.maxLength(150)],
+    //   });
       forkJoin(
       this.orderState.getDishes().map(id => this.dishesRepo.getById(id))
     ).subscribe(dishes => this.orderedDishes = dishes);
@@ -57,13 +57,13 @@ export class OrderComponent implements OnInit {
       preferences: this.preferForm.controls['prefs'].value,
       portions: this.orderState.getDishes().map(
         id => <object>{
-          dish: {uid: id}, 
+          dish: {uid: id},
           quantity: this.orderState.getSelected(id),
-          client: this.currentUser != null ? null : {
-            mail: this.contactsForm.controls['email'].value,
-            phone: this.contactsForm.controls['phone'].value,
-            fullName: this.contactsForm.controls['name'].value
-          }
+          // client: this.currentUser != null ? null : {
+          //   mail: this.contactsForm.controls['email'].value,
+          //   phone: this.contactsForm.controls['phone'].value,
+          //   fullName: this.contactsForm.controls['name'].value
+          // }
         },
       )
     }).subscribe(_ => {

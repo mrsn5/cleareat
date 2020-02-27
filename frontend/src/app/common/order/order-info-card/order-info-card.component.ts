@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Order, OrderState, PaymentState} from "../../../_models/order";
+import {OrderService} from "../../../_services/order.service";
 
 @Component({
   selector: 'app-order-info-card',
@@ -10,7 +11,7 @@ export class OrderInfoCardComponent implements OnInit {
 
   @Input() public order: Order;
 
-  constructor() { }
+  constructor(private orderService: OrderService) { }
 
   ngOnInit() {
     console.log(this.order)
@@ -25,14 +26,41 @@ export class OrderInfoCardComponent implements OnInit {
 
 
 
-
-
-  isPaid() {
-    return this.order.paymentState == PaymentState.fullyPaid;
+  update(newOrder) {
+    console.log('updating ' + newOrder);
+    this.orderService.updateState(newOrder).pipe().subscribe(o => this.order = o);
   }
 
+
+  //update order state
+  updateState(state: OrderState) {
+    this.update({uid: this.order.uid, orderState: state});
+  }
+
+  confirm() {
+    this.updateState(OrderState.confirmed);
+  }
+
+  cooking() {
+    this.updateState(OrderState.inProgress);
+  }
+
+  ready() {
+    this.updateState(OrderState.ready);
+  }
+
+  done() {
+    this.updateState(OrderState.tookAway);
+  }
+
+  cancel() {
+    this.updateState(OrderState.cancelled);
+  }
+
+
+  // buttons visibility
   canBeCancelled() {
-    return this.order.orderState != OrderState.tookAway
+    return this.order.orderState != OrderState.tookAway && this.order.orderState != OrderState.cancelled
   }
 
   canBeConfirmed() {
@@ -49,5 +77,10 @@ export class OrderInfoCardComponent implements OnInit {
 
   canBeDone() {
     return this.order.orderState == OrderState.ready
+  }
+
+  //helper methods
+  isPaid() {
+    return this.order.paymentState == PaymentState.fullyPaid;
   }
 }

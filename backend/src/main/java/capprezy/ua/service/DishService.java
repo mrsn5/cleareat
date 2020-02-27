@@ -8,11 +8,14 @@ import java.util.List;
 
 public interface DishService {
     List<Dish> findAll(Pageable pageable);
+    Dish findById(Integer id);
     Dish add(Dish dish) throws AlreadyExistsException;
     List<Dish> findByCriteria(Integer[] categoriesIn,
                               Integer[] categoriesNotIn,
                               Integer[] ingredientsIn,
                               Integer[] ingredientsNotIn,
-                                  Pageable pageable);
+                              Double maxPrice,
+                              String like,
+                              Pageable pageable);
 
 }

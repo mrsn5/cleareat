@@ -1,3 +1,4 @@
 export class FilterState {
-    public categories: string[] = [];
+    public categories: number[] = [];
+    public ingredients: number[] = [];
 }

@@ -1,0 +1,30 @@
+<mat-card class="order-card">
+  <mat-card-title> Замовлення №12300012 </mat-card-title>
+  <mat-card-subtitle>
+    2020-02-18 21:35 <br>
+    1002.90 грн, оплачено 1002.90
+  </mat-card-subtitle>
+  <mat-card-content>
+    Порції:
+    <ul>
+      <li class="item" *ngFor="let p of portions">
+        <div class="item-info">
+
+          <div class="box-{{p.uid}} text">
+            <span class="name">{{p.dish.name}}</span><br/>
+          </div>
+        </div>
+        <span class="quantity">{{p.quantity}}</span>
+        <span class="price">{{ p.price }} грн</span>
+      </li>
+    </ul>
+
+    Побажання:
+    <p class="prefs">Гостріше</p>
+
+    Клієнт:
+    <p>Ім'я: Admin</p>
+    <p>Телефон: +380980000000</p>
+
+  </mat-card-content>
+</mat-card>

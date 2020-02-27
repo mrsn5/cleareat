@@ -17,7 +17,7 @@ export class OrderService {
     }
     if (pageFilter) {
       if (pageFilter.size) filters.push(`size=${pageFilter.size}`);
-      if (pageFilter.page) filters.push(`page=${pageFilter.page - 1}`);
+      if (pageFilter.page) filters.push(`page=${pageFilter.page}`);
       if (pageFilter.sort) filters.push(`sort=${pageFilter.sort}`);
     }
     const query = filters.join('&');

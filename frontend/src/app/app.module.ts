@@ -30,6 +30,7 @@ import { PortionsComponent } from './common/order/order-info-card/portions/porti
 import { ClientInfoComponent } from './common/order/order-info-card/client-info/client-info.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +59,8 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     MatStepperModule,
     MatInputModule,
     MatButtonModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatButtonToggleModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

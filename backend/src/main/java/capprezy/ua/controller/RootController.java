@@ -42,8 +42,7 @@ public class RootController {
     @PostMapping("api/register")
     public ResponseEntity<AppUser> registerUser(@RequestBody @Valid AppUser appUser) throws AlreadyExistsException {
         System.out.println(appUser.toString());
-        appUserService.register(appUser);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(appUserService.register(appUser));
     }
 
     @PostMapping(value = "api/authenticate")

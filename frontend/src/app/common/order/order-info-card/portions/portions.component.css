@@ -5,6 +5,7 @@
 
 ul {
   list-style-type: none;
+  padding-left: 0;
 }
 
 li{
@@ -19,17 +20,21 @@ li{
 .item {
   display: flex;
   padding-top: 8px;
+  flex-wrap: wrap;
+  align-items: stretch;
 }
 
 .item-info {
   display: inline-block;
-  min-width: 220px;
+  /*min-width: 220px;*/
   vertical-align: middle;
-  width: 60%;
+  flex-basis: 50%;
+  flex-grow: 3;
 }
 
 .name {
   word-wrap: break-word;
+
 }
 
 .quantity {
@@ -38,8 +43,11 @@ li{
   text-align: right;
   margin-top: auto;
   margin-bottom: auto;
-  min-width: 20px;
-  width: 20%;
+  /*min-width: 20px;*/
+  flex-basis: 25%;
+  flex-grow: 1;
+  font-style: italic;
+  color: #7f7f7f;
 }
 
 .price {
@@ -47,8 +55,9 @@ li{
   text-align: right;
   margin-top: auto;
   margin-bottom: auto;
-  min-width: 100px;
-  width: 20%;
+  /*min-width: 90px;*/
+  flex-basis: 25%;
+  flex-grow: 2;
 }
 
 

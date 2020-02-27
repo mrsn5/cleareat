@@ -1,31 +1,33 @@
-<mat-button-toggle-group #group="matButtonToggleGroup" multiple>
-  <mat-button-toggle value="in_check" (change)="changeStateList($event.source)">
+<mat-button-toggle-group #group="matButtonToggleGroup" multiple class="group">
+  <mat-button-toggle value="in_check" (change)="changeStateList($event.source)" class="butt">
     Нові
   </mat-button-toggle>
-  <mat-button-toggle value="confirmed" (change)="changeStateList($event.source)">
+  <mat-button-toggle value="confirmed" (change)="changeStateList($event.source)" class="butt">
     Підтверджені
   </mat-button-toggle>
-  <mat-button-toggle value="in_progress" (change)="changeStateList($event.source)">
+  <mat-button-toggle value="in_progress" (change)="changeStateList($event.source)" class="butt">
     Готуються
   </mat-button-toggle>
-  <mat-button-toggle value="ready" (change)="changeStateList($event.source)">
+  <mat-button-toggle value="ready" (change)="changeStateList($event.source)" class="butt">
     Готові
   </mat-button-toggle>
-  <mat-button-toggle value="took_away" (change)="changeStateList($event.source)">
+  <mat-button-toggle value="took_away" (change)="changeStateList($event.source)" class="butt">
     Виконані
   </mat-button-toggle>
-  <mat-button-toggle value="cancelled" (change)="changeStateList($event.source)">
+  <mat-button-toggle value="cancelled" (change)="changeStateList($event.source)" class="butt">
     Відмінені
   </mat-button-toggle>
+
+
+  <mat-paginator
+    [length]="allOrdersCount"
+    [pageSize]="pageFilter.size"
+    [pageSizeOptions]="pageSizeOptions"
+    [pageIndex]="pageFilter.page"
+    (page)="pageEvent($event)">
+  </mat-paginator>
 </mat-button-toggle-group>
 
-<mat-paginator
-     [length]="allOrdersCount"
-     [pageSize]="pageFilter.size"
-     [pageSizeOptions]="pageSizeOptions"
-     [pageIndex]="pageFilter.page"
-     (page)="pageEvent($event)">
-</mat-paginator>
 
 <div class="list">
   <app-order-info-card *ngFor="let order of orders"

@@ -1,6 +1,7 @@
 <mat-card class="order-card">
-  <mat-card-title>
-    Замовлення №{{order.uid}}
+  <mat-card-title class="title">
+    <span class="subtitle">Замовлення №{{order.uid}}</span>
+    <span class="status">{{getStatus()}}</span>
   </mat-card-title>
   <mat-card-subtitle>
     {{order.orderTime | date: 'dd/MM hh:mm':'+0200'}} <br>

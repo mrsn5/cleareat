@@ -83,4 +83,21 @@ export class OrderInfoCardComponent implements OnInit {
   isPaid() {
     return this.order.paymentState == PaymentState.fullyPaid;
   }
+
+  getStatus() {
+    switch (this.order.orderState) {
+      case OrderState.cancelled:
+        return "Відмінено";
+      case OrderState.confirmed:
+        return "Підтвердженно";
+      case OrderState.inCheck:
+        return "Очікує підтвердження";
+      case OrderState.inProgress:
+        return "Готується";
+      case OrderState.ready:
+        return "Готово";
+      case OrderState.tookAway:
+        return "Закрито";
+    }
+  }
 }

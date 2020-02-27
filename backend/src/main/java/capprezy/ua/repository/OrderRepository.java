@@ -14,5 +14,8 @@ public interface OrderRepository extends CrudRepository<Order, Integer> {
     List<Order> findAll();
     Order findByUid(Integer id);
 
+//    @Query(value = "select * from caprezzy._order o " +
+//            "where ((?1) is null or o.order_state in (?1)) ",
+//            nativeQuery = true)
     List<Order> findByOrderStateIn(List<Order.OrderStateType> orderState, Pageable pageable);
 }

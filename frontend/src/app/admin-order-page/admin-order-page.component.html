@@ -1,4 +1,13 @@
 
+
+<mat-paginator
+     [length]="allOrdersCount"
+     [pageSize]="pageFilter.size"
+     [pageSizeOptions]="pageSizeOptions"
+     [pageIndex]="pageFilter.page"
+     (page)="pageEvent($event)">
+</mat-paginator>
+
 <div class="list">
   <app-order-info-card *ngFor="let order of orders"
     [order]="order"

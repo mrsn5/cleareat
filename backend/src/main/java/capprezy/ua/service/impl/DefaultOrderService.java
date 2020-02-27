@@ -55,7 +55,7 @@ public class DefaultOrderService implements OrderService {
     public List<Order> getAll(Order.OrderStateType[] orderState, Pageable pageable) {
         if (orderState == null || orderState.length == 0) return orderRepository.findAll(pageable);
         return orderRepository.findByOrderStateIn(
-                orderState == null ? new ArrayList<>() : Arrays.asList(orderState),
+                Arrays.asList(orderState),
                 pageable);
     }
 
@@ -82,5 +82,11 @@ public class DefaultOrderService implements OrderService {
         }
 
         return orderRepository.save(updatedOrder);
+    }
+
+    @Override
+    public long getAll(Order.OrderStateType[] orderStates) {
+        if (orderStates == null) return orderRepository.count();
+        return orderRepository.countAllByOrderStateIn(Arrays.asList(orderStates));
     }
 }

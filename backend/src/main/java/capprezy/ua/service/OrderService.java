@@ -17,4 +17,6 @@ public interface OrderService {
     Order findById(Integer id);
 
     Order updateState(Order order) throws NotValidDataException;
+
+    long getAll(Order.OrderStateType[] orderStates);
 }

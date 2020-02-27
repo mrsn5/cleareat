@@ -29,6 +29,7 @@ import { OrderInfoCardComponent } from './common/order/order-info-card/order-inf
 import { PortionsComponent } from './common/order/order-info-card/portions/portions.component';
 import { ClientInfoComponent } from './common/order/order-info-card/client-info/client-info.component';
 import {MatButtonModule} from "@angular/material/button";
+import {MatPaginatorModule} from "@angular/material/paginator";
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +57,8 @@ import {MatButtonModule} from "@angular/material/button";
     MatFormFieldModule,
     MatStepperModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatPaginatorModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

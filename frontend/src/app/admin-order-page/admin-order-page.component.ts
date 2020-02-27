@@ -18,7 +18,7 @@ export class AdminOrderPageComponent implements OnInit {
   public allOrdersCount: number;
 
   constructor(private orderService: OrderService) {
-    this.pageFilter.page = 1;
+    this.pageFilter.page = 0;
     this.pageFilter.size = this.pageSizeOptions[0];
   }
 

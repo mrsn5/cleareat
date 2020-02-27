@@ -39,4 +39,8 @@ export class OrderService {
     const fullUrl = query ? `${path}?${query}` : path;
     return this.apiClient.get<number>(fullUrl);
   }
+
+  updateState(order: Order) {
+    return this.apiClient.put<Order>(`api/order/`, order);
+  }
 }

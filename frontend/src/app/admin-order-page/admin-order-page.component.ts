@@ -12,7 +12,7 @@ import {OrderFilter} from "../_models/order-filter";
 export class AdminOrderPageComponent implements OnInit {
 
   public orders: Order[];
-  public pageSizeOptions = [1, 2, 3, 5, 10];
+  public pageSizeOptions = [5, 10, 25, 50, 100];
   public pageFilter = new PageFilter();
   public orderFilter = new OrderFilter();
   public allOrdersCount: number;

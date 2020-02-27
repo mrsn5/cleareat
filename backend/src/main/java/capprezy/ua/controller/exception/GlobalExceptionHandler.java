@@ -1,8 +1,11 @@
 package capprezy.ua.controller.exception;
 
+import capprezy.ua.controller.exception.model.AlreadyExistsException;
 import capprezy.ua.controller.exception.model.ApiError;
+import capprezy.ua.controller.exception.model.NotValidDataException;
 import capprezy.ua.controller.exception.model.PermissionException;
 import javassist.NotFoundException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,15 +24,14 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-//    @ExceptionHandler({
-//            DataAccessException.class,
-//            AlreadyExistsException.class
-//    })
-//    private ResponseEntity<ApiError> dataAccessException(Exception ex, WebRequest request) {
-//        HttpHeaders headers = new HttpHeaders();
-//        return new ResponseEntity<>(new ApiError("Database exception"), headers, HttpStatus.CONFLICT);
-//
-//    }
+    @ExceptionHandler({
+            AlreadyExistsException.class
+    })
+    private ResponseEntity<ApiError> dataAccessException(Exception ex, WebRequest request) {
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(new ApiError(ex.getMessage()), headers, HttpStatus.CONFLICT);
+
+    }
 
     @ExceptionHandler({
             NotFoundException.class,
@@ -41,13 +43,18 @@ public class GlobalExceptionHandler {
     }
 
 
-
     @ExceptionHandler({
             PermissionException.class
     })
     private ResponseEntity<ApiError> handleForbiddenException(Exception ex, WebRequest request) {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ApiError(ex.getMessage()), headers, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler({ NotValidDataException.class})
+    private ResponseEntity<ApiError> handleNotValidData(Exception ex, WebRequest request) {
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(new ApiError(ex.getMessage()), headers, HttpStatus.NOT_ACCEPTABLE);
     }
 
     @ExceptionHandler()

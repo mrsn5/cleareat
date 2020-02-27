@@ -1,5 +1,6 @@
 package capprezy.ua.service.impl;
 
+import capprezy.ua.controller.exception.model.NotValidDataException;
 import capprezy.ua.model.AppUser;
 import capprezy.ua.model.Order;
 import capprezy.ua.model.Portion;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -60,5 +62,25 @@ public class DefaultOrderService implements OrderService {
     @Override
     public Order findById(Integer id) {
         return orderRepository.findByUid(id);
+    }
+
+    @Override
+    public Order updateState(Order order) throws NotValidDataException {
+        Order updatedOrder = orderRepository.findByUid(order.getUid());
+        if (updatedOrder == null) throw NotValidDataException.createWith("Order with uid " + order.getUid() + " doesn't exsist");
+        Order.OrderStateType orderState = order.getOrderState();
+        if (orderState != null) {
+            updatedOrder.setOrderState(order.getOrderState());
+            if (orderState == Order.OrderStateType.ready) {
+                updatedOrder.setReadyTime(new Timestamp(System.currentTimeMillis()));
+            }
+
+            if (orderState == Order.OrderStateType.took_away) {
+                updatedOrder.setPaid(updatedOrder.getTotal());
+                updatedOrder.setPaymentState(Order.PaymentStateType.fully_paid);
+            }
+        }
+
+        return orderRepository.save(updatedOrder);
     }
 }

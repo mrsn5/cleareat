@@ -9,7 +9,7 @@ import {OrderService} from "../_services/order.service";
 })
 export class AdminOrderPageComponent implements OnInit {
 
-  private orders: Order[];
+  public orders: Order[];
 
   constructor(private orderService: OrderService) { }
 

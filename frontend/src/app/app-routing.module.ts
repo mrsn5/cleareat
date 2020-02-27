@@ -10,9 +10,8 @@ import {AdminOrderPageComponent} from "./admin-order-page/admin-order-page.compo
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'order', component: OrderComponent, canActivate: [OrderGuard, AuthGuard] },
   { path: 'order', component: OrderComponent, canActivate: [OrderGuard] },
   { path: 'admin', component: AdminOrderPageComponent},
   // otherwise redirect to home

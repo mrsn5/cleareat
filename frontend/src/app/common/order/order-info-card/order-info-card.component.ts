@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Order, PaymentState} from "../../../_models/order";
 
 @Component({
   selector: 'app-order-info-card',
@@ -7,42 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderInfoCardComponent implements OnInit {
 
-  portions = [
-    {
-      "uid": 3,
-      "isCancelled": false,
-      "dish": {
-        "uid": 26,
-        "name": "Деруни2",
-        "weight": 200.0,
-        "price": 80.0,
-        "calories": 80,
-        "isAvailable": true,
-        "photo": "https://res.cloudinary.com/mrsn5/image/upload/v1581435461/3.jpg"
-      },
-      "quantity": 3,
-      "price": 240.0
-    },
-    {
-      "uid": 3,
-      "isCancelled": false,
-      "dish": {
-        "uid": 26,
-        "name": "Деруни2",
-        "weight": 200.0,
-        "price": 80.0,
-        "calories": 80,
-        "isAvailable": true,
-        "photo": "https://res.cloudinary.com/mrsn5/image/upload/v1581435461/3.jpg"
-      },
-      "quantity": 3,
-      "price": 240.0
-    }
-  ];
+  @Input() public order: Order;
 
   constructor() { }
 
   ngOnInit() {
+    console.log(this.order)
+  }
+
+  getPaymentState() {
+    if (this.order.paymentState == PaymentState.fullyPaid) return "оплачено";
+    if (this.order.paymentState == PaymentState.partPaid) return "оплачено частково: " + this.order.paid + " грн";
+    if (this.order.paymentState == PaymentState.notPaid) return "неоплачено";
+  }
+
+  getClientName() {
+    if (this.order.client) return this.order.client.fullName;
+  }
+
+  getClientPhone() {
+    if (this.order.client) return this.order.client.phone;
   }
 
 }

@@ -1,13 +1,13 @@
 <mat-card class="order-card">
-  <mat-card-title> Замовлення №12300012 </mat-card-title>
+  <mat-card-title> Замовлення №{{order.uid}} </mat-card-title>
   <mat-card-subtitle>
-    2020-02-18 21:35 <br>
-    1002.90 грн, оплачено 1002.90
+    {{order.orderTime}} <br>
+    {{order.total}} грн, {{getPaymentState()}}
   </mat-card-subtitle>
   <mat-card-content>
     Порції:
     <ul>
-      <li class="item" *ngFor="let p of portions">
+      <li class="item" *ngFor="let p of order.portions">
         <div class="item-info">
 
           <div class="box-{{p.uid}} text">
@@ -20,11 +20,11 @@
     </ul>
 
     Побажання:
-    <p class="prefs">Гостріше</p>
+    <p class="prefs">{{order.preferences}}</p>
 
     Клієнт:
-    <p>Ім'я: Admin</p>
-    <p>Телефон: +380980000000</p>
+    <p>Ім'я: {{getClientName()}}</p>
+    <p>Телефон: {{getClientPhone()}}</p>
 
   </mat-card-content>
 </mat-card>

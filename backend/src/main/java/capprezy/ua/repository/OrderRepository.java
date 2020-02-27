@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface OrderRepository extends CrudRepository<Order, Integer> {
-    List<Order> findAll();
+    List<Order> findAll(Pageable pageable);
     Order findByUid(Integer id);
 
 //    @Query(value = "select * from caprezzy._order o " +

@@ -15,3 +15,6 @@ img {
     padding: 10px;
     background-color: gray;
 }
+.avatar {
+    background-size: cover;
+}

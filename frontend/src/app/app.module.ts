@@ -22,6 +22,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { OrderStateService } from './_services/order-state.service';
 import { OrderComponent } from './order/order.component';
 import { OrderGuard } from './_helpers/order.guard';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatInputModule} from '@angular/material/input';
 import { AdminOrderPageComponent } from './admin-order-page/admin-order-page.component';
 import { OrderInfoCardComponent } from './common/order/order-info-card/order-info-card.component';
 @NgModule({
@@ -46,7 +48,9 @@ import { OrderInfoCardComponent } from './common/order/order-info-card/order-inf
     MatChipsModule,
     MatIconModule,
     MatAutocompleteModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatStepperModule,
+    MatInputModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

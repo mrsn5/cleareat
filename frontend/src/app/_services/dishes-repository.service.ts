@@ -21,7 +21,11 @@ export class DishesRepository {
     const query = filters.join('&');
     const fullUrl = query ? `${path}?${query}` : path;
     return this.apiClient.get<Dish[]>(fullUrl);
+  }
 
+  public getById(id: number): Observable<Dish> {
+    const path = `api/dish/${id}`;
+    return this.apiClient.get<Dish>(path);
   }
 
   public getCategories(): Observable<DishCategory[]> {

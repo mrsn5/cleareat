@@ -20,6 +20,10 @@ export class OrderStateService {
         return this.state[dishUid] || 0;
     }
 
+    public getDishes(): number[] {
+        return Object.keys(this.state).map(_ => Number(_));
+    }
+
     public defined(): boolean {
         return Object.keys(this.state).length !== 0;
     }

@@ -1,5 +1,4 @@
 
-
 .order-card {
   margin: 13px;
 }
@@ -18,4 +17,26 @@
 
 button {
   margin: 6px 0 6px 3px;
+}
+
+.subtitle {
+  margin-top: 5px;
+}
+
+.title {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.status {
+  font-style: normal;
+  font-size: 14px;
+  background-color: #bfbfbf;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  text-align: center;
+  /*margin: 4px;*/
 }

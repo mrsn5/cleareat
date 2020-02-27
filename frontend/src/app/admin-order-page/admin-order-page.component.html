@@ -1,4 +1,23 @@
-
+<mat-button-toggle-group #group="matButtonToggleGroup" multiple>
+  <mat-button-toggle value="in_check" (change)="changeStateList($event.source)">
+    Нові
+  </mat-button-toggle>
+  <mat-button-toggle value="confirmed" (change)="changeStateList($event.source)">
+    Підтверджені
+  </mat-button-toggle>
+  <mat-button-toggle value="in_progress" (change)="changeStateList($event.source)">
+    Готуються
+  </mat-button-toggle>
+  <mat-button-toggle value="ready" (change)="changeStateList($event.source)">
+    Готові
+  </mat-button-toggle>
+  <mat-button-toggle value="took_away" (change)="changeStateList($event.source)">
+    Виконані
+  </mat-button-toggle>
+  <mat-button-toggle value="cancelled" (change)="changeStateList($event.source)">
+    Відмінені
+  </mat-button-toggle>
+</mat-button-toggle-group>
 
 <mat-paginator
      [length]="allOrdersCount"

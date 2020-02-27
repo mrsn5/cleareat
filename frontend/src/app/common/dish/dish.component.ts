@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Dish } from '../../_models/dish';
 
 export enum DishDisplayMode {
-  Full, 
+  Full,
   Compact
 }
 
@@ -30,9 +30,9 @@ export class DishComponent {
     public get backgroundImage() {
       return `url(${this.dish.photo})`;
     }
-    
+
     public get categories() {
-      return this.dish
-            .categories.map(i => i.name.toLowerCase()).join(', ');
+      return '#' + this.dish
+            .categories.map(i => i.name.toLowerCase()).join(' #');
     }
 }

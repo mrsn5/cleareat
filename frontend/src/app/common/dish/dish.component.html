@@ -1,11 +1,11 @@
-<ng-container [ngSwitch]="displayMode">
+<ng-container [ngSwitch]="displayMode" class="card-cont">
   <mat-card *ngSwitchCase="DishDisplayMode.Compact" class="dish-card">
     <mat-card-header>
     <div mat-card-avatar class="avatar" [style.background-image]="backgroundImage"></div>
     <mat-card-title> {{dish.name}} </mat-card-title>
     </mat-card-header>
   <mat-card-actions>
-      <input 
+      <input
         [value]="ordered"
         (input)="ordered = $event.target.value; orderedChange.emit(ordered)"
         matInput type="number" placeholder="Ex. 12" min="0">
@@ -13,7 +13,7 @@
   </mat-card>
 
   <mat-card *ngSwitchCase="DishDisplayMode.Full" class="dish-card">
-    <mat-card-title> {{dish.name}} </mat-card-title>
+    <mat-card-title class="dish-name"> {{dish.name}} </mat-card-title>
     <mat-card-subtitle>{{ dish.price }} грн, {{dish.weight}} {{unit}}</mat-card-subtitle>
     <img mat-card-image src={{dish.photo}} alt="Photo of a Shiba Inu">
     <mat-card-content>
@@ -22,16 +22,18 @@
       </p>
     </mat-card-content>
     <mat-card-actions>
-      <input 
+      <input
         [value]="ordered"
         (input)="ordered = $event.target.value; orderedChange.emit(ordered)"
         matInput type="number" placeholder="Ex. 12" min="0">
     </mat-card-actions>
+    <div class="foot-cont">
     <mat-card-footer>
         <div class="footer">
-            Категорії: {{categories}}
+            {{categories}}
         </div>
     </mat-card-footer>
+    </div>
   </mat-card>
 
 </ng-container>

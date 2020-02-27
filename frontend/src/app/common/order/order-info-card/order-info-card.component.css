@@ -13,10 +13,11 @@
 .actions {
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
 }
 
 button {
-  margin: 6px 0 6px 3px;
+  margin: 6px 0 0 3px;
 }
 
 .subtitle {

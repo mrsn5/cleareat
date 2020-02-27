@@ -1,7 +1,7 @@
 import {User} from "./user";
 import {Portion} from "./portion";
 
-enum OrderState {
+export enum OrderState {
   inCheck = "in_check",
   confirmed = "confirmed",
   inProgress = "in_progress",
@@ -9,7 +9,7 @@ enum OrderState {
   tookAway = "took_away"
 }
 
-enum PaymentState {
+export enum PaymentState {
   notPaid = "not_paid",
   fullyPaid = "fully_paid",
   partPaid = "part_paid"

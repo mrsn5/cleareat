@@ -28,7 +28,7 @@ public class OrderController {
     @GetMapping
     public ResponseEntity getAll(
             @PageableDefault(page = 0, size = 20)
-            @SortDefault.SortDefaults({@SortDefault(sort = "order_time", direction = Sort.Direction.ASC)})
+            @SortDefault.SortDefaults({@SortDefault(sort = "orderTime", direction = Sort.Direction.DESC)})
                     Pageable pageable,
             Order.OrderStateType[] orderStates
     ){

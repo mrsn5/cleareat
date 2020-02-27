@@ -25,8 +25,8 @@ public class DefaultOrderService implements OrderService {
     @Autowired private PortionRepository portionRepository;
 
     @Override
-    public List<Order> getAll() {
-        return orderRepository.findAll();
+    public List<Order> getAll(Pageable pageable) {
+        return orderRepository.findAll(pageable);
     }
 
     @Override
@@ -51,6 +51,7 @@ public class DefaultOrderService implements OrderService {
 
     @Override
     public List<Order> getAll(Order.OrderStateType[] orderState, Pageable pageable) {
+        if (orderState == null || orderState.length == 0) return orderRepository.findAll(pageable);
         return orderRepository.findByOrderStateIn(
                 orderState == null ? new ArrayList<>() : Arrays.asList(orderState),
                 pageable);

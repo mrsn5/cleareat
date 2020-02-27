@@ -1,8 +1,6 @@
 package capprezy.ua.repository;
 
-import capprezy.ua.model.Ingredient;
 import capprezy.ua.model.Order;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,4 +16,8 @@ public interface OrderRepository extends CrudRepository<Order, Integer> {
 //            "where ((?1) is null or o.order_state in (?1)) ",
 //            nativeQuery = true)
     List<Order> findByOrderStateIn(List<Order.OrderStateType> orderState, Pageable pageable);
+
+    long countAllByOrderStateIn(List<Order.OrderStateType> orderState);
+
+    long count();
 }

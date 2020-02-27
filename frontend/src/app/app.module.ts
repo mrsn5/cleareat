@@ -26,6 +26,9 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatInputModule} from '@angular/material/input';
 import { AdminOrderPageComponent } from './admin-order-page/admin-order-page.component';
 import { OrderInfoCardComponent } from './common/order/order-info-card/order-info-card.component';
+import { PortionsComponent } from './common/order/order-info-card/portions/portions.component';
+import { ClientInfoComponent } from './common/order/order-info-card/client-info/client-info.component';
+import {MatButtonModule} from "@angular/material/button";
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +38,9 @@ import { OrderInfoCardComponent } from './common/order/order-info-card/order-inf
     IngredientsComponent,
     OrderComponent,
     AdminOrderPageComponent,
-    OrderInfoCardComponent
+    OrderInfoCardComponent,
+    PortionsComponent,
+    ClientInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +55,8 @@ import { OrderInfoCardComponent } from './common/order/order-info-card/order-inf
     MatAutocompleteModule,
     MatFormFieldModule,
     MatStepperModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

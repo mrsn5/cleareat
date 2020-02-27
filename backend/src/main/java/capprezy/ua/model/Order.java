@@ -54,7 +54,7 @@ public class Order {
     }
 
     public enum OrderStateType {
-        in_check, confirmed, in_progress, ready, took_away
+        in_check, confirmed, in_progress, ready, took_away, cancelled
     }
 
     @Enumerated(EnumType.STRING)

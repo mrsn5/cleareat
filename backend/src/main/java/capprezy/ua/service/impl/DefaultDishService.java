@@ -10,15 +10,20 @@ import capprezy.ua.repository.DishIngredientRepository;
 import capprezy.ua.repository.DishRepository;
 import capprezy.ua.repository.IngredientRepository;
 import capprezy.ua.service.DishService;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
+import org.springframework.web.multipart.MultipartFile;
+import com.cloudinary.*;
+import com.cloudinary.utils.ObjectUtils;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
-
 
 @Service("dishService")
 public class DefaultDishService implements DishService {
@@ -32,10 +37,17 @@ public class DefaultDishService implements DishService {
     @Autowired
     private IngredientRepository ingredientRepository;
 
+    @Value("${cloudinary.url}")
+    Cloudinary cloudinary = new Cloudinary();
 
     @Override
     public List<Dish> findAll(Pageable pageable) {
         return dishRepository.findAll(pageable);
+    }
+
+    @Override
+    public void delete(Dish dish) {
+        dishRepository.delete(dish);
     }
 
     @Override
@@ -76,6 +88,20 @@ public class DefaultDishService implements DishService {
                 maxPrice == null ? -1 : maxPrice,
                 like == null ? "" : like.toLowerCase(),
                 pageable);
+    }
+
+    public Dish uploadPhotoToCloudinary(Dish dish, MultipartFile toUpload) throws IOException {
+        @SuppressWarnings("rawtypes")
+        Map uploadResult = cloudinary.uploader().upload(toUpload.getBytes(), ObjectUtils.emptyMap());
+
+        String cloudinaryUrl = (String) uploadResult.get("url");
+        dish.setPhoto(cloudinaryUrl);
+        return dish;
+    }
+
+    @Override
+    public Dish update(Dish dish) {
+        return dishRepository.save(dish);
     }
 
 }

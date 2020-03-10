@@ -1,18 +1,27 @@
 package capprezy.ua.controller;
 
 import capprezy.ua.controller.exception.model.AlreadyExistsException;
+import capprezy.ua.controller.exception.model.NotValidDataException;
 import capprezy.ua.model.Category;
 import capprezy.ua.model.Dish;
+import capprezy.ua.model.dto.UploadDish;
 import capprezy.ua.service.DishService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.NotAcceptableStatusException;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -44,8 +53,35 @@ public class DishController {
         return ResponseEntity.ok(dishService.findById(id));
     }
 
+
+
+    @Component
+    public static class StringToUserConverter implements Converter<String, Dish> {
+
+        @Autowired
+        private ObjectMapper objectMapper;
+
+        @Override
+        @SneakyThrows
+        public Dish convert(String source) {
+            return objectMapper.readValue(source, Dish.class);
+        }
+    }
+
     @PostMapping
-    public ResponseEntity add(@RequestBody @Valid Dish dish) throws AlreadyExistsException {
-        return ResponseEntity.ok(dishService.add(dish));
+    public ResponseEntity add(@RequestParam("file") MultipartFile file,
+                              @RequestParam("dish") Dish dish) throws AlreadyExistsException, NotValidDataException {
+
+        dish = dishService.add(dish);
+        if (!file.isEmpty()) {
+            try {
+                dish = dishService.uploadPhotoToCloudinary(dish, file);
+                dishService.update(dish);
+            } catch (IOException e) {
+                dishService.delete(dish);
+                throw NotValidDataException.createWith("image uploading failed");
+            }
+        }
+        return ResponseEntity.ok(dish);
     }
 }

@@ -14,7 +14,6 @@ export class OrderInfoCardComponent implements OnInit {
   constructor(private orderService: OrderService) { }
 
   ngOnInit() {
-    console.log(this.order)
   }
 
   getPaymentState() {

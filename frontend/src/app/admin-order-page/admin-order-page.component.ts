@@ -41,10 +41,10 @@ export class AdminOrderPageComponent implements OnInit {
   }
 
   pageEvent($event) {
+
     this.pageFilter.size = $event.pageSize;
-    this.pageFilter.page = $event.pageIndex;
+    this.pageFilter.page = (this.pageFilter.size != $event.pageSize) ? 0 : $event.pageIndex;
     console.log($event);
-    console.log(this.pageFilter);
     this.load();
   }
 

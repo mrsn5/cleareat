@@ -10,6 +10,7 @@ import capprezy.ua.repository.DishRepository;
 import capprezy.ua.repository.OrderRepository;
 import capprezy.ua.repository.PortionRepository;
 import capprezy.ua.service.AppUserService;
+import capprezy.ua.service.MailService;
 import capprezy.ua.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +28,7 @@ public class DefaultOrderService implements OrderService {
     @Autowired private DishRepository dishRepository;
     @Autowired private AppUserService appUserService;
     @Autowired private PortionRepository portionRepository;
+    @Autowired private MailService mailService;
 
     @Override
     public List<Order> getAll(Pageable pageable) {
@@ -87,6 +89,11 @@ public class DefaultOrderService implements OrderService {
         Order.OrderStateType orderState = order.getOrderState();
         if (orderState != null) {
             updatedOrder.setOrderState(order.getOrderState());
+
+            if (orderState == Order.OrderStateType.confirmed) {
+                mailService.sendOrder(updatedOrder);
+            }
+
             if (orderState == Order.OrderStateType.ready) {
                 updatedOrder.setReadyTime(new Timestamp(System.currentTimeMillis()));
             }
@@ -106,6 +113,14 @@ public class DefaultOrderService implements OrderService {
         return orderRepository.countAllByOrderStateIn(Arrays.asList(orderStates));
     }
 
+    @Override
+    public List<Order> getMy(Order.OrderStateType[] orderStates, Pageable pageable) throws PermissionException {
+        AppUser user = appUserService.getCurrentUser();
+        if (user == null) throw PermissionException.createWith("You have to be logged in");
+
+        if (orderStates == null || orderStates.length == 0) return orderRepository.findAllByClient(user, pageable);
+        return orderRepository.findAllByClientAndOrderStateIn(user, Arrays.asList(orderStates), pageable);
+    }
 
 
 }

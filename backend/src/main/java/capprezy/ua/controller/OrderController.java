@@ -43,6 +43,17 @@ public class OrderController {
         return ResponseEntity.ok(orderService.getAll(orderStates));
     }
 
+    @GetMapping("/my")
+    public ResponseEntity getMyOrders(
+            @PageableDefault(page = 0, size = 20)
+            @SortDefault.SortDefaults({@SortDefault(sort = "orderTime", direction = Sort.Direction.DESC)})
+                    Pageable pageable,
+            Order.OrderStateType[] orderStates
+    ) throws PermissionException {
+
+        return ResponseEntity.ok(orderService.getMy(orderStates, pageable));
+    }
+
     @PostMapping
     public ResponseEntity add(@RequestBody @Valid Order order) throws AlreadyExistsException, NotValidDataException, PermissionException {
         return ResponseEntity.ok(orderService.add(order));

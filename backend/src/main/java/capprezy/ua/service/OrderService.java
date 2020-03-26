@@ -20,4 +20,6 @@ public interface OrderService {
     Order updateState(Order order) throws NotValidDataException;
 
     long getAll(Order.OrderStateType[] orderStates);
+
+    List<Order> getMy(Order.OrderStateType[] orderStates, Pageable pageable) throws PermissionException;
 }

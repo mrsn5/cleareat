@@ -2,15 +2,13 @@ package capprezy.ua.model;
 
 import capprezy.ua.model.other.PostgreSQLEnumType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,6 +42,7 @@ public class Order {
     @JsonIgnoreProperties({"password", "role"})
     private AppUser client;
 
+    @NotEmpty
     @OneToMany(mappedBy = "order")
     @JsonIgnoreProperties({"order"})
     private List<Portion> portions = new ArrayList<>();

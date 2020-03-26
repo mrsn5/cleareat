@@ -3,7 +3,9 @@ package capprezy.ua.controller;
 import capprezy.ua.controller.exception.model.AlreadyExistsException;
 import capprezy.ua.controller.exception.model.NotValidDataException;
 import capprezy.ua.controller.exception.model.PermissionException;
+import capprezy.ua.model.AppUser;
 import capprezy.ua.model.Order;
+import capprezy.ua.service.AppUserService;
 import capprezy.ua.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -19,8 +21,8 @@ import javax.validation.Valid;
 @RequestMapping("api/order")
 public class OrderController {
 
-    @Autowired
-    private OrderService orderService;
+    @Autowired private OrderService orderService;
+    @Autowired private AppUserService appUserService;
 
     @GetMapping
     public ResponseEntity getAll(
@@ -39,8 +41,12 @@ public class OrderController {
 
     @GetMapping("/count")
     public ResponseEntity getById(
-            Order.OrderStateType[] orderStates) {
-        return ResponseEntity.ok(orderService.getAll(orderStates));
+            Order.OrderStateType[] orderStates) throws PermissionException {
+        AppUser user = appUserService.getCurrentUser();
+        if (user.getRole() != AppUser.RoleType.admin) {
+            return ResponseEntity.ok(orderService.getMyCount(orderStates));
+        }
+        return ResponseEntity.ok(orderService.getAllCount(orderStates));
     }
 
     @GetMapping("/my")
@@ -50,7 +56,6 @@ public class OrderController {
                     Pageable pageable,
             Order.OrderStateType[] orderStates
     ) throws PermissionException {
-
         return ResponseEntity.ok(orderService.getMy(orderStates, pageable));
     }
 

@@ -3,6 +3,7 @@ package capprezy.ua.service;
 import capprezy.ua.controller.exception.model.AlreadyExistsException;
 import capprezy.ua.controller.exception.model.NotValidDataException;
 import capprezy.ua.controller.exception.model.PermissionException;
+import capprezy.ua.model.AppUser;
 import capprezy.ua.model.Category;
 import capprezy.ua.model.Order;
 
@@ -19,7 +20,10 @@ public interface OrderService {
 
     Order updateState(Order order) throws NotValidDataException;
 
-    long getAll(Order.OrderStateType[] orderStates);
+    long getAllCount(Order.OrderStateType[] orderStates);
+    long getMyCount(Order.OrderStateType[] orderStates) throws PermissionException;
+
 
     List<Order> getMy(Order.OrderStateType[] orderStates, Pageable pageable) throws PermissionException;
+
 }

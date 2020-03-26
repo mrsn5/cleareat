@@ -108,9 +108,18 @@ public class DefaultOrderService implements OrderService {
     }
 
     @Override
-    public long getAll(Order.OrderStateType[] orderStates) {
+    public long getAllCount(Order.OrderStateType[] orderStates) {
         if (orderStates == null) return orderRepository.count();
         return orderRepository.countAllByOrderStateIn(Arrays.asList(orderStates));
+    }
+
+    @Override
+    public long getMyCount(Order.OrderStateType[] orderStates) throws PermissionException {
+        AppUser user = appUserService.getCurrentUser();
+        if (user == null) throw PermissionException.createWith("You have to be logged in");
+
+        if (orderStates == null) return orderRepository.count();
+        return orderRepository.countMyByOrderStateIn(Arrays.asList(orderStates));
     }
 
     @Override
@@ -121,6 +130,4 @@ public class DefaultOrderService implements OrderService {
         if (orderStates == null || orderStates.length == 0) return orderRepository.findAllByClient(user, pageable);
         return orderRepository.findAllByClientAndOrderStateIn(user, Arrays.asList(orderStates), pageable);
     }
-
-
 }

@@ -5,6 +5,7 @@
     <a class="nav-item nav-link" routerLink="/order">Order</a>
     <a *ngIf="isAdmin()" class="nav-item nav-link" routerLink="/admin">Admin</a>
     <a *ngIf="!currentUser" class="nav-item nav-link" routerLink="/login">Login</a>
+    <a *ngIf="!currentUser" class="nav-item nav-link" routerLink="/register">Registration</a>
     <a *ngIf="currentUser" class="nav-item nav-link" (click)="logout()">Logout</a>
   </div>
 </nav>

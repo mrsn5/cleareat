@@ -3,14 +3,19 @@ import {Order} from "../_models/order";
 import {OrderFilter} from "../_models/order-filter";
 import {PageFilter} from "../_models/page-filter";
 import {ApiClientService} from "./api-client.service";
+import {User} from "../_models/user";
 
 @Injectable({ providedIn: 'root' })
 export class OrderService {
 
   constructor(private apiClient: ApiClientService) { }
 
-  getAll(orderFilter?: OrderFilter, pageFilter?: PageFilter) {
-    const path = `api/order`;
+  getAll(user: User, orderFilter?: OrderFilter, pageFilter?: PageFilter) {
+    var path = `api/order`;
+    if (user.role != 'admin') {
+      path += '/my'
+    }
+
     let filters: string[] = [];
     if (orderFilter && orderFilter.orderStates) {
       filters = filters.concat(orderFilter.orderStates.map(s => `orderStates=${s}`));
@@ -26,10 +31,10 @@ export class OrderService {
   }
 
   get(id) {
-    return this.apiClient.get<Order>(`/api/order/${id}\\`);
+    return this.apiClient.get<Order>(`api/order/${id}`);
   }
 
-  getCount(orderFilter?: OrderFilter) {
+  getCount(user: User, orderFilter?: OrderFilter) {
     const path = `api/order/count`;
     let filters: string[] = [];
     if (orderFilter && orderFilter.orderStates) {

@@ -1,6 +1,6 @@
 export class User {
   uid: number;
-  email: string;
+  mail: string;
   fullName: string;
   password: string;
   phone: string;

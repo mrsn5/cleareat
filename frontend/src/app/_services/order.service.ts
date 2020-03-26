@@ -34,7 +34,7 @@ export class OrderService {
     return this.apiClient.get<Order>(`api/order/${id}`);
   }
 
-  getCount(user: User, orderFilter?: OrderFilter) {
+  getCount(orderFilter?: OrderFilter) {
     const path = `api/order/count`;
     let filters: string[] = [];
     if (orderFilter && orderFilter.orderStates) {

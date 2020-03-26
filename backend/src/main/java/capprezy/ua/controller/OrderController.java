@@ -43,6 +43,8 @@ public class OrderController {
     public ResponseEntity getById(
             Order.OrderStateType[] orderStates) throws PermissionException {
         AppUser user = appUserService.getCurrentUser();
+        if (user == null) return ResponseEntity.ok(0);
+
         if (user.getRole() != AppUser.RoleType.admin) {
             return ResponseEntity.ok(orderService.getMyCount(orderStates));
         }

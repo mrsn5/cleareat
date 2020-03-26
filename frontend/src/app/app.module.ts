@@ -35,6 +35,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { MustMatchDirective } from "./_helpers/validators/must-match.directive";
 import { OrderViewComponent } from './order-view/order-view.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
+import { HistoryComponent } from './history/history.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
     MustMatchDirective,
     OrderViewComponent,
     AdminPageComponent,
+    HistoryComponent,
   ],
   imports: [
     BrowserModule,

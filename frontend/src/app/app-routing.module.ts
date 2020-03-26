@@ -9,6 +9,7 @@ import {OrderListComponent} from "./order-list/order-list.component";
 import {RegistrationComponent} from "./registration/registration.component";
 import {OrderViewComponent} from "./order-view/order-view.component";
 import {AdminPageComponent} from "./admin-page/admin-page.component";
+import {HistoryComponent} from "./history/history.component";
 
 
 
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'order', component: OrderComponent, canActivate: [AuthGuard] },
   { path: 'order/:id', component: OrderViewComponent},
   { path: 'admin', component: AdminPageComponent },
+  { path: 'history', component: HistoryComponent },
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];

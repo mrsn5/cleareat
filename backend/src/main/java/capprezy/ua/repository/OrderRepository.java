@@ -23,8 +23,8 @@ public interface OrderRepository extends CrudRepository<Order, Integer> {
     List<Order> findAllByClientAndOrderStateIn(AppUser user, List<Order.OrderStateType> orderState, Pageable pageable);
 
     long countAllByOrderStateIn(List<Order.OrderStateType> orderState);
-
     long count();
 
-    long countMyByOrderStateIn(List<Order.OrderStateType> orderState);
+    long countMyByOrderStateInAndClient(List<Order.OrderStateType> orderState, AppUser user);
+    long countByClient(AppUser user);
 }

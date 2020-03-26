@@ -54,11 +54,10 @@ export class OrderListComponent implements OnInit {
   load() {
     forkJoin(
       this.orderService.getAll(this.app.currentUser, this.orderFilter, this.pageFilter),
-      this.orderService.getCount(this.app.currentUser, this.orderFilter)
+      this.orderService.getCount(this.orderFilter)
     ).subscribe(([orders, count]) => {
       this.orders = orders;
       this.allOrdersCount = count
     });
   }
-
 }

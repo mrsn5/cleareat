@@ -118,8 +118,8 @@ public class DefaultOrderService implements OrderService {
         AppUser user = appUserService.getCurrentUser();
         if (user == null) throw PermissionException.createWith("You have to be logged in");
 
-        if (orderStates == null) return orderRepository.count();
-        return orderRepository.countMyByOrderStateIn(Arrays.asList(orderStates));
+        if (orderStates == null) return orderRepository.countByClient(user);
+        return orderRepository.countMyByOrderStateInAndClient(Arrays.asList(orderStates), user);
     }
 
     @Override

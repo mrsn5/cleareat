@@ -7,7 +7,7 @@ import { HomeComponent } from './home/home.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {JwtInterceptor} from "./_helpers/jwt.interceptor";
 import {ErrorInterceptor} from "./_helpers/error.interceptor";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ApiClientService } from './_services/api-client.service';
 import { DishComponent } from './common/dish/dish.component';
 import { DishesRepository } from './_services/dishes-repository.service';
@@ -24,13 +24,18 @@ import { OrderComponent } from './order/order.component';
 import { OrderGuard } from './_helpers/order.guard';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatInputModule} from '@angular/material/input';
-import { AdminOrderPageComponent } from './admin-order-page/admin-order-page.component';
+import { OrderListComponent } from './order-list/order-list.component';
 import { OrderInfoCardComponent } from './common/order/order-info-card/order-info-card.component';
 import { PortionsComponent } from './common/order/order-info-card/portions/portions.component';
 import { ClientInfoComponent } from './common/order/order-info-card/client-info/client-info.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import { RegistrationComponent } from './registration/registration.component';
+import { MustMatchDirective } from "./_helpers/validators/must-match.directive";
+import { OrderViewComponent } from './order-view/order-view.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,10 +44,14 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
     DishComponent,
     IngredientsComponent,
     OrderComponent,
-    AdminOrderPageComponent,
+    OrderListComponent,
     OrderInfoCardComponent,
     PortionsComponent,
-    ClientInfoComponent
+    ClientInfoComponent,
+    RegistrationComponent,
+    MustMatchDirective,
+    OrderViewComponent,
+    AdminPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +69,8 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
     MatInputModule,
     MatButtonModule,
     MatPaginatorModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    FormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

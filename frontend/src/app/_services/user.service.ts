@@ -12,4 +12,9 @@ export class UserService {
     console.log(`${environment.apiUrl}/user/${id}`)
     return this.http.get<User>(`${environment.apiUrl}/api/user/${id}`);
   }
+
+
+  register(user: User) {
+    return this.http.post<User>(`${environment.apiUrl}/api/register`, user);
+  }
 }

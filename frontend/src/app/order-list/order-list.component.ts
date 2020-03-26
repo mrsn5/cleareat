@@ -5,21 +5,24 @@ import {PageFilter} from "../_models/page-filter";
 import {OrderFilter} from "../_models/order-filter";
 import {group} from "@angular/animations";
 import {forkJoin} from "rxjs";
+import {Dish} from "../_models/dish";
+import {UserService} from "../_services/user.service";
+import {AppComponent} from "../app.component";
 
 @Component({
-  selector: 'app-admin-order-page',
-  templateUrl: './admin-order-page.component.html',
-  styleUrls: ['./admin-order-page.component.css']
+  selector: 'app-order-list',
+  templateUrl: './order-list.component.html',
+  styleUrls: ['./order-list.component.css']
 })
-export class AdminOrderPageComponent implements OnInit {
-
+export class OrderListComponent implements OnInit {
   public orders: Order[];
   public pageSizeOptions = [5, 10, 25, 50, 100];
   public pageFilter = new PageFilter();
   public orderFilter = new OrderFilter();
   public allOrdersCount: number;
 
-  constructor(private orderService: OrderService) {
+  constructor(private orderService: OrderService,
+              private app: AppComponent) {
     this.pageFilter.page = 0;
     this.pageFilter.size = this.pageSizeOptions[0];
   }
@@ -50,8 +53,8 @@ export class AdminOrderPageComponent implements OnInit {
 
   load() {
     forkJoin(
-      this.orderService.getAll(this.orderFilter, this.pageFilter),
-      this.orderService.getCount(this.orderFilter)
+      this.orderService.getAll(this.app.currentUser, this.orderFilter, this.pageFilter),
+      this.orderService.getCount(this.app.currentUser, this.orderFilter)
     ).subscribe(([orders, count]) => {
       this.orders = orders;
       this.allOrdersCount = count

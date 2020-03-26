@@ -25,4 +25,6 @@ public interface OrderRepository extends CrudRepository<Order, Integer> {
     long countAllByOrderStateIn(List<Order.OrderStateType> orderState);
 
     long count();
+
+    long countMyByOrderStateIn(List<Order.OrderStateType> orderState);
 }

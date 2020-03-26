@@ -5,15 +5,20 @@ import {AuthGuard} from "./_helpers/auth.guard";
 import {LoginComponent} from "./login/login.component";
 import { OrderComponent } from './order/order.component';
 import { OrderGuard } from './_helpers/order.guard';
-import {AdminOrderPageComponent} from "./admin-order-page/admin-order-page.component";
+import {OrderListComponent} from "./order-list/order-list.component";
+import {RegistrationComponent} from "./registration/registration.component";
+import {OrderViewComponent} from "./order-view/order-view.component";
+import {AdminPageComponent} from "./admin-page/admin-page.component";
 
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegistrationComponent },
   { path: 'order', component: OrderComponent, canActivate: [AuthGuard] },
-  { path: 'admin', component: AdminOrderPageComponent},
+  { path: 'order/:id', component: OrderViewComponent},
+  { path: 'admin', component: AdminPageComponent },
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];

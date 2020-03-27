@@ -1,0 +1,136 @@
+
+<div>
+  <div class="card">
+    <h4 class="card-header">New dish</h4>
+    <div class="card-body">
+      <form class="form" (ngSubmit)="f.form.valid && addDish()" #f="ngForm"
+            novalidate>
+
+
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input class="form-control"
+                 type="text"
+                 name="name"
+                 [(ngModel)]="dish.name"
+                 #name="ngModel"
+                 [ngClass]="{ 'is-invalid': f.submitted && name.invalid }"
+                 required/>
+          <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+            <div *ngIf="name.errors.required">Name is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="weight">Weight</label>
+          <input class="form-control"
+                 type="text"
+                 name="weight"
+                 [(ngModel)]="dish.weight"
+                 #weight="ngModel"
+                 [ngClass]="{ 'is-invalid': f.submitted && weight.invalid }"
+                 required/>
+          <div *ngIf="f.submitted && weight.invalid" class="invalid-feedback">
+            <div *ngIf="weight.errors.required">Name is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="calories">Calories</label>
+          <input class="form-control"
+                 type="text"
+                 name="calories"
+                 [(ngModel)]="dish.calories"
+                 #calories="ngModel"
+                 [ngClass]="{ 'is-invalid': f.submitted && calories.invalid }"
+                 />
+        </div>
+
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input class="form-control"
+                 type="text"
+                 name="price"
+                 [(ngModel)]="dish.price"
+                 #price="ngModel"
+                 [ngClass]="{ 'is-invalid': f.submitted && price.invalid }"
+                 required/>
+          <div *ngIf="f.submitted && price.invalid" class="invalid-feedback">
+            <div *ngIf="price.errors.required">Name is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="photo">Photo</label>
+          <input class="form-control"
+                 #fileUpload
+                 id="fileUpload"
+                 type="file"
+                 name="fileUpload"
+                 accept=".png,.jpg,.jpeg"
+                 (change)="fileChange($event)"/>
+        </div>
+
+        <div class="card">
+          <table>
+            <tr>
+              <th>Ingredient</th>
+              <th>Quantity</th>
+            </tr>
+
+            <tr *ngFor="let di of dish.dishIngredients">
+              <td>{{di.ingredient.name}}</td>
+              <td>{{di.quantity}}</td>
+              <td><button mat-mini-fab (click)="delete(di)">
+                <mat-icon>clear</mat-icon>
+              </button></td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="form-group">
+                  <input class="form-control"
+                         type="text"
+                         name="ingrName"
+                         [(ngModel)]="newIngredient.name"
+                         #ingrName="ngModel"
+                         [ngClass]="{ 'is-invalid': f.submitted && ingrName.invalid }"/>
+                  <div *ngIf="f.submitted && ingrName.invalid" class="invalid-feedback">
+                    <div *ngIf="ingrName.errors.required && dish.dishIngredients.length == 0">Name is required</div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <input class="form-control"
+                         type="text"
+                         name="quantity"
+                         [(ngModel)]="newQuantity"
+                         #quantity="ngModel"
+                         [ngClass]="{ 'is-invalid': f.submitted && quantity.invalid }"
+                         />
+                  <div *ngIf="f.submitted && quantity.invalid" class="invalid-feedback">
+                    <div *ngIf="quantity.errors.required && dish.dishIngredients.length == 0">Name is required</div>
+                  </div>
+                </div>
+              </td>
+              <td>
+              <button mat-mini-fab color="primary">
+                <mat-icon>add</mat-icon>
+              </button>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+
+        <button class="btn btn-primary addButton">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Add
+        </button>
+        <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+      </form>
+    </div>
+  </div>
+</div>
+

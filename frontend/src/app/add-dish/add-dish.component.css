@@ -1,0 +1,11 @@
+table, .addButton{
+  width: 100%;
+}
+
+table {
+  font-size: 18px;
+}
+
+.card {
+  padding: 13px;
+}

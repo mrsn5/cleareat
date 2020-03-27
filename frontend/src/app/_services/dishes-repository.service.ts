@@ -38,4 +38,9 @@ export class DishesRepository {
     return this.apiClient.get<Ingredient[]>(path);
   }
 
+  public postDish(data): Observable<Dish> {
+    const path = `api/dish`;
+    return this.apiClient.post<Dish>(path, data);
+  }
+
 }

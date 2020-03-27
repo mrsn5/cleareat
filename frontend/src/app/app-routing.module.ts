@@ -10,6 +10,7 @@ import {RegistrationComponent} from "./registration/registration.component";
 import {OrderViewComponent} from "./order-view/order-view.component";
 import {AdminPageComponent} from "./admin-page/admin-page.component";
 import {HistoryComponent} from "./history/history.component";
+import {AddDishComponent} from "./add-dish/add-dish.component";
 
 
 
@@ -21,6 +22,8 @@ const routes: Routes = [
   { path: 'order/:id', component: OrderViewComponent},
   { path: 'admin', component: AdminPageComponent },
   { path: 'history', component: HistoryComponent },
+  { path: 'add', component: AddDishComponent },
+
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];

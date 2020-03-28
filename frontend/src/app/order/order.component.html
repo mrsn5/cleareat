@@ -5,36 +5,16 @@
             *ngFor="let dish of orderedDishes"
             [ordered]="getOrdered(dish.uid)"
             [dish]="dish"
-            (orderedChange)="setOrdered(dish.uid, $event)"
+            (orderedChange)="setOrdered(dish, $event)"
             [displayMode]="displayMode"
             ></dish>
+        <div class="sum">
+          Загальна сума: {{ orderState.total() }} грн
+        </div>
         <div>
           <button mat-button matStepperNext>Далі</button>
         </div>
     </mat-step>
-<!--    <mat-step *ngIf="!currentUser" [stepControl]="contactsForm">-->
-<!--      <form [formGroup]="contactsForm">-->
-<!--        <ng-template matStepLabel>Контактні дані</ng-template>-->
-<!--        <div class="contacts">-->
-<!--          <mat-form-field>-->
-<!--            <mat-label>Повне ім'я</mat-label>-->
-<!--            <input matInput formControlName="name" required>-->
-<!--          </mat-form-field>-->
-<!--          <mat-form-field>-->
-<!--            <mat-label>Номер телефону</mat-label>-->
-<!--            <input matInput formControlName="phone" required>-->
-<!--          </mat-form-field>-->
-<!--          <mat-form-field>-->
-<!--            <mat-label>Email</mat-label>-->
-<!--            <input matInput formControlName="email" required>-->
-<!--          </mat-form-field>  -->
-<!--        </div>-->
-<!--        <div>-->
-<!--          <button mat-button matStepperPrevious>Back</button>-->
-<!--          <button mat-button matStepperNext>Next</button>-->
-<!--        </div>-->
-<!--      </form>-->
-<!--    </mat-step>-->
     <mat-step [stepControl]="preferForm">
         <form [formGroup]="preferForm">
             <ng-template matStepLabel>Особливі побажання</ng-template>

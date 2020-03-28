@@ -1,3 +1,8 @@
 export interface OrderState {
-    [key: number]: number;
+    [key: number]: OrderUnit;
+}
+
+export interface OrderUnit {
+    price: number;
+    quantity: number;
 }

@@ -8,12 +8,18 @@
             (orderedChange)="setOrdered(dish, $event)"
             [displayMode]="displayMode"
             ></dish>
-        <div class="sum">
-          Загальна сума: {{ orderState.total() }} грн
-        </div>
-        <div>
-          <button mat-button matStepperNext>Далі</button>
-        </div>
+        <ng-container *ngIf="orderState.defined()">
+          <div class="sum">
+            Загальна сума: {{ orderState.total() }} грн
+          </div>
+          <div>
+            <button mat-button matStepperNext>Далі</button>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="!orderState.defined()">
+          Ваше замовлення пусте.
+          Додайте страви у <a href="/#">меню</a> або повторіть якесь з <a href="/#/history">історії</a>
+        </ng-container>
     </mat-step>
     <mat-step [stepControl]="preferForm">
         <form [formGroup]="preferForm">

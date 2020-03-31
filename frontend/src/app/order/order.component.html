@@ -8,7 +8,7 @@
             (orderedChange)="setOrdered(dish, $event)"
             [displayMode]="displayMode"
             ></dish>
-        <ng-container *ngIf="orderState.defined()">
+        <ng-container *ngIf=" orderState.defined()">
           <div class="sum">
             Загальна сума: {{ orderState.total() }} грн
           </div>

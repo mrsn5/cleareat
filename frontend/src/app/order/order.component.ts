@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OrderStateService } from '../_services/order-state.service';
 import { Dish } from '../_models/dish';
 import { DishesRepository } from '../_services/dishes-repository.service';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { DishDisplayMode } from '../common/dish/dish.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -33,23 +33,28 @@ export class OrderComponent implements OnInit {
     this.preferForm = this.formBuilder.group({
       prefs: ['', Validators.maxLength(150)]
     });
-
-    // this.contactsForm = this.formBuilder.group({
-    //   name: ['', Validators.maxLength(150)],
-    //   email: ['', Validators.email],
-    //   phone: ['', Validators.maxLength(150)],
-    //   });
-      forkJoin(
-      this.orderState.getDishes().map(id => this.dishesRepo.getById(id))
-    ).subscribe(dishes => this.orderedDishes = dishes);
+    this.initializeDishes();
   }
 
   public getOrdered(uid: number) : number {
     return this.orderState.getSelected(uid);
   }
 
-  public setOrdered(uid: number, amount: number) : void {
-    this.orderState.setSelected(uid, amount);
+  public initializeDishes() {
+    if(this.orderState.getDishes().length) {
+      forkJoin(
+        this.orderState.getDishes().map(id => this.dishesRepo.getById(id))
+      ).subscribe(dishes => this.orderedDishes = dishes);
+    } else {
+      this.orderedDishes = [];
+    }
+  }
+
+  public setOrdered(dish: Dish, amount: number) : void {
+    this.orderState.setSelected(dish, amount);
+    if(this.orderState.getDishes().length !== this.orderedDishes.length ) {
+      this.initializeDishes();
+    }
   }
 
   public confirm() {
@@ -58,12 +63,7 @@ export class OrderComponent implements OnInit {
       portions: this.orderState.getDishes().map(
         id => <object>{
           dish: {uid: id},
-          quantity: this.orderState.getSelected(id),
-          // client: this.currentUser != null ? null : {
-          //   mail: this.contactsForm.controls['email'].value,
-          //   phone: this.contactsForm.controls['phone'].value,
-          //   fullName: this.contactsForm.controls['name'].value
-          // }
+          quantity: this.orderState.getSelected(id)
         },
       )
     }).subscribe(_ => {

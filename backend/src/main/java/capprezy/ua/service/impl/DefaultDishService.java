@@ -1,10 +1,7 @@
 package capprezy.ua.service.impl;
 
 import capprezy.ua.controller.exception.model.AlreadyExistsException;
-import capprezy.ua.model.Category;
-import capprezy.ua.model.Dish;
-import capprezy.ua.model.DishIngredient;
-import capprezy.ua.model.Ingredient;
+import capprezy.ua.model.*;
 import capprezy.ua.repository.CategoryRepository;
 import capprezy.ua.repository.DishIngredientRepository;
 import capprezy.ua.repository.DishRepository;
@@ -19,10 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cloudinary.*;
 import com.cloudinary.utils.ObjectUtils;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service("dishService")
@@ -59,11 +53,29 @@ public class DefaultDishService implements DishService {
     public Dish add(Dish dish) throws AlreadyExistsException {
         Dish d = dishRepository.findByNameIgnoreCase(dish.getName());
         if (d == null) {
+            List<Category> categories = new LinkedList<>();
+            for (Category c: dish.getCategories()) {
+                Category cat = categoryRepository.findByNameIgnoreCase(c.getName());
+                if (cat == null) {
+                    cat = categoryRepository.save(c);
+                }
+                categories.add(cat);
+            }
+            dish.setCategories(categories);
+
+
             Dish createdDish = dishRepository.save(dish);
+
+
             List<DishIngredient> dis = dish.getDishIngredients();
             for (DishIngredient di: dis) {
                 di.setDish(createdDish);
                 di.getId().setDishUid(createdDish.getUid());
+                Ingredient ing = ingredientRepository.findByNameIgnoreCase(di.getIngredient().getName());
+                if (ing == null) {
+                    ing = ingredientRepository.save(di.getIngredient());
+                }
+                di.setIngredient(ing);
             }
             dishIngredientRepository.saveAll(dis);
             return createdDish;

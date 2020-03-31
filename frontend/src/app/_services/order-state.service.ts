@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { OrderState } from '../_models/order-state';
+import { Dish } from '../_models/dish';
 
 @Injectable()
 export class OrderStateService {
@@ -7,17 +8,17 @@ export class OrderStateService {
     private state: OrderState;
     constructor() { this.load(); }
 
-    public setSelected(dishUid: number, count: number): void {
+    public setSelected(dish: Dish, count: number): void {
         if (count > 0) {
-            this.state[dishUid] = count;
+            this.state[dish.uid] = { price: dish.price, quantity: count};
         } else {
-            delete this.state[dishUid];
+            delete this.state[dish.uid];
         }
         this.save();
     }
 
     public getSelected(dishUid: number): number {
-        return this.state[dishUid] || 0;
+        return (this.state[dishUid] && this.state[dishUid].quantity) || 0;
     }
 
     public getDishes(): number[] {
@@ -33,6 +34,12 @@ export class OrderStateService {
         this.save();
     }
 
+    public total(): number {
+        return Object.keys(this.state)
+            .map(id => this.state[id].quantity * this.state[id].price)
+            .reduce((x, y) => x + y);
+    }
+
     private load(): void {
         const loaded = localStorage.getItem(OrderStateService.KEY)
         this.state = loaded != null ? JSON.parse(loaded) : {};
@@ -41,4 +48,5 @@ export class OrderStateService {
     private save(): void {
         localStorage.setItem(OrderStateService.KEY, JSON.stringify(this.state));
     }
+
 }

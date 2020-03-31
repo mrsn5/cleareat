@@ -8,6 +8,6 @@ export class Dish {
     public price: number;
     public weight: number;
     public photo: string;
-    public categories: DishCategory[];
-    public dishIngredients: DishIngredient[];
+    public categories: DishCategory[] = [];
+    public dishIngredients: DishIngredient[] = [];
 }

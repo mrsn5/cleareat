@@ -77,8 +77,8 @@ export class HomeComponent implements OnInit {
     return this.orderState.getSelected(uid);
   }
 
-  public setOrdered(uid: number, amount: number) : void {
-    this.orderState.setSelected(uid, amount);
+  public setOrdered(dish: Dish, amount: number) : void {
+    this.orderState.setSelected(dish, amount);
   }
 
   private fetchUser(): Observable<User> {

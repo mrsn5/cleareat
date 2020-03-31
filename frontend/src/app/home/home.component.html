@@ -17,7 +17,7 @@
       <dish class="dish" *ngFor="let dish of (dishes$ | async)"
         [dish]="dish"
         [ordered]="getOrdered(dish.uid)"
-        (orderedChange)="setOrdered(dish.uid, $event)"></dish>
+        (orderedChange)="setOrdered(dish, $event)"></dish>
     </div>
   </div>
 </div>

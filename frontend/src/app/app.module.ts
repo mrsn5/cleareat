@@ -36,6 +36,8 @@ import { MustMatchDirective } from "./_helpers/validators/must-match.directive";
 import { OrderViewComponent } from './order-view/order-view.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { HistoryComponent } from './history/history.component';
+import { AddDishComponent } from './add-dish/add-dish.component';
+import {CdkTableModule} from '@angular/cdk/table';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ import { HistoryComponent } from './history/history.component';
     OrderViewComponent,
     AdminPageComponent,
     HistoryComponent,
+    AddDishComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,7 +75,8 @@ import { HistoryComponent } from './history/history.component';
     MatButtonModule,
     MatPaginatorModule,
     MatButtonToggleModule,
-    FormsModule
+    FormsModule,
+    CdkTableModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -19,20 +19,22 @@ export class AddDishComponent implements OnInit {
   newQuantity = 0;
   file;
 
-  constructor(private dishService: DishesRepository,
-              private formBuilder: FormBuilder) { }
+  constructor(private dishService: DishesRepository) { }
 
   ngOnInit() {
 
   }
 
   addDish() {
+    console.log(this.dish)
     const formData = new FormData();
     formData.append('file', this.file);
     formData.append('dish', JSON.stringify(this.dish));
     this.dishService.postDish(formData).subscribe(
       result => {
         console.log(result);
+      }, error => {
+        this.error = error
       }
     );
   }
@@ -51,5 +53,21 @@ export class AddDishComponent implements OnInit {
     if (event.target.files.length > 0) {
         this.file = event.target.files[0];
     }
+  }
+
+  addIngredient() {
+    if (this.newIngredient.name
+      && this.newIngredient.name.trim() != ''
+      && this.newQuantity != 0
+    )
+    {
+      this.dish.dishIngredients.push({
+        quantity: this.newQuantity,
+        ingredient: this.newIngredient
+      });
+      this.newIngredient = new Ingredient();
+      this.newQuantity = 0;
+    }
+
   }
 }

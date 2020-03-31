@@ -39,7 +39,6 @@ import { HistoryComponent } from './history/history.component';
 import { AddDishComponent } from './add-dish/add-dish.component';
 import {CdkTableModule} from '@angular/cdk/table';
 
-
 @NgModule({
   declarations: [
     AppComponent,

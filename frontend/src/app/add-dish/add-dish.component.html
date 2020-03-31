@@ -88,20 +88,12 @@
 
             <tr>
               <td>
-                <div class="form-group">
                   <input class="form-control"
                          type="text"
                          name="ingrName"
-                         [(ngModel)]="newIngredient.name"
-                         #ingrName="ngModel"
-                         [ngClass]="{ 'is-invalid': f.submitted && ingrName.invalid }"/>
-                  <div *ngIf="f.submitted && ingrName.invalid" class="invalid-feedback">
-                    <div *ngIf="ingrName.errors.required && dish.dishIngredients.length == 0">Name is required</div>
-                  </div>
-                </div>
+                         [(ngModel)]="newIngredient.name"/>
               </td>
               <td>
-                <div class="form-group">
                   <input class="form-control"
                          type="text"
                          name="quantity"
@@ -112,10 +104,9 @@
                   <div *ngIf="f.submitted && quantity.invalid" class="invalid-feedback">
                     <div *ngIf="quantity.errors.required && dish.dishIngredients.length == 0">Name is required</div>
                   </div>
-                </div>
               </td>
               <td>
-              <button mat-mini-fab color="primary">
+              <button mat-mini-fab color="primary" type='button' (click)="addIngredient()">
                 <mat-icon>add</mat-icon>
               </button>
               </td>

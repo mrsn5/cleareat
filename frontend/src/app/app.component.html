@@ -4,6 +4,8 @@
     <a class="nav-item nav-link" routerLink="/">Home</a>
     <a class="nav-item nav-link" routerLink="/order">Order</a>
     <a *ngIf="isAdmin()" class="nav-item nav-link" routerLink="/admin">Admin</a>
+
+    <a *ngIf="isAdmin()" class="nav-item nav-link" routerLink="/add">Add</a>
     <a *ngIf="!isAdmin() && currentUser" class="nav-item nav-link" routerLink="/history">History</a>
     <a *ngIf="!currentUser" class="nav-item nav-link" routerLink="/login">Login</a>
     <a *ngIf="!currentUser" class="nav-item nav-link" routerLink="/register">Registration</a>

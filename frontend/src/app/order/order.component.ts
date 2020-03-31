@@ -21,7 +21,7 @@ export class OrderComponent implements OnInit {
   public preferForm: FormGroup;
   // public contactsForm: FormGroup;
   constructor(
-    private orderState: OrderStateService,
+    public orderState: OrderStateService,
     private dishesRepo: DishesRepository,
     private formBuilder: FormBuilder,
     private router: Router,

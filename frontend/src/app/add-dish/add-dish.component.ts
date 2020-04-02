@@ -4,6 +4,7 @@ import {DishesRepository} from "../_services/dishes-repository.service";
 import {DishIngredient} from "../_models/dish-ingredient";
 import {Ingredient} from "../_models/ingredient";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {DishCategory} from "../_models/dish-category";
 
 @Component({
   selector: 'app-add-dish',
@@ -18,11 +19,18 @@ export class AddDishComponent implements OnInit {
   newIngredient = new Ingredient();
   newQuantity = 0;
   file;
+  allCategories = [];
+  newCategory = new DishCategory();
+  filename: "Choose file";
+
 
   constructor(private dishService: DishesRepository) { }
 
   ngOnInit() {
-
+    this.dishService.getCategories().subscribe(data => {
+      this.allCategories = data
+      this.newCategory= data[0]
+    })
   }
 
   addDish() {
@@ -45,13 +53,11 @@ export class AddDishComponent implements OnInit {
     console.log(this.dish.dishIngredients);
   }
 
-  add(row: DishIngredient) {
-
-  }
 
   fileChange(event) {
     if (event.target.files.length > 0) {
         this.file = event.target.files[0];
+        this.filename = this.file.name
     }
   }
 
@@ -69,5 +75,17 @@ export class AddDishComponent implements OnInit {
       this.newQuantity = 0;
     }
 
+  }
+
+  deleteCategory(dc: DishCategory) {
+    var removeIndex = this.dish.categories.indexOf(dc);
+    this.dish.categories.splice(removeIndex, 1);
+    console.log(this.dish.categories);
+  }
+
+  addCategory() {
+    if (this.dish.categories.indexOf(this.newCategory) == -1 && this.newCategory.name)
+      this.dish.categories.push(this.newCategory)
+    this.newCategory = new DishCategory()
   }
 }

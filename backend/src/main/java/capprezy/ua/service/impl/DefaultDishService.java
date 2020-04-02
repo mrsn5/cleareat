@@ -53,15 +53,15 @@ public class DefaultDishService implements DishService {
     public Dish add(Dish dish) throws AlreadyExistsException {
         Dish d = dishRepository.findByNameIgnoreCase(dish.getName());
         if (d == null) {
-            List<Category> categories = new LinkedList<>();
-            for (Category c: dish.getCategories()) {
-                Category cat = categoryRepository.findByNameIgnoreCase(c.getName());
-                if (cat == null) {
-                    cat = categoryRepository.save(c);
-                }
-                categories.add(cat);
-            }
-            dish.setCategories(categories);
+//            List<Category> categories = new LinkedList<>();
+//            for (Category c: dish.getCategories()) {
+//                Category cat = categoryRepository.findByNameIgnoreCase(c.getName());
+//                if (cat == null) {
+//                    cat = categoryRepository.save(c);
+//                }
+//                categories.add(cat);
+//            }
+//            dish.setCategories(categories);
 
 
             Dish createdDish = dishRepository.save(dish);

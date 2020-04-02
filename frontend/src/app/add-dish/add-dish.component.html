@@ -60,15 +60,58 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="photo">Photo</label>
-          <input class="form-control"
-                 #fileUpload
-                 id="fileUpload"
-                 type="file"
-                 name="fileUpload"
-                 accept=".png,.jpg,.jpeg"
-                 (change)="fileChange($event)"/>
+<!--          <input class="form-control"-->
+<!--                 #fileUpload-->
+<!--                 id="fileUpload"-->
+<!--                 type="file"-->
+<!--                 name="fileUpload"-->
+<!--                 accept=".png,.jpg,.jpeg"-->
+<!--                 (change)="fileChange($event)"/>-->
+
+
+        <label>Photo</label>
+        <div class="input-group mb-3">
+          <div class="custom-file">
+            <input class="custom-file-input"
+                   #fileUpload
+                   id="fileUpload"
+                   type="file"
+                   name="fileUpload"
+                   accept=".png,.jpg,.jpeg"
+                   (change)="fileChange($event)"/>
+            <label class="custom-file-label" for="fileUpload">{{filename}}</label>
+          </div>
+        </div>
+
+
+
+        <div class="card">
+          <table>
+            <tr>
+              <th>Category</th>
+            </tr>
+
+            <tr *ngFor="let dc of dish.categories">
+              <td>{{dc.name}}</td>
+              <td><button mat-mini-fab type='button' (click)="deleteCategory(dc)">
+                <mat-icon>clear</mat-icon>
+              </button></td>
+            </tr>
+
+            <tr>
+              <td>
+                <select [(ngModel)]="newCategory" class="custom-select" [ngModelOptions]="{standalone: true}">
+                  <option *ngFor="let cat of allCategories" [ngValue]="cat">{{cat.name}}</option>
+                </select>
+
+              </td>
+              <td>
+                <button mat-mini-fab color="primary" type='button' (click)="addCategory()">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </table>
         </div>
 
         <div class="card">
@@ -81,7 +124,7 @@
             <tr *ngFor="let di of dish.dishIngredients">
               <td>{{di.ingredient.name}}</td>
               <td>{{di.quantity}}</td>
-              <td><button mat-mini-fab (click)="delete(di)">
+              <td><button mat-mini-fab type='button' (click)="delete(di)">
                 <mat-icon>clear</mat-icon>
               </button></td>
             </tr>
@@ -97,13 +140,7 @@
                   <input class="form-control"
                          type="text"
                          name="quantity"
-                         [(ngModel)]="newQuantity"
-                         #quantity="ngModel"
-                         [ngClass]="{ 'is-invalid': f.submitted && quantity.invalid }"
-                         />
-                  <div *ngIf="f.submitted && quantity.invalid" class="invalid-feedback">
-                    <div *ngIf="quantity.errors.required && dish.dishIngredients.length == 0">Name is required</div>
-                  </div>
+                         [(ngModel)]="newQuantity"/>
               </td>
               <td>
               <button mat-mini-fab color="primary" type='button' (click)="addIngredient()">

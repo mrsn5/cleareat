@@ -5,10 +5,14 @@ import capprezy.ua.model.Order;
 import capprezy.ua.model.Payment;
 import capprezy.ua.repository.OrderRepository;
 import capprezy.ua.service.OrderService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.liqpay.LiqPay;
+import com.liqpay.LiqPayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -20,8 +24,10 @@ public class LiqpayService {
     private static String PRIVATE_KEY = "sandbox_El4JmmuwDjLTWFARwkZqUsxgJB27padgUwabv2pw";
 
 
-    @Autowired private OrderService orderService;
-    @Autowired private OrderRepository orderRepository;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private OrderRepository orderRepository;
 
     public String preparePayOrder(Integer id) throws NotValidDataException {
         Order order = orderService.findById(id);
@@ -42,16 +48,25 @@ public class LiqpayService {
         return liqpay.cnb_form(params);
     }
 
-    public void checkPayment(HashMap<String, Object> payment) throws NotValidDataException {
-        if (payment.get("status").equals("success")) {
-            Order order = new Order();// orderRepository.findByPaymentId((String) payment.get("order_id"));
-            if (order == null) throw NotValidDataException.createWith("No such order");
+    public void checkPayment(HashMap<String, Object> payment) throws NotValidDataException, JsonProcessingException {
 
-            order.setPaid(order.getPaid() + Double.parseDouble((String) payment.get("amount")));
-            if (order.getPaid() >= order.getTotal()) order.setPaymentState(Order.PaymentStateType.fully_paid);
-            else order.setPaymentState(Order.PaymentStateType.part_paid);
+        String sign = LiqPayUtil.base64_encode(LiqPayUtil.sha1(PRIVATE_KEY + ((String) payment.get("data")) + PRIVATE_KEY));
+        if (sign.equals(payment.get("signature"))) {
+            byte[] decodedBytes = (Base64.getDecoder().decode((String) payment.get("data")));
+            String decodedData = new String(decodedBytes);
+            Payment paymentData = new Payment(decodedData);
+            System.out.println(paymentData);
 
-            orderRepository.save(order);
+            if (paymentData.getStatus().equals("success") || paymentData.getStatus().equals("sandbox")) {
+                Order order =  orderRepository.findByPaymentId(paymentData.getOrderId());
+                if (order == null) throw NotValidDataException.createWith("No such order");
+
+                order.setPaid(order.getPaid() +  paymentData.getAmount());
+                if (order.getPaid() >= order.getTotal()) order.setPaymentState(Order.PaymentStateType.fully_paid);
+                else order.setPaymentState(Order.PaymentStateType.part_paid);
+
+                orderRepository.save(order);
+            }
         }
     }
 }

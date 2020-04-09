@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Service("liqpayService")
 public class LiqpayService {
@@ -28,10 +29,15 @@ public class LiqpayService {
         params.put("currency", "UAH");
         params.put("action", "pay");
         params.put("description", "Замовлення №" + id);
-        params.put("order_id", id);
+        params.put("order_id", UUID.randomUUID().toString());
         params.put("sandbox", "1"); // enable the testing environment and card will NOT charged. If not set will be used property isCnbSandbox()
 
         LiqPay liqpay = new LiqPay(PUBLIC_KEY, PRIVATE_KEY);
         return liqpay.cnb_form(params);
+    }
+
+    public void checkPayment() {
+        LiqPay liqPay = new LiqPay(PUBLIC_KEY, PRIVATE_KEY);
+
     }
 }

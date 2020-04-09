@@ -27,4 +27,6 @@ public interface OrderRepository extends CrudRepository<Order, Integer> {
 
     long countMyByOrderStateInAndClient(List<Order.OrderStateType> orderState, AppUser user);
     long countByClient(AppUser user);
+
+    Order findByPaymentId(String paymentId);
 }

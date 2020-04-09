@@ -80,7 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests()
 //               .antMatchers("/api/admin").hasAuthority("ADMIN")
-                .antMatchers("/api/authenticate**", "/api/register**").permitAll()
+                .antMatchers("/api/authenticate**", "/api/register**", "/api/payment**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/order**").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/**").hasAuthority("ADMIN")

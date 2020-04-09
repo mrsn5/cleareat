@@ -3,9 +3,14 @@ package capprezy.ua.controller;
 import capprezy.ua.config.security.jwt.JwtRequest;
 import capprezy.ua.config.security.jwt.JwtTokenUtil;
 import capprezy.ua.controller.exception.model.AlreadyExistsException;
+import capprezy.ua.controller.exception.model.NotValidDataException;
 import capprezy.ua.model.AppUser;
+import capprezy.ua.model.Payment;
 import capprezy.ua.model.dto.AppUserWithToken;
 import capprezy.ua.service.AppUserService;
+import capprezy.ua.service.OrderService;
+import capprezy.ua.service.impl.LiqpayService;
+import com.liqpay.LiqPay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/")
@@ -30,6 +36,8 @@ public class RootController {
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
     private AppUserService appUserService;
+    @Autowired
+    private LiqpayService liqpayService;
 
     @GetMapping("/")
     public RedirectView redirectWithUsingRedirectView(
@@ -63,5 +71,12 @@ public class RootController {
         } catch (BadCredentialsException e) {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
+    }
+
+    @PostMapping("api/payment")
+    public ResponseEntity acceptPayment(@RequestBody Payment payment) throws NotValidDataException {
+        System.out.println(payment);
+        liqpayService.checkPayment(payment);
+        return ResponseEntity.ok().build();
     }
 }

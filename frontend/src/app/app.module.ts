@@ -40,6 +40,8 @@ import { AddDishComponent } from './add-dish/add-dish.component';
 import {CdkTableModule} from '@angular/cdk/table';
 import { OnlyForAdminDirective } from './only-for-admin.directive';
 import { OnlyForClientDirective } from './only-for-client.directive';
+import {SanitizeHtmlPipe} from "./_helpers/sanitize.html.pipe";
+
 
 @NgModule({
   declarations: [
@@ -59,6 +61,7 @@ import { OnlyForClientDirective } from './only-for-client.directive';
     AdminPageComponent,
     HistoryComponent,
     AddDishComponent,
+    SanitizeHtmlPipe,
     OnlyForAdminDirective,
     OnlyForClientDirective,
   ],
@@ -88,7 +91,7 @@ import { OnlyForClientDirective } from './only-for-client.directive';
     ApiClientService,
     DishesRepository,
     OrderStateService,
-    OrderGuard
+    OrderGuard,
   ],
   bootstrap: [AppComponent]
 })

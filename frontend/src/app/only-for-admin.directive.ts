@@ -1,5 +1,4 @@
 import { Directive, ElementRef } from '@angular/core';
-import { User } from './_models/user';
 import { AuthenticationService } from './_services/authentication.service';
 
 @Directive({
@@ -11,8 +10,9 @@ export class OnlyForAdminDirective {
       private authenticationService: AuthenticationService
     ) {
       this.authenticationService.currentUser.subscribe(u => {
-        if(!u || u.role !== 'admin')
-        el.nativeElement.style.display = 'none';
+        if (!u || u.role !== 'admin') {
+          el.nativeElement.style.display = 'none';
+        }
       });
     }
 }

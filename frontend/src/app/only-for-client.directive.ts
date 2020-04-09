@@ -11,8 +11,9 @@ export class OnlyForClientDirective {
     private authenticationService: AuthenticationService
   ) {
     this.authenticationService.currentUser.subscribe(u => {
-      if(!u || u.role === 'admin')
+      if (!u || u.role === 'admin') {
         el.nativeElement.style.display = 'none';
+      }
     });
   }
 

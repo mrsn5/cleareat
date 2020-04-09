@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("api/order")
@@ -75,7 +76,7 @@ public class OrderController {
     }
 
     @GetMapping("/{id}/pay")
-    public ResponseEntity preparePayOrder(@PathVariable("id") Integer id) throws NotValidDataException {
+    public ResponseEntity preparePaymentButton(@PathVariable("id") Integer id) throws NotValidDataException {
         String html = liqpayService.preparePayOrder(id);
         return ResponseEntity.ok(new LiqButton(html));
     }

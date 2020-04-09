@@ -36,6 +36,7 @@ public class Order {
     private String preferences;
     private Double total = .0;
     private Double paid = .0;
+    private String paymentId;
 
     @ManyToOne
     @JoinColumn(name = "clientUid")

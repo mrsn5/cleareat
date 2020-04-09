@@ -4,6 +4,7 @@ import capprezy.ua.controller.exception.model.AlreadyExistsException;
 import capprezy.ua.controller.exception.model.NotValidDataException;
 import capprezy.ua.controller.exception.model.PermissionException;
 import capprezy.ua.model.AppUser;
+import capprezy.ua.model.LiqButton;
 import capprezy.ua.model.Order;
 import capprezy.ua.service.AppUserService;
 import capprezy.ua.service.OrderService;
@@ -76,7 +77,6 @@ public class OrderController {
     @GetMapping("/{id}/pay")
     public ResponseEntity preparePayOrder(@PathVariable("id") Integer id) throws NotValidDataException {
         String html = liqpayService.preparePayOrder(id);
-        System.out.println(html);
-        return ResponseEntity.ok(html);
+        return ResponseEntity.ok(new LiqButton(html));
     }
 }

@@ -75,6 +75,8 @@ public class OrderController {
 
     @GetMapping("/{id}/pay")
     public ResponseEntity preparePayOrder(@PathVariable("id") Integer id) throws NotValidDataException {
-        return ResponseEntity.ok(liqpayService.preparePayOrder(id));
+        String html = liqpayService.preparePayOrder(id);
+        System.out.println(html);
+        return ResponseEntity.ok(html);
     }
 }

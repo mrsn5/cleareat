@@ -50,6 +50,7 @@ export class OrderService {
   }
 
   getPaymentButton(id) {
+    console.log(`api/order/${id}/pay`);
     return this.apiClient.get<string>(`api/order/${id}/pay`);
   }
 }

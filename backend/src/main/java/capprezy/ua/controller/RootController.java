@@ -12,6 +12,7 @@ import capprezy.ua.service.OrderService;
 import capprezy.ua.service.impl.LiqpayService;
 import com.liqpay.LiqPay;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -73,7 +74,7 @@ public class RootController {
         }
     }
 
-    @PostMapping("api/payment")
+    @PostMapping(value = "api/payment", headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity acceptPayment(@RequestBody Payment payment) throws NotValidDataException {
         System.out.println(payment);
         liqpayService.checkPayment(payment);

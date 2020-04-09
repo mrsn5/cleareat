@@ -11,10 +11,10 @@ import lombok.ToString;
 @ToString
 public class Payment {
     private String action;
-    private Integer paymentId;
+    private Integer payment_id;
     private String status;
-    private String publicKey;
-    private String orderId;
+    private String public_key;
+    private String order_id;
     private Double amount;
     private String currency;
 }

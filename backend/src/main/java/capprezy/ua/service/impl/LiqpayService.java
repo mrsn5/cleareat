@@ -44,7 +44,7 @@ public class LiqpayService {
 
     public void checkPayment(Payment payment) throws NotValidDataException {
         if (payment.getStatus().equals("success")) {
-            Order order = orderRepository.findByPaymentId(payment.getOrderId());
+            Order order = orderRepository.findByPaymentId(payment.getOrder_id());
             if (order == null) throw NotValidDataException.createWith("No such order");
 
             order.setPaid(order.getPaid() + payment.getAmount());

@@ -27,7 +27,10 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/base64-js/index.js",
+              "./node_modules/base64-js/base64js.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -93,7 +96,10 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/base64-js/index.js",
+              "./node_modules/base64-js/base64js.min.js"
+            ]
           }
         },
         "lint": {

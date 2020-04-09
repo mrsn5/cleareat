@@ -17,7 +17,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,18 +46,6 @@ public class DefaultOrderService implements OrderService {
             total += price;
         }
 
-//        if (user != null) {
-//            if (!user.getUid().equals(order.getClient().getUid())) {
-//                throw PermissionException.createWith("You cannot create order for other client");
-//            }
-//            AppUser client = order.getClient();
-//            if (client.getPhone() != null ) user.setPassword(client.getPhone());
-//        } else {
-//            if (order.getClient().getMail() == null) throw NotValidDataException.createWith("Email is nessesary");
-//            AppUser client = appUserService.findByMail(order.getClient().getMail());
-//            if (client == null) client = appUserService.register(order.getClient());
-//            order.setClient(client);
-//        }
         order.setClient(user);
         order.setTotal(total);
         Order savedOrder = orderRepository.save(order);

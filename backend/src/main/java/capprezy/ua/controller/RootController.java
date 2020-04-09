@@ -74,10 +74,10 @@ public class RootController {
         }
     }
 
-    @PostMapping(value = "api/payment", headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity acceptPayment(@RequestBody Payment payment) throws NotValidDataException {
-        System.out.println(payment);
-        liqpayService.checkPayment(payment);
+    @PostMapping(value = "api/payment", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ResponseEntity acceptPayment(@RequestParam HashMap<String, Object> params) throws NotValidDataException {
+        System.out.println(params);
+        liqpayService.checkPayment(params);
         return ResponseEntity.ok().build();
     }
 }

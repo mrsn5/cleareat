@@ -42,14 +42,16 @@ public class LiqpayService {
         return liqpay.cnb_form(params);
     }
 
-    public void checkPayment(Payment payment) throws NotValidDataException {
-        if (payment.getStatus().equals("success")) {
-            Order order = orderRepository.findByPaymentId(payment.getOrder_id());
+    public void checkPayment(HashMap<String, Object> payment) throws NotValidDataException {
+        if (payment.get("status").equals("success")) {
+            Order order = new Order();// orderRepository.findByPaymentId((String) payment.get("order_id"));
             if (order == null) throw NotValidDataException.createWith("No such order");
 
-            order.setPaid(order.getPaid() + payment.getAmount());
+            order.setPaid(order.getPaid() + Double.parseDouble((String) payment.get("amount")));
             if (order.getPaid() >= order.getTotal()) order.setPaymentState(Order.PaymentStateType.fully_paid);
             else order.setPaymentState(Order.PaymentStateType.part_paid);
+
+            orderRepository.save(order);
         }
     }
 }

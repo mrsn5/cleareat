@@ -13,7 +13,6 @@ export class AppComponent {
   title = 'caprezzy';
 
   currentUser: User;
-  liqpayHtml = "";
 
   constructor(
     private router: Router,
@@ -22,8 +21,6 @@ export class AppComponent {
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
 
-
-    orderService.getPaymentButton(30).subscribe(html => this.liqpayHtml = html );
   }
 
   isAdmin() {

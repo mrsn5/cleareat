@@ -28,8 +28,6 @@
               "src/styles.css"
             ],
             "scripts": [
-              "./node_modules/base64-js/index.js",
-              "./node_modules/base64-js/base64js.min.js"
             ]
           },
           "configurations": {
@@ -97,8 +95,6 @@
               "src/styles.css"
             ],
             "scripts": [
-              "./node_modules/base64-js/index.js",
-              "./node_modules/base64-js/base64js.min.js"
             ]
           }
         },

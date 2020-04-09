@@ -61,7 +61,9 @@ import {SanitizeHtmlPipe} from "./_helpers/sanitize.html.pipe";
     AdminPageComponent,
     HistoryComponent,
     AddDishComponent,
-    SanitizeHtmlPipe
+    SanitizeHtmlPipe,
+    OnlyForAdminDirective,
+    OnlyForClientDirective,
   ],
   imports: [
     BrowserModule,

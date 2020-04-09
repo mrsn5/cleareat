@@ -23,11 +23,12 @@
     </div>
 
     <div class="actions">
-      <button mat-flat-button color="primary" *ngIf="canBeConfirmed()" (click)="confirm()">Підтвердити</button>
-      <button mat-stroked-button *ngIf="canBeSetInProgress()" (click)="cooking()">Готується</button>
-      <button mat-flat-button color="primary" *ngIf="canBeSetReady()" (click)="ready()">Готово</button>
-      <button mat-flat-button color="primary" *ngIf="canBeDone()" (click)="done()">Забрано <span *ngIf="!isPaid()">та оплачено</span></button>
-      <button mat-flat-button color="accent" *ngIf="canBeCancelled()" (click)="cancel()">Відмінити</button>
+      <button appOnlyForAdmin mat-flat-button color="primary" *ngIf="canBeConfirmed()" (click)="confirm()">Підтвердити</button>
+      <button appOnlyForAdmin mat-stroked-button *ngIf="canBeSetInProgress()" (click)="cooking()">Готується</button>
+      <button appOnlyForAdmin mat-flat-button color="primary" *ngIf="canBeSetReady()" (click)="ready()">Готово</button>
+      <button appOnlyForAdmin mat-flat-button color="primary" *ngIf="canBeDone()" (click)="done()">Забрано <span *ngIf="!isPaid()">та оплачено</span></button>
+      <button appOnlyForAdmin mat-flat-button color="accent" *ngIf="canBeCancelled()" (click)="cancel()">Відмінити</button>
+      <button appOnlyForClient mat-flat-button color="primary" (click)="redo()">Повторити</button>
     </div>
   </mat-card-content>
 </mat-card>

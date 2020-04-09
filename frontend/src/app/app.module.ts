@@ -38,6 +38,8 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
 import { HistoryComponent } from './history/history.component';
 import { AddDishComponent } from './add-dish/add-dish.component';
 import {CdkTableModule} from '@angular/cdk/table';
+import { OnlyForAdminDirective } from './only-for-admin.directive';
+import { OnlyForClientDirective } from './only-for-client.directive';
 import {SanitizeHtmlPipe} from "./_helpers/sanitize.html.pipe";
 
 
@@ -59,7 +61,9 @@ import {SanitizeHtmlPipe} from "./_helpers/sanitize.html.pipe";
     AdminPageComponent,
     HistoryComponent,
     AddDishComponent,
-    SanitizeHtmlPipe
+    SanitizeHtmlPipe,
+    OnlyForAdminDirective,
+    OnlyForClientDirective,
   ],
   imports: [
     BrowserModule,

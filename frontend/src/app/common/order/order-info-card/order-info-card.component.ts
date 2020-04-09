@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Order, OrderState, PaymentState} from "../../../_models/order";
 import {OrderService} from "../../../_services/order.service";
+import { OrderStateService } from 'src/app/_services/order-state.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-info-card',
@@ -11,7 +13,11 @@ export class OrderInfoCardComponent implements OnInit {
 
   @Input() public order: Order;
 
-  constructor(private orderService: OrderService) { }
+  constructor(
+    private orderService: OrderService,
+    private orderStateService: OrderStateService,
+    private router: Router
+    ) { }
 
   ngOnInit() {
   }
@@ -22,7 +28,13 @@ export class OrderInfoCardComponent implements OnInit {
     if (this.order.paymentState == PaymentState.notPaid) return "неоплачено";
   }
 
-
+  redo() {
+    this.orderStateService.clear();
+    this.order.portions.forEach(portion => {
+      this.orderStateService.setSelected(portion.dish, portion.quantity);
+    });
+    this.router.navigate(['/order']);
+  }
 
 
   update(newOrder) {
@@ -56,6 +68,8 @@ export class OrderInfoCardComponent implements OnInit {
     this.updateState(OrderState.cancelled);
   }
 
+
+  
 
   // buttons visibility
   canBeCancelled() {

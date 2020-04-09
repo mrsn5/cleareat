@@ -30,8 +30,16 @@
             </mat-form-field>
             <div>
               <button mat-button matStepperPrevious>Назад</button>
-              <button mat-button (click)="confirm()">Підтвердити</button>
+              <button mat-button matStepperNext>Далі</button>
             </div>
           </form>
     </mat-step>
+    <mat-step>
+          <ng-template matStepLabel>Спосіб оплати</ng-template>
+          <div>
+            <button class="pay-choice" mat-flat-button color="primary" (click)="confirm(true)">Оплатити картою зараз</button>
+            <button class="pay-choice" mat-flat-button color="primary" (click)="confirm()">Оплатити при отриманні</button>
+            <div id='liqpay' [innerHTML]="liqpayHtml | sanitizeHtml"></div>
+          </div>
+      </mat-step>
   </mat-horizontal-stepper>

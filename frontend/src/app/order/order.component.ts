@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
 import { ApiClientService } from '../_services/api-client.service';
 import { AuthenticationService } from '../_services/authentication.service';
 import { User } from '../_models/user';
+import {DomSanitizer} from "@angular/platform-browser";
+import {OrderService} from "../_services/order.service";
+import {Order} from "../_models/order";
 
 @Component({
   selector: 'app-order',
@@ -19,6 +22,7 @@ export class OrderComponent implements OnInit {
   public displayMode = DishDisplayMode.Compact;
   public orderedDishes: Dish[] = [];
   public preferForm: FormGroup;
+  public liqpayHtml = "";
   // public contactsForm: FormGroup;
   constructor(
     public orderState: OrderStateService,
@@ -26,7 +30,10 @@ export class OrderComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private api: ApiClientService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    //
+    private sanitizer: DomSanitizer,
+    private orderService: OrderService
   ) { }
 
   ngOnInit() {
@@ -57,8 +64,8 @@ export class OrderComponent implements OnInit {
     }
   }
 
-  public confirm() {
-    this.api.post('api/order', {
+  public confirm(card: boolean = false) {
+    this.api.post<Order>('api/order', {
       preferences: this.preferForm.controls['prefs'].value,
       portions: this.orderState.getDishes().map(
         id => <object>{
@@ -66,9 +73,15 @@ export class OrderComponent implements OnInit {
           quantity: this.orderState.getSelected(id)
         },
       )
-    }).subscribe(_ => {
+    }).subscribe(order => {
       this.orderState.clear();
-      this.router.navigate(['/']);
+      if (card) {
+        this.orderService.getPaymentButton(order.uid).pipe().subscribe(button => {
+          this.liqpayHtml =button.html;
+        });
+      } else {
+        this.router.navigate(['/']);
+      }
     });
   }
 

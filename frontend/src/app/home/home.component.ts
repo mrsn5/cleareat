@@ -42,11 +42,9 @@ export class HomeComponent implements OnInit {
     this.dishes$ = this.dishes.asObservable();
 
     console.log("home");
-    orderService.getPaymentButton(30).subscribe(html => {
+    orderService.getPaymentButton(30).pipe().subscribe(html => {
       this.liqpayHtml = html;
       console.log(html)
-    }, error => {
-      console.log(error)
     });
   }
 

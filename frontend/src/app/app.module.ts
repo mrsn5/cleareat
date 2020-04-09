@@ -38,6 +38,8 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
 import { HistoryComponent } from './history/history.component';
 import { AddDishComponent } from './add-dish/add-dish.component';
 import {CdkTableModule} from '@angular/cdk/table';
+import { OnlyForAdminDirective } from './only-for-admin.directive';
+import { OnlyForClientDirective } from './only-for-client.directive';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import {CdkTableModule} from '@angular/cdk/table';
     AdminPageComponent,
     HistoryComponent,
     AddDishComponent,
+    OnlyForAdminDirective,
+    OnlyForClientDirective,
   ],
   imports: [
     BrowserModule,

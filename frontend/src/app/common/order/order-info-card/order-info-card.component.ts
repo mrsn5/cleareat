@@ -57,6 +57,8 @@ export class OrderInfoCardComponent implements OnInit {
   }
 
 
+  
+
   // buttons visibility
   canBeCancelled() {
     return this.order.orderState != OrderState.tookAway && this.order.orderState != OrderState.cancelled

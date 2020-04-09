@@ -4,6 +4,7 @@ import {OrderFilter} from "../_models/order-filter";
 import {PageFilter} from "../_models/page-filter";
 import {ApiClientService} from "./api-client.service";
 import {User} from "../_models/user";
+import {LiqButton} from "../_models/liq-button";
 
 @Injectable({ providedIn: 'root' })
 export class OrderService {
@@ -50,7 +51,6 @@ export class OrderService {
   }
 
   getPaymentButton(id) {
-    console.log(`api/order/${id}/pay`);
-    return this.apiClient.get<string>(`api/order/${id}/pay`);
+    return this.apiClient.get<LiqButton>(`api/order/${id}/pay`);
   }
 }

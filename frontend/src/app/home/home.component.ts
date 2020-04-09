@@ -15,6 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Ingredient } from '../_models/ingredient';
 import { OrderStateService } from '../_services/order-state.service';
 import {OrderService} from "../_services/order.service";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-home',
@@ -38,13 +39,14 @@ export class HomeComponent implements OnInit {
               private dishesRepository: DishesRepository,
               private authService: AuthenticationService,
               private orderState: OrderStateService,
+              //
+              private sanitizer: DomSanitizer,
               private orderService: OrderService) {
     this.dishes$ = this.dishes.asObservable();
 
-    console.log("home");
-    orderService.getPaymentButton(30).pipe().subscribe(html => {
-      this.liqpayHtml = html;
-      console.log(html)
+    // liqpay
+    orderService.getPaymentButton(30).pipe().subscribe(button => {
+      this.liqpayHtml =button.html;
     });
   }
 

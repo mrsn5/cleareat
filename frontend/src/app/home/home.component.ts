@@ -38,16 +38,8 @@ export class HomeComponent implements OnInit {
   constructor(private userService: UserService,
               private dishesRepository: DishesRepository,
               private authService: AuthenticationService,
-              private orderState: OrderStateService,
-              //
-              private sanitizer: DomSanitizer,
-              private orderService: OrderService) {
+              private orderState: OrderStateService) {
     this.dishes$ = this.dishes.asObservable();
-
-    // liqpay
-    orderService.getPaymentButton(30).pipe().subscribe(button => {
-      this.liqpayHtml =button.html;
-    });
   }
 
   public get LoggedIn(): boolean {

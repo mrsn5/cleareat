@@ -10,6 +10,7 @@ import capprezy.ua.model.dto.AppUserWithToken;
 import capprezy.ua.service.AppUserService;
 import capprezy.ua.service.OrderService;
 import capprezy.ua.service.impl.LiqpayService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.liqpay.LiqPay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -75,8 +76,8 @@ public class RootController {
     }
 
     @PostMapping(value = "api/payment", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity acceptPayment(@RequestParam HashMap<String, Object> params) throws NotValidDataException {
-        System.out.println(params);
+    public ResponseEntity acceptPayment(@RequestParam HashMap<String, Object> params) throws NotValidDataException, JsonProcessingException {
+//        System.out.println(params);
         liqpayService.checkPayment(params);
         return ResponseEntity.ok().build();
     }

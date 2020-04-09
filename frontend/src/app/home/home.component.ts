@@ -14,6 +14,8 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Ingredient } from '../_models/ingredient';
 import { OrderStateService } from '../_services/order-state.service';
+import {OrderService} from "../_services/order.service";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-home',
@@ -30,11 +32,22 @@ export class HomeComponent implements OnInit {
   public ingredients: Ingredient[] = [];
   private filterState: BehaviorSubject<FilterState> = new BehaviorSubject(new FilterState());
   public dishes$: Observable<Dish[]>;
+
+  public liqpayHtml = "";
+
   constructor(private userService: UserService,
               private dishesRepository: DishesRepository,
               private authService: AuthenticationService,
-              private orderState: OrderStateService) {
+              private orderState: OrderStateService,
+              //
+              private sanitizer: DomSanitizer,
+              private orderService: OrderService) {
     this.dishes$ = this.dishes.asObservable();
+
+    // liqpay
+    orderService.getPaymentButton(30).pipe().subscribe(button => {
+      this.liqpayHtml =button.html;
+    });
   }
 
   public get LoggedIn(): boolean {

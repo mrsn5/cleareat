@@ -4,9 +4,11 @@ import capprezy.ua.controller.exception.model.AlreadyExistsException;
 import capprezy.ua.controller.exception.model.NotValidDataException;
 import capprezy.ua.controller.exception.model.PermissionException;
 import capprezy.ua.model.AppUser;
+import capprezy.ua.model.LiqButton;
 import capprezy.ua.model.Order;
 import capprezy.ua.service.AppUserService;
 import capprezy.ua.service.OrderService;
+import capprezy.ua.service.impl.LiqpayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -16,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("api/order")
@@ -23,6 +26,7 @@ public class OrderController {
 
     @Autowired private OrderService orderService;
     @Autowired private AppUserService appUserService;
+    @Autowired private LiqpayService liqpayService;
 
     @GetMapping
     public ResponseEntity getAll(
@@ -69,5 +73,11 @@ public class OrderController {
     @PutMapping
     public ResponseEntity update(@RequestBody Order order) throws NotValidDataException {
         return ResponseEntity.ok(orderService.updateState(order));
+    }
+
+    @GetMapping("/{id}/pay")
+    public ResponseEntity preparePaymentButton(@PathVariable("id") Integer id) throws NotValidDataException {
+        String html = liqpayService.preparePayOrder(id);
+        return ResponseEntity.ok(new LiqButton(html));
     }
 }

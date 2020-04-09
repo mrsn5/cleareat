@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {User} from "./_models/user";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "./_services/authentication.service";
+import {OrderService} from "./_services/order.service";
 
 @Component({
   selector: 'app',
@@ -12,12 +13,17 @@ export class AppComponent {
   title = 'caprezzy';
 
   currentUser: User;
+  liqpayHtml = "";
 
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private orderService: OrderService
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+
+
+    orderService.getPaymentButton(30).subscribe(html => this.liqpayHtml = html );
   }
 
   isAdmin() {

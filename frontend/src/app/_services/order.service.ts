@@ -48,4 +48,8 @@ export class OrderService {
   updateState(order: Order) {
     return this.apiClient.put<Order>(`api/order/`, order);
   }
+
+  getPaymentButton(id) {
+    return this.apiClient.get<string>(`api/order/${id}/pay`);
+  }
 }

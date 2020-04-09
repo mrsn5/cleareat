@@ -3,7 +3,6 @@ import {Dish} from "../_models/dish";
 import {DishesRepository} from "../_services/dishes-repository.service";
 import {DishIngredient} from "../_models/dish-ingredient";
 import {Ingredient} from "../_models/ingredient";
-import {FormBuilder, FormGroup} from "@angular/forms";
 import {DishCategory} from "../_models/dish-category";
 
 @Component({
@@ -24,12 +23,12 @@ export class AddDishComponent implements OnInit {
   filename: "Choose file";
 
 
-  constructor(private dishService: DishesRepository) { }
+  constructor(private dishService: DishesRepository) {}
 
   ngOnInit() {
     this.dishService.getCategories().subscribe(data => {
-      this.allCategories = data
-      this.newCategory= data[0]
+      this.allCategories = data;
+      this.newCategory= data[0];
     })
   }
 
@@ -85,7 +84,8 @@ export class AddDishComponent implements OnInit {
 
   addCategory() {
     if (this.dish.categories.indexOf(this.newCategory) == -1 && this.newCategory.name)
-      this.dish.categories.push(this.newCategory)
+      this.dish.categories.push(this.newCategory);
+      console.log(this.dish.categories);
     this.newCategory = new DishCategory()
   }
 }

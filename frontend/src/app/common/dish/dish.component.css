@@ -13,15 +13,22 @@ img {
     /*width: 100%; !* Here you can use wherever you want to specify the width and also the height of the <img>*!*/
     height: 150px;
 }
+.card-cont {
+  margin-bottom: 10px;
+}
 .foot-cont {
-  display: flex;
-  flex-direction: column;
+  /*display: flex;*/
+  /*flex-direction: column;*/
   width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 .footer {
   color: white;
     padding: 10px;
     background-color: gray;
+  border-radius: 4px;
 }
 .avatar {
     background-size: cover;

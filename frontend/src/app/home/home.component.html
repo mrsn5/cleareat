@@ -8,16 +8,19 @@
   </div>
 
   <div class="menu-container">
-    <mat-selection-list class="categories-aside" (selectionChange)="categoriesChanged($event)">
-      <mat-list-option  [value]="cat.uid" *ngFor="let cat of categories">
+    <mat-selection-list class="noselect" style="outline: none; " class="categories-aside" (selectionChange)="categoriesChanged($event)">
+      <mat-list-option   class="noselect" [value]="cat.uid" *ngFor="let cat of categories">
         {{cat.name}}
       </mat-list-option>
     </mat-selection-list>
+
+
     <div class="menu">
       <dish class="dish" *ngFor="let dish of (dishes$ | async)"
         [dish]="dish"
         [ordered]="getOrdered(dish.uid)"
         (orderedChange)="setOrdered(dish, $event)"></dish>
+      <div class="dish" style="flex-grow: 100; visibility: hidden; min-width: 300px"></div>
     </div>
   </div>
 </div>

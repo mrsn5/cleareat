@@ -43,4 +43,9 @@ export class DishesRepository {
     return this.apiClient.post<Dish>(path, data);
   }
 
+  public postCategory(data): Observable<DishCategory> {
+    const path = `api/category`;
+    return this.apiClient.post<DishCategory>(path, data);
+  }
+
 }

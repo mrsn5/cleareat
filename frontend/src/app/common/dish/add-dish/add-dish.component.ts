@@ -1,9 +1,10 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {Dish} from "../_models/dish";
-import {DishesRepository} from "../_services/dishes-repository.service";
-import {DishIngredient} from "../_models/dish-ingredient";
-import {Ingredient} from "../_models/ingredient";
-import {DishCategory} from "../_models/dish-category";
+import {Dish} from "../../../_models/dish";
+import {DishesRepository} from "../../../_services/dishes-repository.service";
+import {DishIngredient} from "../../../_models/dish-ingredient";
+import {Ingredient} from "../../../_models/ingredient";
+import {DishCategory} from "../../../_models/dish-category";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-add-dish',
@@ -21,27 +22,34 @@ export class AddDishComponent implements OnInit {
   allCategories = [];
   newCategory = new DishCategory();
   filename: "Choose file";
+  success: any;
 
 
   constructor(private dishService: DishesRepository) {}
 
   ngOnInit() {
-    this.dishService.getCategories().subscribe(data => {
-      this.allCategories = data;
-      this.newCategory= data[0];
-    })
+    this.reloadCategories()
   }
 
-  addDish() {
+  addDish(f: NgForm) {
     console.log(this.dish)
+    this.success = null;
+    this.error = null;
     const formData = new FormData();
     formData.append('file', this.file);
     formData.append('dish', JSON.stringify(this.dish));
+    this.loading = true;
     this.dishService.postDish(formData).subscribe(
       result => {
         console.log(result);
+        this.success = "Страва " + result.name + " додана успішно!";
+        this.dish = new Dish();
+        this.file = null;
+        f.resetForm()
+        this.loading = false;
       }, error => {
         this.error = error
+        this.loading = false;
       }
     );
   }
@@ -87,5 +95,13 @@ export class AddDishComponent implements OnInit {
       this.dish.categories.push(this.newCategory);
       console.log(this.dish.categories);
     this.newCategory = new DishCategory()
+  }
+
+  reloadCategories() {
+    console.log('reload')
+    this.dishService.getCategories().subscribe(data => {
+      this.allCategories = data;
+      this.newCategory= data[0];
+    })
   }
 }

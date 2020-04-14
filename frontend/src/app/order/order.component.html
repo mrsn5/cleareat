@@ -1,3 +1,4 @@
+<mat-card>
 <mat-horizontal-stepper #stepper>
     <mat-step>
         <ng-template matStepLabel>Підтвердіть склад замовлення</ng-template>
@@ -10,7 +11,7 @@
             ></dish>
         <ng-container *ngIf=" orderState.defined()">
           <div class="sum">
-            Загальна сума: {{ orderState.total() }} грн
+            Загальна сума: <b>{{ orderState.total() }} грн</b>
           </div>
           <div>
             <button mat-button matStepperNext>Далі</button>
@@ -37,9 +38,10 @@
     <mat-step>
           <ng-template matStepLabel>Спосіб оплати</ng-template>
           <div>
-            <button class="pay-choice" mat-flat-button color="primary" (click)="confirm(true)">Оплатити картою зараз</button>
+            <button class="pay-choice" mat-flat-button color="primary" (click)="confirm(true)">Підтвердити замовлення та оплатити картою зараз</button>
             <button class="pay-choice" mat-flat-button color="primary" (click)="confirm()">Оплатити при отриманні</button>
             <div id='liqpay' [innerHTML]="liqpayHtml | sanitizeHtml"></div>
           </div>
       </mat-step>
   </mat-horizontal-stepper>
+</mat-card>

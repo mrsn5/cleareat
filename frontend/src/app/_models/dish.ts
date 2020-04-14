@@ -10,4 +10,5 @@ export class Dish {
     public photo: string;
     public categories: DishCategory[] = [];
     public dishIngredients: DishIngredient[] = [];
+    public isAvailable: boolean;
 }

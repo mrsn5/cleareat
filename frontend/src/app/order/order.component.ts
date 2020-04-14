@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { OrderStateService } from '../_services/order-state.service';
-import { Dish } from '../_models/dish';
-import { DishesRepository } from '../_services/dishes-repository.service';
-import { forkJoin, of } from 'rxjs';
-import { DishDisplayMode } from '../common/dish/dish.component';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ApiClientService } from '../_services/api-client.service';
-import { AuthenticationService } from '../_services/authentication.service';
-import { User } from '../_models/user';
-import {DomSanitizer} from "@angular/platform-browser";
+import {Component, OnInit} from '@angular/core';
+import {OrderStateService} from '../_services/order-state.service';
+import {Dish} from '../_models/dish';
+import {DishesRepository} from '../_services/dishes-repository.service';
+import {forkJoin, of} from 'rxjs';
+import {DishDisplayMode} from '../common/dish/dish.component';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {ApiClientService} from '../_services/api-client.service';
+import {AuthenticationService} from '../_services/authentication.service';
+import {User} from '../_models/user';
+import {DomSanitizer} from '@angular/platform-browser';
 import {OrderService} from "../_services/order.service";
 import {Order} from "../_models/order";
 
@@ -23,6 +23,7 @@ export class OrderComponent implements OnInit {
   public orderedDishes: Dish[] = [];
   public preferForm: FormGroup;
   public liqpayHtml = "";
+
   // public contactsForm: FormGroup;
   constructor(
     public orderState: OrderStateService,
@@ -34,7 +35,8 @@ export class OrderComponent implements OnInit {
     //
     private sanitizer: DomSanitizer,
     private orderService: OrderService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.preferForm = this.formBuilder.group({
@@ -43,12 +45,12 @@ export class OrderComponent implements OnInit {
     this.initializeDishes();
   }
 
-  public getOrdered(uid: number) : number {
+  public getOrdered(uid: number): number {
     return this.orderState.getSelected(uid);
   }
 
   public initializeDishes() {
-    if(this.orderState.getDishes().length) {
+    if (this.orderState.getDishes().length) {
       forkJoin(
         this.orderState.getDishes().map(id => this.dishesRepo.getById(id))
       ).subscribe(dishes => this.orderedDishes = dishes);
@@ -57,9 +59,9 @@ export class OrderComponent implements OnInit {
     }
   }
 
-  public setOrdered(dish: Dish, amount: number) : void {
+  public setOrdered(dish: Dish, amount: number): void {
     this.orderState.setSelected(dish, amount);
-    if(this.orderState.getDishes().length !== this.orderedDishes.length ) {
+    if (this.orderState.getDishes().length !== this.orderedDishes.length) {
       this.initializeDishes();
     }
   }
@@ -77,7 +79,7 @@ export class OrderComponent implements OnInit {
       this.orderState.clear();
       if (card) {
         this.orderService.getPaymentButton(order.uid).pipe().subscribe(button => {
-          this.liqpayHtml =button.html;
+          this.liqpayHtml = button.html;
         });
       } else {
         this.router.navigate(['/']);

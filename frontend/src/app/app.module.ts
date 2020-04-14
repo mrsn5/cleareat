@@ -36,11 +36,13 @@ import { MustMatchDirective } from "./_helpers/validators/must-match.directive";
 import { OrderViewComponent } from './order-view/order-view.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { HistoryComponent } from './history/history.component';
-import { AddDishComponent } from './add-dish/add-dish.component';
+import { AddDishComponent } from './common/dish/add-dish/add-dish.component';
 import {CdkTableModule} from '@angular/cdk/table';
 import { OnlyForAdminDirective } from './only-for-admin.directive';
 import { OnlyForClientDirective } from './only-for-client.directive';
 import {SanitizeHtmlPipe} from "./_helpers/sanitize.html.pipe";
+import { AddCategoryComponent } from './common/dish/add-category/add-category.component';
+import { AddPageComponent } from './add-page/add-page.component';
 
 
 @NgModule({
@@ -64,6 +66,8 @@ import {SanitizeHtmlPipe} from "./_helpers/sanitize.html.pipe";
     SanitizeHtmlPipe,
     OnlyForAdminDirective,
     OnlyForClientDirective,
+    AddCategoryComponent,
+    AddPageComponent,
   ],
   imports: [
     BrowserModule,

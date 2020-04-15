@@ -134,7 +134,7 @@ public class DefaultOrderService implements OrderService {
     }
 
     @Override
-    public void delete(Order order) {
-        orderRepository.delete(order);
+    public void delete(Integer id) {
+        orderRepository.deleteById(id);
     }
 }

@@ -76,7 +76,7 @@ public class DishController {
                 dish = dishService.uploadPhotoToCloudinary(dish, file);
                 dishService.update(dish);
             } catch (IOException e) {
-                dishService.delete(dish);
+                dishService.delete(dish.getUid());
                 throw NotValidDataException.createWith("image uploading failed");
             }
         }
@@ -89,9 +89,9 @@ public class DishController {
         return ResponseEntity.ok(dishService.update(dish));
     }
 
-    @DeleteMapping
-    public ResponseEntity delete(@RequestBody Dish dish) {
-        dishService.delete(dish);
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable("id") Integer id) {
+        dishService.delete(id);
         return ResponseEntity.ok().build();
     }
 

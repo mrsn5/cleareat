@@ -40,8 +40,8 @@ public class DefaultDishService implements DishService {
     }
 
     @Override
-    public void delete(Dish dish) {
-        dishRepository.delete(dish);
+    public void delete(Integer id) {
+        dishRepository.deleteById(id);
     }
 
     @Override

@@ -74,9 +74,9 @@ public class OrderController {
         return ResponseEntity.ok(orderService.update(order));
     }
 
-    @DeleteMapping
-    public ResponseEntity delete(@RequestBody Order order) throws NotValidDataException {
-        orderService.delete(order);
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable("id") Integer id) {
+        orderService.delete(id);
         return ResponseEntity.ok().build();
     }
 

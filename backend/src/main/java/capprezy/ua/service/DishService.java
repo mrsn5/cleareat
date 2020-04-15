@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface DishService {
     List<Dish> findAll(Pageable pageable);
-    void delete(Dish dish);
+    void delete(Integer id);
     Dish findById(Integer id);
     Dish add(Dish dish) throws AlreadyExistsException;
     List<Dish> findByCriteria(Integer[] categoriesIn,

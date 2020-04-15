@@ -61,4 +61,16 @@ export class DishComponent {
 
     this.router.navigate(["/add"], { queryParams: { dishId: this.dish.uid } });
   }
+
+  minusOrdered() {
+      if (this.ordered > 0) {
+        this.ordered--
+      }
+    this.orderedChange.emit(this.ordered)
+  }
+
+  plusOrdered() {
+    this.ordered++
+    this.orderedChange.emit(this.ordered)
+  }
 }

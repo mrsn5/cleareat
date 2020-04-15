@@ -46,3 +46,27 @@ img {
 .avatar {
     background-size: cover;
 }
+
+
+/* Для Chrome */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+  text-align:center;
+}
+/* Для Firefox */
+input[type=number]{
+  -moz-appearance: textfield;
+  text-align:center;
+}
+
+.counter {
+  display: flex;
+}
+
+.quantity-arrow-minus, .quantity-arrow-plus {
+  width: 30px;
+}

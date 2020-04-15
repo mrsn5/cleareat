@@ -28,6 +28,11 @@ export class DishesRepository {
     return this.apiClient.get<Dish>(path);
   }
 
+  public getCategoryById(id: number): Observable<DishCategory> {
+    const path = `api/category/${id}`;
+    return this.apiClient.get<DishCategory>(path);
+  }
+
   public getCategories(): Observable<DishCategory[]> {
     const path = `api/category`;
     return this.apiClient.get<DishCategory[]>(path);
@@ -56,5 +61,10 @@ export class DishesRepository {
   public putDish(data: Dish): Observable<any> {
     const path = `api/dish/`;
     return this.apiClient.put<Dish>(path, data);
+  }
+
+  public putCategory(category: DishCategory) : Observable<any> {
+    const path = `api/category/`;
+    return this.apiClient.put<DishCategory>(path, category);
   }
 }

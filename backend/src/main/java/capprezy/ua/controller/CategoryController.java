@@ -21,6 +21,11 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.getAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity get(@PathVariable("id") Integer id){
+        return ResponseEntity.ok(categoryService.getById(id));
+    }
+
     @PostMapping
     public ResponseEntity add(@RequestBody @Valid Category category) throws AlreadyExistsException {
         return ResponseEntity.ok(categoryService.add(category));

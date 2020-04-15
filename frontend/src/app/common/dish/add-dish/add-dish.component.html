@@ -3,7 +3,7 @@
   <div class="card card-margin">
     <h4 class="card-header" style="margin-bottom: 0">New dish</h4>
     <div class="card-body">
-      <form class="form" (ngSubmit)="f.form.valid && addDish(f)" #f="ngForm"
+      <form class="form" (ngSubmit)="f.form.valid && submit(f)" #f="ngForm"
             novalidate>
 
         <div *ngIf="success" class="alert alert-success">{{success}}</div>
@@ -160,7 +160,7 @@
 
         <button class="btn btn-primary addButton">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-          Add
+          {{this.dish.uid ? "Save" : "Add"}}
         </button>
 
       </form>

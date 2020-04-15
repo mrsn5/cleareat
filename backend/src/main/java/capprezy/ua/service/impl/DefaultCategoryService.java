@@ -39,4 +39,9 @@ public class DefaultCategoryService implements CategoryService {
     public Category update(Category category) {
         return categoryRepository.save(category);
     }
+
+    @Override
+    public Category getById(Integer id) {
+        return categoryRepository.findByUid(id);
+    }
 }

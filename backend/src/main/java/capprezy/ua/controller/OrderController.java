@@ -18,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 
 @RestController
 @RequestMapping("api/order")
@@ -72,7 +71,13 @@ public class OrderController {
 
     @PutMapping
     public ResponseEntity update(@RequestBody Order order) throws NotValidDataException {
-        return ResponseEntity.ok(orderService.updateState(order));
+        return ResponseEntity.ok(orderService.update(order));
+    }
+
+    @DeleteMapping
+    public ResponseEntity delete(@RequestBody Order order) throws NotValidDataException {
+        orderService.delete(order);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}/pay")
@@ -80,4 +85,6 @@ public class OrderController {
         String html = liqpayService.preparePayOrder(id);
         return ResponseEntity.ok(new LiqButton(html));
     }
+
+
 }

@@ -29,4 +29,14 @@ public class DefaultCategoryService implements CategoryService {
             throw AlreadyExistsException.createWith("This category is already existed: " + c.getName());
         }
     }
+
+    @Override
+    public void delete(Category category) {
+        categoryRepository.delete(category);
+    }
+
+    @Override
+    public Category update(Category category) {
+        return categoryRepository.save(category);
+    }
 }

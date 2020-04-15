@@ -25,4 +25,15 @@ public class CategoryController {
     public ResponseEntity add(@RequestBody @Valid Category category) throws AlreadyExistsException {
         return ResponseEntity.ok(categoryService.add(category));
     }
+
+    @DeleteMapping
+    public ResponseEntity delete(@RequestBody Category category) {
+        categoryService.delete(category);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping
+    public ResponseEntity update(@RequestBody @Valid Category category) {
+        return ResponseEntity.ok(categoryService.update(category));
+    }
 }

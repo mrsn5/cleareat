@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
   public ingredients: Ingredient[] = [];
   private filterState: BehaviorSubject<FilterState> = new BehaviorSubject(new FilterState());
   public dishes$: Observable<Dish[]>;
+  public lastData: Dish[];
 
   public liqpayHtml = "";
 
@@ -40,6 +41,7 @@ export class HomeComponent implements OnInit {
               private authService: AuthenticationService,
               private orderState: OrderStateService) {
     this.dishes$ = this.dishes.asObservable();
+    this.dishes.subscribe(data => { this.lastData = data; });
   }
 
   public get LoggedIn(): boolean {
@@ -87,7 +89,7 @@ export class HomeComponent implements OnInit {
   }
 
   public delete(dish: Dish) : void {
-    // todo delete dish from array
+    this.dishes.next(this.lastData.filter(d => d.uid != dish.uid));
   }
 
   private fetchUser(): Observable<User> {

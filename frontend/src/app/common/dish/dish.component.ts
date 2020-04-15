@@ -42,15 +42,17 @@ export class DishComponent {
     }
 
   delete() {
-      this.dishService.delete(this.dish.uid)//.subscribe( _ => this.deleteHandler.emit(this.dish))
+      this.dishService.delete(this.dish.uid).subscribe( _ => this.deleteHandler.emit(this.dish))
   }
 
   show() {
-
+    this.dish.isAvailable = true;
+    this.dishService.putDish(this.dish).subscribe(data => this.dish = data);
   }
 
   hide() {
-
+    this.dish.isAvailable = false;
+    this.dishService.putDish(this.dish).subscribe(data => this.dish = data);
   }
 
   edit() {

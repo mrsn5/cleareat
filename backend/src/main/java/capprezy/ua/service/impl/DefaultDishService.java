@@ -113,6 +113,9 @@ public class DefaultDishService implements DishService {
 
     @Override
     public Dish update(Dish dish) {
+        for (DishIngredient i: dish.getDishIngredients()) {
+            i.setId(new DishIngredientId(dish.getUid(), i.getIngredient().getUid()));
+        }
         return dishRepository.save(dish);
     }
 

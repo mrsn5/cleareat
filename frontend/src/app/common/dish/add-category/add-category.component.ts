@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {DishCategory} from "../../../_models/dish-category";
 import {DishesRepository} from "../../../_services/dishes-repository.service";
 import {FormGroup, NgForm} from "@angular/forms";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-add-category',
@@ -16,16 +17,18 @@ export class AddCategoryComponent implements OnInit {
   success: any;
   ff: FormGroup;
 
-  constructor(private dishService: DishesRepository) { }
+  constructor(private dishService: DishesRepository,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
+    if (this.route.snapshot.queryParams['categoryId']) {
+      this.dishService.getCategoryById(this.route.snapshot.queryParams['categoryId']).subscribe(data => this.category = data)
+    }
+
   }
 
   addCategory(f: NgForm) {
     console.log(this.category);
-    this.loading = true;
-    this.success = null;
-    this.error = null;
     this.dishService.postCategory(this.category).subscribe(
       result => {
         console.log(result);
@@ -39,5 +42,27 @@ export class AddCategoryComponent implements OnInit {
       }
     );
     return false;
+  }
+
+  submit(ff: NgForm) {
+    this.loading = true;
+    this.success = null;
+    this.error = null;
+    if (this.category.uid) {
+      this.saveCategory()
+    } else {
+      this.addCategory(ff);
+    }
+  }
+
+  private saveCategory() {
+    this.dishService.putCategory(this.category).subscribe(data => {
+      this.category = data;
+      this.success = "Категорiя " + data.name + " збережена успішно!";
+      this.loading = false;
+    }, err => {
+      this.error = err;
+      this.loading = false;
+    })
   }
 }

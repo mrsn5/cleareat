@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Dish } from '../../_models/dish';
 import {DishesRepository} from "../../_services/dishes-repository.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 export enum DishDisplayMode {
   Full,
@@ -20,7 +21,8 @@ export class DishComponent {
     @Output() public readonly deleteHandler: EventEmitter<Dish> = new EventEmitter<Dish>();
     public DishDisplayMode = DishDisplayMode;
 
-    constructor(private dishService: DishesRepository) { }
+    constructor(private dishService: DishesRepository,
+                private router: Router) { }
 
     public get unit() {
       return this.dish.categories.some(c => c.uid === 4) ?
@@ -57,5 +59,6 @@ export class DishComponent {
 
   edit() {
 
+    this.router.navigate(["/add"], { queryParams: { dishId: this.dish.uid } });
   }
 }

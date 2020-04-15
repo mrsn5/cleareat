@@ -7,7 +7,7 @@
       <div *ngIf="success" class="alert alert-success">{{success}}</div>
       <div *ngIf="error" class="alert alert-danger">{{error}}</div>
 
-      <form class="form" (ngSubmit)="ff.form.valid && addCategory(ff)" #ff="ngForm"
+      <form class="form" (ngSubmit)="ff.form.valid && submit(ff)" #ff="ngForm"
             novalidate>
 
 
@@ -28,7 +28,7 @@
 
         <button class="btn btn-primary addButton">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-          Add
+          {{this.category.uid ? "Save" : "Add"}}
         </button>
       </form>
     </div>

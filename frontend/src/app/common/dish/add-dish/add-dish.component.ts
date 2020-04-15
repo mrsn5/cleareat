@@ -5,6 +5,7 @@ import {DishIngredient} from "../../../_models/dish-ingredient";
 import {Ingredient} from "../../../_models/ingredient";
 import {DishCategory} from "../../../_models/dish-category";
 import {NgForm} from "@angular/forms";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-add-dish',
@@ -13,7 +14,7 @@ import {NgForm} from "@angular/forms";
 })
 export class AddDishComponent implements OnInit {
 
-  dish = new Dish();
+  public dish = new Dish();
   error: any;
   loading = false;
   newIngredient = new Ingredient();
@@ -25,20 +26,42 @@ export class AddDishComponent implements OnInit {
   success: any;
 
 
-  constructor(private dishService: DishesRepository) {}
+  constructor(private dishService: DishesRepository,
+              private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.reloadCategories()
+    this.reloadCategories();
+    if (this.route.snapshot.queryParams['dishId']) {
+      this.dishService.getById(this.route.snapshot.queryParams['dishId']).subscribe(data => this.dish = data)
+    }
+  }
+
+  submit(f: NgForm) {
+    this.success = null;
+    this.error = null;
+    this.loading = true;
+    if (this.dish.uid) {
+      this.saveDish()
+    } else {
+      this.addDish(f);
+    }
+  }
+
+  saveDish() {
+    this.dishService.putDish(this.dish).subscribe(data => {
+      this.dish = data;
+      this.success = "Страва " + data.name + " збережена успішно!";
+      this.loading = false;
+    }, err => {
+      this.error = err
+      this.loading = false;
+    })
   }
 
   addDish(f: NgForm) {
-    console.log(this.dish)
-    this.success = null;
-    this.error = null;
     const formData = new FormData();
     formData.append('file', this.file);
     formData.append('dish', JSON.stringify(this.dish));
-    this.loading = true;
     this.dishService.postDish(formData).subscribe(
       result => {
         console.log(result);

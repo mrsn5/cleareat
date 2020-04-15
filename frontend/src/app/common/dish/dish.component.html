@@ -20,8 +20,8 @@
     <button appOnlyForAdmin mat-icon-button [matMenuTriggerFor]="menu" class="menu">
       <mat-icon>more_vert</mat-icon>
     </button>
-    <mat-menu appOnlyForAdmin  #menu="matMenu" (click)="edit()">
-      <button mat-menu-item>
+    <mat-menu appOnlyForAdmin  #menu="matMenu">
+      <button mat-menu-item (click)="edit()">
         <mat-icon>edit</mat-icon>
         <span>Edit</span>
       </button>

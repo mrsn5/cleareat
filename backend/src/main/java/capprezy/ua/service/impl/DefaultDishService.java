@@ -117,9 +117,10 @@ public class DefaultDishService implements DishService {
             if (i.getIngredient().getUid() == null) {
                 Ingredient newIng = ingredientRepository.save(i.getIngredient());
                 i.setIngredient(newIng);
-                i = dishIngredientRepository.save(i);
+               
             }
             i.setId(new DishIngredientId(dish.getUid(), i.getIngredient().getUid()));
+            dishIngredientRepository.save(i);
         }
         return dishRepository.save(dish);
     }

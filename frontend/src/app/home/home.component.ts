@@ -86,6 +86,10 @@ export class HomeComponent implements OnInit {
     this.orderState.setSelected(dish, amount);
   }
 
+  public delete(dish: Dish) : void {
+    // todo delete dish from array
+  }
+
   private fetchUser(): Observable<User> {
     if (!this.authService.currentUserValue) {
       return of(null);

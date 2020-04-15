@@ -1,13 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Order, OrderState} from "../_models/order";
-import {OrderService} from "../_services/order.service";
-import {PageFilter} from "../_models/page-filter";
-import {OrderFilter} from "../_models/order-filter";
+import {Order, OrderState} from "../../_models/order";
+import {OrderService} from "../../_services/order.service";
+import {PageFilter} from "../../_models/page-filter";
+import {OrderFilter} from "../../_models/order-filter";
 import {group} from "@angular/animations";
 import {forkJoin} from "rxjs";
-import {Dish} from "../_models/dish";
-import {UserService} from "../_services/user.service";
-import {AppComponent} from "../app.component";
+import {Dish} from "../../_models/dish";
+import {UserService} from "../../_services/user.service";
+import {AppComponent} from "../../app.component";
 
 @Component({
   selector: 'app-order-list',

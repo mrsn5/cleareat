@@ -26,9 +26,9 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.add(category));
     }
 
-    @DeleteMapping
-    public ResponseEntity delete(@RequestBody Category category) {
-        categoryService.delete(category);
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable("id") Integer id) {
+        categoryService.delete(id);
         return ResponseEntity.ok().build();
     }
 

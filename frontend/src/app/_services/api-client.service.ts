@@ -20,7 +20,7 @@ export class ApiClientService {
         return this.httpClient.put<T>(this.basePath + url, payload);
     }
 
-    public delete<T>(url:string) : Observable<T> {
+    public delete<T>(url:string, payload: any) : Observable<T> {
         return this.httpClient.delete<T>(this.basePath + url);
     }
 }

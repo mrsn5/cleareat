@@ -31,8 +31,8 @@ public class DefaultCategoryService implements CategoryService {
     }
 
     @Override
-    public void delete(Category category) {
-        categoryRepository.delete(category);
+    public void delete(Integer id) {
+        categoryRepository.deleteById(id);
     }
 
     @Override

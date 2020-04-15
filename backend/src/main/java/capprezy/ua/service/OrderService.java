@@ -26,5 +26,5 @@ public interface OrderService {
 
     List<Order> getMy(Order.OrderStateType[] orderStates, Pageable pageable) throws PermissionException;
 
-    void delete(Order order);
+    void delete(Integer id);
 }

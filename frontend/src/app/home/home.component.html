@@ -19,7 +19,9 @@
       <dish class="dish" *ngFor="let dish of (dishes$ | async)"
         [dish]="dish"
         [ordered]="getOrdered(dish.uid)"
-        (orderedChange)="setOrdered(dish, $event)"></dish>
+        (orderedChange)="setOrdered(dish, $event)"
+        (deleteHandler)="delete(dish)"
+      ></dish>
       <div class="dish" style="flex-grow: 100; visibility: hidden; min-width: 300px"></div>
     </div>
   </div>

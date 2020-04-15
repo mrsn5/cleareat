@@ -9,7 +9,7 @@ public interface CategoryService {
     List<Category> getAll();
     Category add(Category category) throws AlreadyExistsException;
 
-    void delete(Category category);
+    void delete(Integer id);
 
     Category update(Category category);
 }

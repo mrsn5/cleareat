@@ -48,4 +48,9 @@ export class DishesRepository {
     return this.apiClient.post<DishCategory>(path, data);
   }
 
+  public delete(data): Observable<any> {
+    const path = `api/dish/` + data;
+    return this.apiClient.delete<Dish>(path, data);
+  }
+
 }

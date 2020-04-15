@@ -53,8 +53,6 @@ public class DishController {
         return ResponseEntity.ok(dishService.findById(id));
     }
 
-
-
     @Component
     public static class StringToUserConverter implements Converter<String, Dish> {
 
@@ -84,4 +82,17 @@ public class DishController {
         }
         return ResponseEntity.ok(dish);
     }
+
+
+    @PutMapping
+    public ResponseEntity edit(@RequestBody @Valid Dish dish) {
+        return ResponseEntity.ok(dishService.update(dish));
+    }
+
+    @DeleteMapping
+    public ResponseEntity delete(@RequestBody Dish dish) {
+        dishService.delete(dish);
+        return ResponseEntity.ok().build();
+    }
+
 }

@@ -70,7 +70,7 @@ public class DefaultOrderService implements OrderService {
     }
 
     @Override
-    public Order updateState(Order order) throws NotValidDataException {
+    public Order update(Order order) throws NotValidDataException {
         Order updatedOrder = orderRepository.findByUid(order.getUid());
         if (updatedOrder == null) throw NotValidDataException.createWith("Order with uid " + order.getUid() + " doesn't exsist");
         Order.OrderStateType orderState = order.getOrderState();
@@ -89,6 +89,21 @@ public class DefaultOrderService implements OrderService {
                 updatedOrder.setPaid(updatedOrder.getTotal());
                 updatedOrder.setPaymentState(Order.PaymentStateType.fully_paid);
             }
+        }
+
+        if (order.getPreferences() != null) {
+            updatedOrder.setPreferences(order.getPreferences());
+        }
+
+        if(order.getPortions() != null) {
+            updatedOrder.getPortions().clear();
+            for (Portion p: order.getPortions()) {
+                updatedOrder.getPortions().add(portionRepository.save(p));
+            }
+        }
+
+        if (order.getPrefTime() != null) {
+            updatedOrder.setPrefTime(order.getPrefTime());
         }
 
         return orderRepository.save(updatedOrder);
@@ -116,5 +131,10 @@ public class DefaultOrderService implements OrderService {
 
         if (orderStates == null || orderStates.length == 0) return orderRepository.findAllByClient(user, pageable);
         return orderRepository.findAllByClientAndOrderStateIn(user, Arrays.asList(orderStates), pageable);
+    }
+
+    @Override
+    public void delete(Order order) {
+        orderRepository.delete(order);
     }
 }

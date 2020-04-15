@@ -17,6 +17,7 @@ export class DishComponent {
     @Input() public displayMode: DishDisplayMode = DishDisplayMode.Full;
     @Output() public readonly orderedChange: EventEmitter<number> = new EventEmitter<number>();
     public DishDisplayMode = DishDisplayMode;
+
     public get unit() {
       return this.dish.categories.some(c => c.uid === 4) ?
       'мл' :
@@ -35,4 +36,20 @@ export class DishComponent {
       return '#' + this.dish
             .categories.map(i => i.name.toLowerCase()).join(' #');
     }
+
+  delete() {
+
+  }
+
+  show() {
+
+  }
+
+  hide() {
+
+  }
+
+  edit() {
+
+  }
 }

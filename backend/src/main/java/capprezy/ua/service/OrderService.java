@@ -18,7 +18,7 @@ public interface OrderService {
 
     Order findById(Integer id);
 
-    Order updateState(Order order) throws NotValidDataException;
+    Order update(Order order) throws NotValidDataException;
 
     long getAllCount(Order.OrderStateType[] orderStates);
     long getMyCount(Order.OrderStateType[] orderStates) throws PermissionException;
@@ -26,4 +26,5 @@ public interface OrderService {
 
     List<Order> getMy(Order.OrderStateType[] orderStates, Pageable pageable) throws PermissionException;
 
+    void delete(Order order);
 }

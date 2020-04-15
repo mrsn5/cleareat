@@ -2,7 +2,10 @@
   <mat-card *ngSwitchCase="DishDisplayMode.Compact" class="dish-card">
     <mat-card-header>
     <div mat-card-avatar class="avatar" [style.background-image]="backgroundImage"></div>
-    <mat-card-title> {{dish.name}} </mat-card-title>
+    <mat-card-title>
+      {{dish.name}}
+
+    </mat-card-title>
     </mat-card-header>
   <mat-card-actions>
       <input
@@ -12,7 +15,32 @@
     </mat-card-actions>
   </mat-card>
 
-  <mat-card *ngSwitchCase="DishDisplayMode.Full" class="dish-card">
+  <mat-card *ngSwitchCase="DishDisplayMode.Full" class="dish-card mat-card {{dish.isAvailable ? '' : 'hidden-card'}}">
+    <!--      -->
+    <button appOnlyForAdmin mat-icon-button [matMenuTriggerFor]="menu" class="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu appOnlyForAdmin  #menu="matMenu" (click)="edit()">
+      <button mat-menu-item>
+        <mat-icon>edit</mat-icon>
+        <span>Edit</span>
+      </button>
+      <button mat-menu-item *ngIf="dish.isAvailable" (click)="hide()">
+        <mat-icon>visibility_off</mat-icon>
+        <span>Hide</span>
+      </button>
+
+      <button mat-menu-item *ngIf="!dish.isAvailable" (click)="show()">
+        <mat-icon>visibility</mat-icon>
+        <span>Show</span>
+      </button>
+
+      <button mat-menu-item (click)="delete()">
+        <mat-icon>delete</mat-icon>
+        <span>Delete</span>
+      </button>
+    </mat-menu>
+
     <mat-card-title class="dish-name"> {{dish.name}} </mat-card-title>
     <mat-card-subtitle>{{ dish.price }} грн, {{dish.weight}} {{unit}}</mat-card-subtitle>
     <img mat-card-image src={{dish.photo}} alt="Photo of a Shiba Inu">

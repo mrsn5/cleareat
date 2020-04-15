@@ -43,6 +43,7 @@ import { OnlyForClientDirective } from './only-for-client.directive';
 import {SanitizeHtmlPipe} from "./_helpers/sanitize.html.pipe";
 import { AddCategoryComponent } from './common/dish/add-category/add-category.component';
 import { AddPageComponent } from './add-page/add-page.component';
+import {MatMenuModule} from "@angular/material/menu";
 
 
 @NgModule({
@@ -87,7 +88,8 @@ import { AddPageComponent } from './add-page/add-page.component';
     MatPaginatorModule,
     MatButtonToggleModule,
     FormsModule,
-    CdkTableModule
+    CdkTableModule,
+    MatMenuModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

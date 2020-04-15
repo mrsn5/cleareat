@@ -33,6 +33,7 @@ public class Order {
 
     private Timestamp orderTime = new Timestamp(System.currentTimeMillis());
     private Timestamp readyTime;
+    private Timestamp prefTime;
     private String preferences;
     private Double total = .0;
     private Double paid = .0;

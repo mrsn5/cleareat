@@ -121,7 +121,7 @@ export class AddDishComponent implements OnInit {
   }
 
   reloadCategories() {
-    console.log('reload')
+    console.log('reload');
     this.dishService.getCategories().subscribe(data => {
       this.allCategories = data;
       this.newCategory= data[0];

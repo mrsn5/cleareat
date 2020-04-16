@@ -113,12 +113,13 @@ public class DefaultDishService implements DishService {
 
     @Override
     public Dish update(Dish dish) {
+        dishIngredientRepository.deleteAll(dishIngredientRepository.findAllByDish(dish));
         for (DishIngredient i: dish.getDishIngredients()) {
             if (i.getIngredient().getUid() == null) {
                 Ingredient newIng = ingredientRepository.save(i.getIngredient());
                 i.setIngredient(newIng);
-               
             }
+            i.setDish(dish);
             i.setId(new DishIngredientId(dish.getUid(), i.getIngredient().getUid()));
             dishIngredientRepository.save(i);
         }

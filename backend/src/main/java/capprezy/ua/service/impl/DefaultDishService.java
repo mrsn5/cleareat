@@ -105,20 +105,28 @@ public class DefaultDishService implements DishService {
     public Dish uploadPhotoToCloudinary(Dish dish, MultipartFile toUpload) throws IOException {
         @SuppressWarnings("rawtypes")
         Map uploadResult = cloudinary.uploader().upload(toUpload.getBytes(), ObjectUtils.emptyMap());
-
         String cloudinaryUrl = (String) uploadResult.get("url");
+
+        Dish oldDish = dishRepository.findByUid(dish.getUid());
+        if (oldDish.getPhoto() != null) {
+            String[] parts = oldDish.getPhoto().split("/");
+            String[] names = parts[parts.length-1].split("[.]+");
+            System.out.println(names[0]);
+            cloudinary.uploader().destroy(names[0], ObjectUtils.emptyMap());
+        }
         dish.setPhoto(cloudinaryUrl);
         return dish;
     }
 
     @Override
     public Dish update(Dish dish) {
+        dishIngredientRepository.deleteAll(dishIngredientRepository.findAllByDish(dish));
         for (DishIngredient i: dish.getDishIngredients()) {
             if (i.getIngredient().getUid() == null) {
                 Ingredient newIng = ingredientRepository.save(i.getIngredient());
                 i.setIngredient(newIng);
-               
             }
+            i.setDish(dish);
             i.setId(new DishIngredientId(dish.getUid(), i.getIngredient().getUid()));
             dishIngredientRepository.save(i);
         }

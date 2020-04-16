@@ -85,7 +85,16 @@ public class DishController {
 
 
     @PutMapping
-    public ResponseEntity edit(@RequestBody @Valid Dish dish) {
+    public ResponseEntity edit(@RequestParam("dish") Dish dish,
+                               @RequestParam(value = "file", required=false) MultipartFile file) throws NotValidDataException {
+        if (!file.isEmpty()) {
+            try {
+                dish = dishService.uploadPhotoToCloudinary(dish, file);
+                dishService.update(dish);
+            } catch (IOException e) {
+                throw NotValidDataException.createWith("image uploading failed");
+            }
+        }
         return ResponseEntity.ok(dishService.update(dish));
     }
 

@@ -48,7 +48,10 @@ export class AddDishComponent implements OnInit {
   }
 
   saveDish() {
-    this.dishService.putDish(this.dish).subscribe(data => {
+    const formData = new FormData();
+    formData.append('file', this.file ? this.file : null);
+    formData.append('dish', JSON.stringify(this.dish));
+    this.dishService.putDish(formData).subscribe(data => {
       this.dish = data;
       this.success = "Страва " + data.name + " збережена успішно!";
       this.loading = false;

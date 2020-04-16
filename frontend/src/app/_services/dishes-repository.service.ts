@@ -58,7 +58,7 @@ export class DishesRepository {
     return this.apiClient.delete<Dish>(path, data);
   }
 
-  public putDish(data: Dish): Observable<any> {
+  public putDish(data): Observable<any> {
     const path = `api/dish/`;
     return this.apiClient.put<Dish>(path, data);
   }

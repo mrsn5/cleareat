@@ -1,22 +1,39 @@
 <!-- nav -->
 <nav class="navbar navbar-expand">
-  <div class="navbar-nav">
-    <a class="nav-item nav-link" routerLink="/">Home</a>
-    <a class="nav-item nav-link" routerLink="/order">Order</a>
-    <a appOnlyForAdmin class="nav-item nav-link" routerLink="/admin">Admin</a>
 
-    <a appOnlyForAdmin class="nav-item nav-link" routerLink="/add">Add</a>
-    <a appOnlyForClient class="nav-item nav-link" routerLink="/history">History</a>
+
+
+  <div class="navbar-nav">
+    <button mat-mini-fab class='main-bg menu-butt big' type='button' (click)="triggerMenu()">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+
+
+    <a class="nav-item nav-link small-sc" routerLink="/">Home</a>
+    <a appOnlyForAdmin class="nav-item nav-link small-sc" routerLink="/admin">Admin</a>
+
+    <a appOnlyForAdmin class="nav-item nav-link small-sc" routerLink="/add">Add</a>
+    <a appOnlyForClient class="nav-item nav-link small-sc" routerLink="/history">History</a>
 
     <div style="flex-grow: 100"></div>
 
-    <a *ngIf="!currentUser" class="nav-item nav-link" routerLink="/login">Login</a>
-    <a *ngIf="!currentUser" class="nav-item nav-link" routerLink="/register">Registration</a>
-    <a *ngIf="currentUser" class="nav-item nav-link" style="cursor: pointer" (click)="logout()">Logout</a>
+    <a *ngIf="!currentUser" class="nav-item nav-link small-sc" routerLink="/login">Login</a>
+    <a *ngIf="!currentUser" class="nav-item nav-link small-sc" routerLink="/register">Registration</a>
+    <a *ngIf="currentUser" class="nav-item nav-link small-sc" style="cursor: pointer" (click)="logout()">Logout</a>
   </div>
 </nav>
+<div>
+<img class='logo' src="../assets/logo_transparent.png" routerLink="/" style="cursor: pointer"/>
+  <a class="cart" routerLink="/order">
+    <mat-icon style="font-size: 30px">
+      shopping_cart
+    </mat-icon>
 
-<img class='logo' src="../assets/logo_transparent.png"/>
+    <span class="cart-badge">0</span>
+  </a>
+
+</div>
 <!-- main app container -->
 <div class="container">
   <router-outlet></router-outlet>

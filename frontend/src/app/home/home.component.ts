@@ -104,7 +104,7 @@ export class HomeComponent implements OnInit {
 
   switchFilters() {
     this.filterShown = !this.filterShown;
-    document.getElementById("filtersBar").style.width = "210px";
+    // document.getElementById("filtersBar").style.width = "210px";
     // document.getElementById("menu-container").style.marginLeft = "250px";
   }
 }

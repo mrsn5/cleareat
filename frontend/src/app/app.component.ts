@@ -13,6 +13,7 @@ export class AppComponent {
   title = 'caprezzy';
 
   currentUser: User;
+  hideItem = true;
 
   constructor(
     private router: Router,
@@ -30,5 +31,18 @@ export class AppComponent {
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
+  }
+
+  triggerMenu() {
+    var x = document.getElementsByClassName('nav-item');
+    for (var i = 0; i < x.length; i++) {
+      if (this.hideItem) {
+        x[i].classList.remove('small')
+      } else {
+        x[i].classList.add('small')
+      }
+    }
+
+    this.hideItem = !this.hideItem;
   }
 }

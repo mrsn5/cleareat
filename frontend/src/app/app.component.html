@@ -1,22 +1,29 @@
 <!-- nav -->
 <nav class="navbar navbar-expand">
-  <div class="navbar-nav">
-    <a class="nav-item nav-link" routerLink="/">Home</a>
-    <a class="nav-item nav-link" routerLink="/order">Order</a>
-    <a appOnlyForAdmin class="nav-item nav-link" routerLink="/admin">Admin</a>
 
-    <a appOnlyForAdmin class="nav-item nav-link" routerLink="/add">Add</a>
+
+
+  <div class="navbar-nav">
+    <button mat-mini-fab class='main-bg menu-butt big' type='button' (click)="triggerMenu()">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <a class="nav-item nav-link small" routerLink="/">Home</a>
+    <a class="nav-item nav-link small" routerLink="/order">Order</a>
+    <a appOnlyForAdmin class="nav-item nav-link small" routerLink="/admin">Admin</a>
+
+    <a appOnlyForAdmin class="nav-item nav-link small" routerLink="/add">Add</a>
     <a appOnlyForClient class="nav-item nav-link" routerLink="/history">History</a>
 
     <div style="flex-grow: 100"></div>
 
-    <a *ngIf="!currentUser" class="nav-item nav-link" routerLink="/login">Login</a>
-    <a *ngIf="!currentUser" class="nav-item nav-link" routerLink="/register">Registration</a>
-    <a *ngIf="currentUser" class="nav-item nav-link" style="cursor: pointer" (click)="logout()">Logout</a>
+    <a *ngIf="!currentUser" class="nav-item nav-link small" routerLink="/login">Login</a>
+    <a *ngIf="!currentUser" class="nav-item nav-link small" routerLink="/register">Registration</a>
+    <a *ngIf="currentUser" class="nav-item nav-link small" style="cursor: pointer" (click)="logout()">Logout</a>
   </div>
 </nav>
 
-<img class='logo' src="../assets/logo_transparent.png"/>
+<img class='logo' src="../assets/logo_transparent.png" routerLink="/" style="cursor: pointer"/>
 <!-- main app container -->
 <div class="container">
   <router-outlet></router-outlet>

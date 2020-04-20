@@ -2,6 +2,11 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Dish } from '../../_models/dish';
 import {DishesRepository} from "../../_services/dishes-repository.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {MatInputModule} from '@angular/material/input';
+import {FormControl} from '@angular/forms';
+import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
+import {MatChipInputEvent} from '@angular/material/chips';
+
 
 export enum DishDisplayMode {
   Full,

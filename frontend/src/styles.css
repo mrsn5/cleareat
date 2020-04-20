@@ -29,3 +29,6 @@ button:focus, button {outline:none !important;}
   margin-right: 0px !important;
 }
 
+.mat-accent .mat-pseudo-checkbox-checked, .mat-accent .mat-pseudo-checkbox-indeterminate, .mat-pseudo-checkbox-checked, .mat-pseudo-checkbox-indeterminate {
+  background-color:#9FA2C4 !important;
+}

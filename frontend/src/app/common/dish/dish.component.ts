@@ -49,16 +49,19 @@ export class DishComponent {
 
   show() {
     this.dish.isAvailable = true;
-    this.dishService.putDish(this.dish).subscribe(data => this.dish = data);
+    const formData = new FormData();
+    formData.append('dish', JSON.stringify(this.dish));
+    this.dishService.putDish(formData).subscribe(data => this.dish = data);
   }
 
   hide() {
     this.dish.isAvailable = false;
-    this.dishService.putDish(this.dish).subscribe(data => this.dish = data);
+    const formData = new FormData();
+    formData.append('dish', JSON.stringify(this.dish));
+    this.dishService.putDish(formData).subscribe(data => this.dish = data);
   }
 
   edit() {
-
     this.router.navigate(["/add"], { queryParams: { dishId: this.dish.uid } });
   }
 

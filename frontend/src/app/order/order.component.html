@@ -1,20 +1,24 @@
 <mat-card>
 <mat-horizontal-stepper #stepper>
     <mat-step>
-        <ng-template matStepLabel>Підтвердіть склад замовлення</ng-template>
-          <dish
+        <ng-template matStepLabel>Позиції</ng-template>
+
+      <div style="margin: auto; left: 0; right: 0; width: 300px">
+      <dish
             *ngFor="let dish of orderedDishes"
             [ordered]="getOrdered(dish.uid)"
             [dish]="dish"
             (orderedChange)="setOrdered(dish, $event)"
-            [displayMode]="displayMode"
-            ></dish>
+            [displayMode]="displayMode">
+      </dish>
+      </div>
+
         <ng-container *ngIf=" orderState.defined()">
-          <div class="sum">
+          <div class="sum" style="text-align: center">
             Загальна сума: <b>{{ orderState.total() }} грн</b>
           </div>
           <div>
-            <button mat-button matStepperNext>Далі</button>
+            <button mat-button matStepperNext style="width: 100%" class="main-bg">Далі</button>
           </div>
         </ng-container>
         <ng-container *ngIf="!orderState.defined()">
@@ -22,21 +26,22 @@
           Додайте страви у <a href="/#">меню</a> або повторіть якесь з <a href="/#/history">історії</a>
         </ng-container>
     </mat-step>
+
     <mat-step [stepControl]="preferForm">
         <form [formGroup]="preferForm">
-            <ng-template matStepLabel>Особливі побажання</ng-template>
-            <mat-form-field>
+            <ng-template matStepLabel>Побажання</ng-template>
+            <mat-form-field style="width: 100%">
               <mat-label>Ваші побажання:</mat-label>
               <input matInput formControlName="prefs">
             </mat-form-field>
-            <div>
-              <button mat-button matStepperPrevious>Назад</button>
-              <button mat-button matStepperNext>Далі</button>
+            <div style="display: flex; align-content: space-between">
+              <button mat-button matStepperPrevious style="flex-grow: 1; margin-right: 5px" class="contract-bg">Назад</button>
+              <button mat-button matStepperNext style="flex-grow: 1; margin-left: 5px" class="main-bg">Далі</button>
             </div>
           </form>
     </mat-step>
     <mat-step>
-          <ng-template matStepLabel>Спосіб оплати</ng-template>
+          <ng-template matStepLabel>Оплата</ng-template>
           <div>
             <button class="pay-choice" mat-flat-button color="primary" (click)="confirm(true)">Підтвердити замовлення та оплатити картою зараз</button>
             <button class="pay-choice" mat-flat-button color="primary" (click)="confirm()">Оплатити при отриманні</button>

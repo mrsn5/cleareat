@@ -73,11 +73,13 @@
         </div>
 
 
+        <div>
+          <p style="text-align: center">Вже маєш аккаунт? <a routerLink="/login">Заходь сюди!</a></p>
+        </div>
 
-
-        <button [disabled]="loading" class="btn btn-primary">
+        <button [disabled]="loading" class="btn btn-primary main-bg" style="width: 100%">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-          Login
+          Register
         </button>
         <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
       </form>

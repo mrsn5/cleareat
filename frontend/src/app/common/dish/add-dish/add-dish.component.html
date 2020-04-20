@@ -95,7 +95,7 @@
 
             <tr *ngFor="let dc of dish.categories">
               <td>{{dc.name}}</td>
-              <td><button mat-mini-fab type='button' (click)="deleteCategory(dc)">
+              <td style="width: 40px"><button mat-mini-fab type='button' class='contract-bg' (click)="deleteCategory(dc)">
                 <mat-icon>clear</mat-icon>
               </button></td>
             </tr>
@@ -108,7 +108,7 @@
 
               </td>
               <td>
-                <button mat-mini-fab color="primary" type='button' (click)="addCategory()">
+                <button mat-mini-fab class='main-bg' type='button' (click)="addCategory()">
                   <mat-icon>add</mat-icon>
                 </button>
               </td>
@@ -126,8 +126,8 @@
             <tr *ngFor="let di of dish.dishIngredients">
               <td>{{di.ingredient.name}}</td>
               <td>{{di.quantity}}</td>
-              <td>
-                <button mat-mini-fab type='button' (click)="delete(di)">
+              <td style="width: 40px">
+                <button mat-mini-fab type='button' class='contract-bg' (click)="delete(di)">
                 <mat-icon>clear</mat-icon>
               </button>
               </td>
@@ -148,7 +148,7 @@
               </td>
               <td>
 
-              <button mat-mini-fab color="primary" type='button' (click)="addIngredient()">
+              <button mat-mini-fab class='main-bg' type='button' (click)="addIngredient()">
                 <mat-icon>add</mat-icon>
               </button>
 
@@ -158,7 +158,7 @@
         </div>
 
 
-        <button class="btn btn-primary addButton">
+        <button class="btn btn-primary addButton main-bg">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           {{this.dish.uid ? "Save" : "Add"}}
         </button>

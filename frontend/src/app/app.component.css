@@ -1,0 +1,26 @@
+nav {
+  background-color: #5f6283;
+  margin-top: 24px;
+  margin-bottom: 35px;
+
+}
+
+.navbar-nav {
+  width: 100%;
+  color: white;
+}
+
+.nav-item {
+  color: white;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.logo {
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  top: -20px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}

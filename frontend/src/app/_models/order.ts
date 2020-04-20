@@ -20,6 +20,7 @@ export class Order {
   public uid: number;
   public orderTime: Date;
   public readyTime?: Date;
+  public prefTime: Date;
   public preferences?: string;
   public total: number;
   public paid: number;

@@ -13,8 +13,14 @@
 }
 
 .dish-card {
-    max-width: 300px;
+  left:0;
+  right: 0;
+  margin: auto;
+  max-width: 300px;
   height: 100%;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  max-height: 400px;
 }
 mat-card-title ::ng-deep * {
     text-overflow: ellipsis !important;
@@ -40,10 +46,12 @@ img {
 .footer {
   color: white;
     padding: 10px;
-    background-color: gray;
+    background-color: #70739a;
   border-radius: 4px;
 }
 .avatar {
+  width: 80px;
+  height: 80px;
     background-size: cover;
 }
 
@@ -68,5 +76,41 @@ input[type=number]{
 }
 
 .quantity-arrow-minus, .quantity-arrow-plus {
-  width: 30px;
+  max-width: 30px;
+  min-width: 30px;
+  min-height: 30px;
+  max-height: 30px;
+  display: inline-block;
+  border-radius: 4px;
+  /*background-color: #70739a;*/
+  color: white;
+  border-color: transparent;
+  font-weight: bold;
+  font-size: 20px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/*.quantity-arrow-minus {*/
+/*  margin-left: 50px;*/
+/*}*/
+
+/*.quantity-arrow-plus{*/
+/*  margin-right: 50px;*/
+/*}*/
+
+.ings {
+  color: #7f7f7f;
+  font-style: italic;
+  display: block;
+  height: 50px;
+}
+
+.header {
+  display: block;
+  height: 65px;
+}
+
+.number {
+  font-size: 20px;
+  color: #7f7f7f;
 }

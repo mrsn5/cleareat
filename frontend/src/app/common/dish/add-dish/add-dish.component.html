@@ -107,7 +107,7 @@
                 </select>
 
               </td>
-              <td>
+              <td style="width: 40px">
                 <button mat-mini-fab class='main-bg' type='button' (click)="addCategory()">
                   <mat-icon>add</mat-icon>
                 </button>
@@ -126,7 +126,7 @@
             <tr *ngFor="let di of dish.dishIngredients">
               <td>{{di.ingredient.name}}</td>
               <td>{{di.quantity}}</td>
-              <td style="width: 40px">
+              <td >
                 <button mat-mini-fab type='button' class='contract-bg' (click)="delete(di)">
                 <mat-icon>clear</mat-icon>
               </button>
@@ -146,7 +146,7 @@
                          name="quantity"
                          [(ngModel)]="newQuantity"/>
               </td>
-              <td>
+              <td style="width: 40px">
 
               <button mat-mini-fab class='main-bg' type='button' (click)="addIngredient()">
                 <mat-icon>add</mat-icon>

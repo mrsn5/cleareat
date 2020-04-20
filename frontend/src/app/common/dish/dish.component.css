@@ -88,6 +88,7 @@ input[type=number]{
   font-weight: bold;
   font-size: 20px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  text-align: center;
 }
 
 /*.quantity-arrow-minus {*/

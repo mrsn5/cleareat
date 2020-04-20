@@ -37,9 +37,9 @@ export class AppComponent {
     var x = document.getElementsByClassName('nav-item');
     for (var i = 0; i < x.length; i++) {
       if (this.hideItem) {
-        x[i].classList.remove('small')
+        x[i].classList.remove('small-sc')
       } else {
-        x[i].classList.add('small')
+        x[i].classList.add('small-sc')
       }
     }
 

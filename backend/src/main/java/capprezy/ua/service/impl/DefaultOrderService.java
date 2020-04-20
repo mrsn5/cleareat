@@ -95,7 +95,7 @@ public class DefaultOrderService implements OrderService {
             updatedOrder.setPreferences(order.getPreferences());
         }
 
-        if(order.getPortions() != null) {
+        if(order.getPortions() != null && !order.getPortions().isEmpty()) {
             updatedOrder.getPortions().clear();
             for (Portion p: order.getPortions()) {
                 updatedOrder.getPortions().add(portionRepository.save(p));

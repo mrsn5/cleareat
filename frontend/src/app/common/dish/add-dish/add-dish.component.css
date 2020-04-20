@@ -21,3 +21,8 @@ table {
   left: 0;
   right: 0;
 }
+
+.custom-file-label::after {
+  background-color: #555877 !important;
+  color: white !important;
+}

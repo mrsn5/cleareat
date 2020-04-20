@@ -33,8 +33,7 @@ export class HomeComponent implements OnInit {
   private filterState: BehaviorSubject<FilterState> = new BehaviorSubject(new FilterState());
   public dishes$: Observable<Dish[]>;
   public lastData: Dish[];
-
-  public liqpayHtml = "";
+  public filterShown = false;
 
   constructor(private userService: UserService,
               private dishesRepository: DishesRepository,
@@ -101,5 +100,11 @@ export class HomeComponent implements OnInit {
       .pipe(
         catchError((err: HttpErrorResponse) => of(null))
       );
+  }
+
+  switchFilters() {
+    this.filterShown = !this.filterShown;
+    document.getElementById("filtersBar").style.width = "210px";
+    // document.getElementById("menu-container").style.marginLeft = "250px";
   }
 }

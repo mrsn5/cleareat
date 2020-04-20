@@ -12,11 +12,31 @@
   margin-bottom: 30px;
   margin-right: 4px;
 }
-.menu-container {
-    display: flex;
+#menu-container {
+  /*transition: display .5s;*/
+  display: flex;
 }
 .home-page{
     display: flex;
     flex-direction: column;
 }
 /* ::ng-deep .mat-pseudo-checkbox{ display: none !important; } */
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.filter-butt {
+  position: absolute;
+  top: 100px;
+  left: 15px;
+  z-index: 20;
+}

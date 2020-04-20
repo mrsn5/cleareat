@@ -17,7 +17,10 @@
             <div *ngIf="f.password.errors.required">Password is required</div>
           </div>
         </div>
-        <button [disabled]="loading" class="btn btn-primary">
+        <div>
+          <p style="text-align: center">Не має аккаунту? <a routerLink="/register">Зареєструйся!</a></p>
+        </div>
+        <button [disabled]="loading" class="btn btn-primary main-bg" style="width: 100%">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Login
         </button>

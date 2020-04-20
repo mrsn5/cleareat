@@ -14,3 +14,18 @@ button:focus, button {outline:none !important;}
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Opera and Firefox */
 }
+
+.main-bg, .mat-step-icon-state-edit {
+  color: white;
+  background-color: #555877 !important;
+}
+
+.contract-bg, .mat-step-icon-selected {
+  color: white;
+  background-color:#9FA2C4 !important;
+}
+
+.mat-card-header-text {
+  margin-right: 0px !important;
+}
+

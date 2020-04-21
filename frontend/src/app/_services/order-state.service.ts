@@ -1,12 +1,19 @@
 import { Injectable } from '@angular/core';
 import { OrderState } from '../_models/order-state';
 import { Dish } from '../_models/dish';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 
 @Injectable()
 export class OrderStateService {
     private static readonly KEY = 'caprezzy_order_state';
     private state: OrderState;
-    constructor() { this.load(); }
+    private orderStateChanged: ReplaySubject<any> = new ReplaySubject<any>(1);
+    public orderStateChanged$: Observable<any>;
+    constructor() { 
+        this.load();
+        this.orderStateChanged$ = this.orderStateChanged.asObservable();
+        this.orderStateChanged.next();
+     }
 
     public setSelected(dish: Dish, count: number): void {
         if (count > 0) {
@@ -14,7 +21,7 @@ export class OrderStateService {
         } else {
             delete this.state[dish.uid];
         }
-        this.save();
+        this.saveAndNotify();
     }
 
     public getSelected(dishUid: number): number {
@@ -31,7 +38,7 @@ export class OrderStateService {
 
     public clear(): void {
         this.state = {};
-        this.save();
+        this.saveAndNotify();
     }
 
     public total(): number {
@@ -45,8 +52,9 @@ export class OrderStateService {
         this.state = loaded != null ? JSON.parse(loaded) : {};
     }
 
-    private save(): void {
+    private saveAndNotify(): void {
         localStorage.setItem(OrderStateService.KEY, JSON.stringify(this.state));
+        this.orderStateChanged.next();
     }
 
 }

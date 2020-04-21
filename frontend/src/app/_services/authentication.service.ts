@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {User} from "../_models/user";
 import { ApiClientService } from './api-client.service';
+import { OrderStateService } from './order-state.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -10,7 +11,7 @@ export class AuthenticationService {
   private currentUserReplay: ReplaySubject<User> = new ReplaySubject<User>(1);
   public currentUser: Observable<User>;
 
-  constructor(private apiClient: ApiClientService) {
+  constructor(private apiClient: ApiClientService, private orderStateService: OrderStateService) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserReplay.asObservable();
     this.currentUserSubject.subscribe(this.currentUserReplay);
@@ -34,5 +35,6 @@ export class AuthenticationService {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+    this.orderStateService.clear();
   }
 }

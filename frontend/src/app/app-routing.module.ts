@@ -12,6 +12,7 @@ import {AdminPageComponent} from "./admin-page/admin-page.component";
 import {HistoryComponent} from "./history/history.component";
 import {AddDishComponent} from "./common/dish/add-dish/add-dish.component";
 import {AddPageComponent} from "./add-page/add-page.component";
+import {ConfirmedOrderComponent} from "./confirmed-order/confirmed-order.component";
 
 
 
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminPageComponent },
   { path: 'history', component: HistoryComponent },
   { path: 'add', component: AddPageComponent },
+  { path: 'order/confirm/:id', component: ConfirmedOrderComponent },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

@@ -22,7 +22,6 @@ export class OrderComponent implements OnInit {
   public displayMode = DishDisplayMode.Compact;
   public orderedDishes: Dish[] = [];
   public preferForm: FormGroup;
-  public liqpayHtml = "";
 
   // public contactsForm: FormGroup;
   constructor(
@@ -31,10 +30,7 @@ export class OrderComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private api: ApiClientService,
-    private authenticationService: AuthenticationService,
-    //
-    private sanitizer: DomSanitizer,
-    private orderService: OrderService
+    private authenticationService: AuthenticationService
   ) {
   }
 
@@ -77,13 +73,7 @@ export class OrderComponent implements OnInit {
       )
     }).subscribe(order => {
       this.orderState.clear();
-      if (card) {
-        this.orderService.getPaymentButton(order.uid).pipe().subscribe(button => {
-          this.liqpayHtml = button.html;
-        });
-      } else {
-        this.router.navigate(['/']);
-      }
+      this.router.navigate(['order/confirm/' + order.uid, {card: card}]);
     });
   }
 

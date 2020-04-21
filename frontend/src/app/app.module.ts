@@ -44,6 +44,7 @@ import {SanitizeHtmlPipe} from "./_helpers/sanitize.html.pipe";
 import { AddCategoryComponent } from './common/dish/add-category/add-category.component';
 import { AddPageComponent } from './add-page/add-page.component';
 import {MatMenuModule} from "@angular/material/menu";
+import { ConfirmedOrderComponent } from './confirmed-order/confirmed-order.component';
 
 
 @NgModule({
@@ -69,6 +70,7 @@ import {MatMenuModule} from "@angular/material/menu";
     OnlyForClientDirective,
     AddCategoryComponent,
     AddPageComponent,
+    ConfirmedOrderComponent,
   ],
   imports: [
     BrowserModule,

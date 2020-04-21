@@ -42,10 +42,9 @@
     </mat-step>
     <mat-step>
           <ng-template matStepLabel>Оплата</ng-template>
-          <div>
-            <button class="pay-choice" mat-flat-button color="primary" (click)="confirm(true)">Підтвердити замовлення та оплатити картою зараз</button>
-            <button class="pay-choice" mat-flat-button color="primary" (click)="confirm()">Оплатити при отриманні</button>
-            <div id='liqpay' [innerHTML]="liqpayHtml | sanitizeHtml"></div>
+          <div style="display: flex; flex-wrap: wrap">
+            <button class="pay-choice main-bg" mat-flat-button style="width: 100%; margin-bottom: 10px" (click)="confirm(true)">Підтвердити замовлення та оплатити картою зараз</button>
+            <button class="pay-choice main-bg" mat-flat-button style="width: 100%" (click)="confirm()">Оплатити при отриманні</button>
           </div>
       </mat-step>
   </mat-horizontal-stepper>

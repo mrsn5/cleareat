@@ -1,5 +1,5 @@
 <mat-card>
-<mat-horizontal-stepper #stepper>
+<mat-horizontal-stepper [linear]="true" #stepper>
     <mat-step>
         <ng-template matStepLabel>Позиції</ng-template>
 
@@ -43,7 +43,7 @@
     <mat-step>
           <ng-template matStepLabel>Оплата</ng-template>
           <div style="display: flex; flex-wrap: wrap">
-            <button class="pay-choice main-bg" mat-flat-button style="width: 100%; margin-bottom: 10px" (click)="confirm(true)">Підтвердити замовлення та оплатити картою зараз</button>
+            <button class="pay-choice main-bg" mat-flat-button style="width: 100%; margin-bottom: 10px" (click)="confirm(true)">Оплатити картою зараз</button>
             <button class="pay-choice main-bg" mat-flat-button style="width: 100%" (click)="confirm()">Оплатити при отриманні</button>
           </div>
       </mat-step>

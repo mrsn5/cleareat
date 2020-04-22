@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import {User} from "./_models/user";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "./_services/authentication.service";
-import {OrderService} from "./_services/order.service";
+import { OrderStateService } from './_services/order-state.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app',
@@ -14,14 +16,19 @@ export class AppComponent {
 
   currentUser: User;
   hideItem = true;
-
+  orderedAmount$: Observable<number>;
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
-    private orderService: OrderService
+    private orderStateService: OrderStateService
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-
+    this.orderedAmount$ = this.orderStateService.orderStateChanged$
+      .pipe(
+        map(() => this.orderStateService
+          .getDishes()
+          .reduce((i, j) => i + this.orderStateService.getSelected(j), 0))
+      )
   }
 
   isAdmin() {

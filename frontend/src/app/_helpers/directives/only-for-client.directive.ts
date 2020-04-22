@@ -1,4 +1,4 @@
-import { Directive, ElementRef } from '@angular/core';
+import { Directive, ViewContainerRef, TemplateRef } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 
 @Directive({
@@ -6,17 +6,16 @@ import { AuthenticationService } from '../../_services/authentication.service';
 })
 export class OnlyForClientDirective {
 
-  private displayVal;
   constructor(
-    el: ElementRef,
+    private templateRef: TemplateRef<any>,
+    private viewContainer: ViewContainerRef,
     private authenticationService: AuthenticationService
   ) {
     this.authenticationService.currentUser.subscribe(u => {
-      if (!u || u.role === 'admin') {
-        this.displayVal = el.nativeElement.style.display;
-        el.nativeElement.style.display = 'none';
-      } else if(this.displayVal != null) {
-        el.nativeElement.style.display = this.displayVal;
+      if (!u || u.role !== 'user') {
+        this.viewContainer.clear();
+      } else  {
+        this.viewContainer.createEmbeddedView(this.templateRef);
       }
     });
   }

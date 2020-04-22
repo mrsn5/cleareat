@@ -22,7 +22,7 @@ export class OrderComponent implements OnInit {
   public displayMode = DishDisplayMode.Compact;
   public orderedDishes: Dish[] = [];
   public preferForm: FormGroup;
-
+  public loading = false;
   // public contactsForm: FormGroup;
   constructor(
     public orderState: OrderStateService,
@@ -63,18 +63,22 @@ export class OrderComponent implements OnInit {
   }
 
   public confirm(card: boolean = false) {
-    this.api.post<Order>('api/order', {
-      preferences: this.preferForm.controls['prefs'].value,
-      portions: this.orderState.getDishes().map(
-        id => <object>{
-          dish: {uid: id},
-          quantity: this.orderState.getSelected(id)
-        },
-      )
-    }).subscribe(order => {
-      this.orderState.clear();
-      this.router.navigate(['order/confirm/' + order.uid, {card: card}]);
-    });
+    if (!this.loading) {
+      console.log('conf')
+      this.loading = true;
+      this.api.post<Order>('api/order', {
+        preferences: this.preferForm.controls['prefs'].value,
+        portions: this.orderState.getDishes().map(
+          id => <object>{
+            dish: {uid: id},
+            quantity: this.orderState.getSelected(id)
+          },
+        )
+      }).subscribe(order => {
+        this.orderState.clear();
+        this.router.navigate(['order/confirm/' + order.uid, {card: card}]);
+      }, error => this.loading = false);
+    }
   }
 
   public get currentUser(): User {

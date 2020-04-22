@@ -1,6 +1,3 @@
-
-
-
 <div>
   <div class="card">
     <h1 class="header">Замовлення №{{id}} прийнято!</h1>
@@ -11,7 +8,7 @@
 
     <div  class="card-body">
       <div *ngIf="card">
-        <p>Щоб облатити замовленя натисни сюди</p>
+        <p>Щоб оплатити замовленя натисни сюди</p>
         <div id='liqpay' [innerHTML]="liqpayHtml | sanitizeHtml"></div>
       </div>
 

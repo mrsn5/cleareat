@@ -43,8 +43,14 @@
     <mat-step>
           <ng-template matStepLabel>Оплата</ng-template>
           <div style="display: flex; flex-wrap: wrap">
-            <button class="pay-choice main-bg" mat-flat-button style="width: 100%; margin-bottom: 10px" (click)="confirm(true)">Оплатити картою зараз</button>
-            <button class="pay-choice main-bg" mat-flat-button style="width: 100%" (click)="confirm()">Оплатити при отриманні</button>
+            <button class="pay-choice main-bg" mat-flat-button style="width: 100%; margin-bottom: 10px" (click)="confirm(true)">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              Оплатити картою зараз
+            </button>
+            <button class="pay-choice main-bg" mat-flat-button style="width: 100%" (click)="confirm()">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              Оплатити при отриманні
+            </button>
           </div>
       </mat-step>
   </mat-horizontal-stepper>

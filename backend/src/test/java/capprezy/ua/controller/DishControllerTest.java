@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static capprezy.ua._helper.PageableAssert.assertThat;
+import static org.mockito.ArgumentMatchers.anyObject;
 import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -45,7 +46,7 @@ public class DishControllerTest {
     @WithMockUser("admin@gmail.com")
     @Test
     public void evaluatesPageableParameter() throws Exception {
-        mvc.perform(get("/api/dish/page")
+        mvc.perform(get("/api/dish")
                 .param("page", "5")
                 .param("size", "10")
                 .param("sort", "uid,desc")   // <-- no space after comma!
@@ -54,7 +55,14 @@ public class DishControllerTest {
 
         ArgumentCaptor<Pageable> pageableCaptor =
                 ArgumentCaptor.forClass(Pageable.class);
-        verify(dishService).findAll(pageableCaptor.capture());
+        verify(dishService).findByCriteria(
+                anyObject(),
+                anyObject(),
+                anyObject(),
+                anyObject(),
+                anyObject(),
+                anyObject(),
+                pageableCaptor.capture());
         PageRequest pageable = (PageRequest) pageableCaptor.getValue();
 
         assertThat(pageable).hasPageNumber(5);

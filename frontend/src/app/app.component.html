@@ -21,20 +21,20 @@
 
 
 
-    <a class="nav-item nav-link small-sc" routerLink="/">Home</a>
+    <a class="nav-item nav-link small-sc" routerLink="/">Головна</a>
     <ng-template appOnlyForAdmin>
-      <a class="nav-item nav-link small-sc" routerLink="/admin">Admin</a>
-      <a class="nav-item nav-link small-sc" routerLink="/add">Add</a>  
+      <a class="nav-item nav-link small-sc" routerLink="/admin">Адмін</a>
+      <a class="nav-item nav-link small-sc" routerLink="/add">Додати</a>
     </ng-template>
     <ng-template appOnlyForClient>
-      <a class="nav-item nav-link small-sc" routerLink="/history">History</a>    
+      <a class="nav-item nav-link small-sc" routerLink="/history">Історія</a>
     </ng-template>
 
     <div style="flex-grow: 100"></div>
 
-    <a *ngIf="!currentUser" class="nav-item nav-link small-sc" routerLink="/login">Login</a>
-    <a *ngIf="!currentUser" class="nav-item nav-link small-sc" routerLink="/register">Registration</a>
-    <a *ngIf="currentUser" class="nav-item nav-link small-sc" style="cursor: pointer" (click)="logout()">Logout</a>
+    <a *ngIf="!currentUser" class="nav-item nav-link small-sc" routerLink="/login">Увійти</a>
+    <a *ngIf="!currentUser" class="nav-item nav-link small-sc" routerLink="/register">Реєстрація</a>
+    <a *ngIf="currentUser" class="nav-item nav-link small-sc" style="cursor: pointer" (click)="logout()">Вийти</a>
   </div>
 </nav>
 

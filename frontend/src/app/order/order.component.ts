@@ -77,10 +77,18 @@ export class OrderComponent implements OnInit {
   }
 
   public confirm(card: boolean = false) {
-<<<<<<< HEAD
     if (!this.loading) {
       console.log('conf')
       this.loading = true;
+      const prefDate = new Date();
+      if(this.ReadyDate == 'завтра'){
+        prefDate.setTime(prefDate.getTime() + 24+60*60*1000)
+      }
+      const time: string = this.preferForm.controls['prefTime'].value;
+      const h = Number(time.slice(0, 2));
+      const m = Number(time.slice(3, 5));
+      prefDate.setHours(h);
+      prefDate.setMinutes(m);
       this.api.post<Order>('api/order', {
         preferences: this.preferForm.controls['prefs'].value,
         portions: this.orderState.getDishes().map(
@@ -88,36 +96,13 @@ export class OrderComponent implements OnInit {
             dish: {uid: id},
             quantity: this.orderState.getSelected(id)
           },
-        )
+        ),
+        readyTime: prefDate
       }).subscribe(order => {
         this.orderState.clear();
         this.router.navigate(['order/confirm/' + order.uid, {card: card}]);
       }, error => this.loading = false);
     }
-=======
-    const prefDate = new Date();
-    if(this.ReadyDate == 'завтра'){
-      prefDate.setTime(prefDate.getTime() + 24+60*60*1000)
-    }
-    const time: string = this.preferForm.controls['prefTime'].value;
-    const h = Number(time.slice(0, 2));
-    const m = Number(time.slice(3, 5));
-    prefDate.setHours(h);
-    prefDate.setMinutes(m);
-    this.api.post<Order>('api/order', {
-      preferences: this.preferForm.controls['prefs'].value,
-      portions: this.orderState.getDishes().map(
-        id => <object>{
-          dish: {uid: id},
-          quantity: this.orderState.getSelected(id)
-        },
-      ),
-      readyTime: prefDate
-    }).subscribe(order => {
-      this.orderState.clear();
-      this.router.navigate(['order/confirm/' + order.uid, {card: card}]);
-    });
->>>>>>> add preffered time to be ready
   }
 
   public get currentUser(): User {

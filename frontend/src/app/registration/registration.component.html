@@ -1,6 +1,6 @@
 <div class="col-md-6 offset-md-3 mt-5">
   <div class="card">
-    <h4 class="card-header">Registration</h4>
+    <h4 class="card-header">Реєстрація</h4>
     <div class="card-body">
       <form class="form" name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm"
             [mustMatch]="['password', 'confirmPassword']" novalidate
@@ -8,7 +8,7 @@
 
 
         <div class="form-group">
-          <label for="fullName">Full Name</label>
+          <label for="fullName">Повне ім'я</label>
           <input class="form-control"
                  type="text"
                  name="fullName"
@@ -17,12 +17,12 @@
                  [ngClass]="{ 'is-invalid': f.submitted && fullName.invalid }"
                  required/>
           <div *ngIf="f.submitted && fullName.invalid" class="invalid-feedback">
-            <div *ngIf="fullName.errors.required">Full name is required</div>
+            <div *ngIf="fullName.errors.required">Ім'я обов'язкове поле</div>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="email">Email</label>
+          <label for="email">Пошта</label>
           <input class="form-control"
                  type="text"
                  name="email"
@@ -32,13 +32,13 @@
                  required
                  email/>
           <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
-            <div *ngIf="email.errors.required">Email is required</div>
-            <div *ngIf="email.errors.email">Email must be a valid email address</div>
+            <div *ngIf="email.errors.required">Пошта обов'язкове поле</div>
+            <div *ngIf="email.errors.email">Пошта має бути валідною</div>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="password">Password</label>
+          <label for="password">Пароль</label>
           <input class="form-control"
                  type="password"
                  name="password"
@@ -48,14 +48,14 @@
                  required
                  minlength="6"/>
           <div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
-            <div *ngIf="password.errors.required">Password is required</div>
-            <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+            <div *ngIf="password.errors.required">Пароль обов'язкове поле</div>
+            <div *ngIf="password.errors.minlength">Пароль має бути хочаб 6 символів</div>
           </div>
         </div>
 
 
         <div class="form-group">
-          <label for="phone">Phone</label>
+          <label for="phone">Телефон</label>
           <input class="form-control"
                  type="tel"
                  name="phone"
@@ -66,9 +66,9 @@
                  minlength="10"
                  maxlength="20"/>
           <div *ngIf="f.submitted && phone.invalid" class="invalid-feedback">
-            <div *ngIf="phone.errors.required">Phone is required</div>
-            <div *ngIf="phone.errors.minlength">Phone must be at least 10 characters</div>
-            <div *ngIf="phone.errors.maxlength">Phone is too long</div>
+            <div *ngIf="phone.errors.required">Телефон обов'язкове поле</div>
+            <div *ngIf="phone.errors.minlength">Телефон повинен складатися з 10 цифр</div>
+            <div *ngIf="phone.errors.maxlength">Телефон занадто довгий</div>
           </div>
         </div>
 

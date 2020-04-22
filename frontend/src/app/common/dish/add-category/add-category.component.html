@@ -1,7 +1,7 @@
 
 <div>
   <div class="card card-margin">
-    <h4 class="card-header" style="margin-bottom: 0">New category</h4>
+    <h4 class="card-header" style="margin-bottom: 0">Нова категорія</h4>
 
     <div class="card-body">
       <div *ngIf="success" class="alert alert-success">{{success}}</div>
@@ -12,7 +12,7 @@
 
 
         <div class="form-group">
-          <label for="name">Name</label>
+          <label for="name">Назва</label>
           <input class="form-control"
                  type="text"
                  name="name"
@@ -21,14 +21,14 @@
                  [ngClass]="{ 'is-invalid': ff.submitted && name.invalid }"
                  required/>
           <div *ngIf="ff.submitted && name.invalid" class="invalid-feedback">
-            <div *ngIf="name.errors.required">Name is required</div>
+            <div *ngIf="name.errors.required">Назва обов'язкове поле</div>
           </div>
         </div>
 
 
         <button class="btn btn-primary addButton main-bg">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-          {{this.category.uid ? "Save" : "Add"}}
+          {{this.category.uid ? "Зберегти" : "Додати"}}
         </button>
       </form>
     </div>

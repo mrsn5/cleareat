@@ -1,7 +1,7 @@
 
 <div>
   <div class="card card-margin">
-    <h4 class="card-header" style="margin-bottom: 0">New dish</h4>
+    <h4 class="card-header" style="margin-bottom: 0">Нова страва</h4>
     <div class="card-body">
       <form class="form" (ngSubmit)="f.form.valid && submit(f)" #f="ngForm"
             novalidate>
@@ -10,7 +10,7 @@
         <div *ngIf="error" class="alert alert-danger">{{error}}</div>
 
         <div class="form-group">
-          <label for="name">Name</label>
+          <label for="name">Назва</label>
           <input class="form-control"
                  type="text"
                  name="name"
@@ -19,13 +19,14 @@
                  [ngClass]="{ 'is-invalid': f.submitted && name.invalid }"
                  required/>
           <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
-            <div *ngIf="name.errors.required">Name is required</div>
+            <div *ngIf="name.errors.required">Назва обов'язкове поле</div>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="weight">Weight</label>
+          <label for="weight">Вага (г)</label>
           <input class="form-control"
+                 pattern="[0-9]+([.,][0-9]+)?"
                  type="text"
                  name="weight"
                  [(ngModel)]="dish.weight"
@@ -33,24 +34,30 @@
                  [ngClass]="{ 'is-invalid': f.submitted && weight.invalid }"
                  required/>
           <div *ngIf="f.submitted && weight.invalid" class="invalid-feedback">
-            <div *ngIf="weight.errors.required">Name is required</div>
+            <div *ngIf="weight.errors.required">Вага обов'язкове поле</div>
+            <div *ngIf="weight.errors.pattern">Ведіть валідне число </div>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="calories">Calories</label>
+          <label for="calories">Калорії</label>
           <input class="form-control"
+                 pattern="[0-9]+([.,][0-9]+)?"
                  type="text"
                  name="calories"
                  [(ngModel)]="dish.calories"
                  #calories="ngModel"
                  [ngClass]="{ 'is-invalid': f.submitted && calories.invalid }"
                  />
+          <div *ngIf="f.submitted && calories.invalid" class="invalid-feedback">
+            <div *ngIf="calories.errors.pattern">Ведіть валідне число</div>
+          </div>
         </div>
 
         <div class="form-group">
-          <label for="price">Price</label>
+          <label for="price">Ціна</label>
           <input class="form-control"
+                 pattern="[0-9]+([.,][0-9]+)?"
                  type="text"
                  name="price"
                  [(ngModel)]="dish.price"
@@ -58,20 +65,13 @@
                  [ngClass]="{ 'is-invalid': f.submitted && price.invalid }"
                  required/>
           <div *ngIf="f.submitted && price.invalid" class="invalid-feedback">
-            <div *ngIf="price.errors.required">Name is required</div>
+            <div *ngIf="price.errors.required">Ціна обов'язкове поле</div>
+            <div *ngIf="price.errors.pattern">Ведіть валідне число</div>
           </div>
         </div>
 
-<!--          <input class="form-control"-->
-<!--                 #fileUpload-->
-<!--                 id="fileUpload"-->
-<!--                 type="file"-->
-<!--                 name="fileUpload"-->
-<!--                 accept=".png,.jpg,.jpeg"-->
-<!--                 (change)="fileChange($event)"/>-->
 
-
-        <label>Photo</label>
+        <label>Фото</label>
         <div class="input-group mb-3">
           <div class="custom-file">
             <input class="custom-file-input"
@@ -90,7 +90,7 @@
         <div class="card nested-card">
           <table>
             <tr>
-              <th>Category</th>
+              <th>Категорія</th>
             </tr>
 
             <tr *ngFor="let dc of dish.categories">
@@ -119,8 +119,8 @@
         <div class="card nested-card">
           <table>
             <tr>
-              <th>Ingredient</th>
-              <th>Quantity</th>
+              <th>Назва</th>
+              <th>Кількість</th>
             </tr>
 
             <tr *ngFor="let di of dish.dishIngredients">
@@ -134,7 +134,7 @@
             </tr>
 
             <tr>
-              <td>
+              <td style="vertical-align: top">
                   <input class="form-control"
                          type="text"
                          name="ingrName"
@@ -142,9 +142,16 @@
               </td>
               <td>
                   <input class="form-control"
+                         pattern="[0-9]+([.,][0-9]+)?"
                          type="text"
                          name="quantity"
+                         #quantity="ngModel"
+                         [ngClass]="{'is-invalid': newQuantitySubmitted && quantity.invalid}"
                          [(ngModel)]="newQuantity"/>
+                <div *ngIf="newQuantitySubmitted && quantity.invalid" class="invalid-feedback">
+                  <div *ngIf="quantity.errors.pattern">Ведіть валідне число</div>
+                </div>
+
               </td>
               <td style="width: 40px">
 
@@ -160,7 +167,7 @@
 
         <button class="btn btn-primary addButton main-bg">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-          {{this.dish.uid ? "Save" : "Add"}}
+          {{this.dish.uid ? "Зберегти" : "Додати"}}
         </button>
 
       </form>

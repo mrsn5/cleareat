@@ -46,10 +46,10 @@
                  #password="ngModel"
                  [ngClass]="{ 'is-invalid': f.submitted && password.invalid }"
                  required
-                 minlength="6"/>
+                 minlength="8"/>
           <div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
             <div *ngIf="password.errors.required">Пароль обов'язкове поле</div>
-            <div *ngIf="password.errors.minlength">Пароль має бути хочаб 6 символів</div>
+            <div *ngIf="password.errors.minlength">Пароль має бути хочаб 8 символів</div>
           </div>
         </div>
 

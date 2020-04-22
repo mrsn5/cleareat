@@ -23,7 +23,7 @@
 
     <a class="nav-item nav-link small-sc" routerLink="/">Головна</a>
     <ng-template appOnlyForAdmin>
-      <a class="nav-item nav-link small-sc" routerLink="/admin">Адмін</a>
+      <a class="nav-item nav-link small-sc" routerLink="/admin">Замовлення</a>
       <a class="nav-item nav-link small-sc" routerLink="/add">Додати</a>
     </ng-template>
     <ng-template appOnlyForClient>
@@ -32,6 +32,7 @@
 
     <div style="flex-grow: 100"></div>
 
+    <a *ngIf="currentUser" class="nav-item nav-link small-sc" style="margin-right: 20px"><i>Вiтаю, {{currentUser.fullName}}!</i></a>
     <a *ngIf="!currentUser" class="nav-item nav-link small-sc" routerLink="/login">Увійти</a>
     <a *ngIf="!currentUser" class="nav-item nav-link small-sc" routerLink="/register">Реєстрація</a>
     <a *ngIf="currentUser" class="nav-item nav-link small-sc" style="cursor: pointer" (click)="logout()">Вийти</a>

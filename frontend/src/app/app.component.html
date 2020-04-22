@@ -8,7 +8,7 @@
         shopping_cart
       </mat-icon>
 
-      <span class="cart-badge">0</span>  <!--  <== todo сюды-->
+      <span class="cart-badge"> {{ orderedAmount$ | async }} </span>
     </a>
 
   </div>
@@ -22,10 +22,13 @@
 
 
     <a class="nav-item nav-link small-sc" routerLink="/">Home</a>
-    <a appOnlyForAdmin class="nav-item nav-link small-sc" routerLink="/admin">Admin</a>
-
-    <a appOnlyForAdmin class="nav-item nav-link small-sc" routerLink="/add">Add</a>
-    <a appOnlyForClient class="nav-item nav-link small-sc" routerLink="/history">History</a>
+    <ng-template appOnlyForAdmin>
+      <a class="nav-item nav-link small-sc" routerLink="/admin">Admin</a>
+      <a class="nav-item nav-link small-sc" routerLink="/add">Add</a>  
+    </ng-template>
+    <ng-template appOnlyForClient>
+      <a class="nav-item nav-link small-sc" routerLink="/history">History</a>    
+    </ng-template>
 
     <div style="flex-grow: 100"></div>
 

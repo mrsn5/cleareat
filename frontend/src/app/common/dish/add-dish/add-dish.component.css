@@ -25,4 +25,5 @@ table {
 .custom-file-label::after {
   background-color: #555877 !important;
   color: white !important;
+  content: 'Обрати фото';
 }

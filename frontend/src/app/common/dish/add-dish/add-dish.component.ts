@@ -24,6 +24,8 @@ export class AddDishComponent implements OnInit {
   newCategory = new DishCategory();
   filename: "Choose file";
   success: any;
+  newQuantitySubmitted = false;
+  quantityInvalid = false;
 
 
   constructor(private dishService: DishesRepository,
@@ -62,6 +64,11 @@ export class AddDishComponent implements OnInit {
   }
 
   addDish(f: NgForm) {
+    if (!this.file){
+      this.error = "Фото обов'язкове поле"
+      this.loading = false
+      return
+    }
     const formData = new FormData();
     formData.append('file', this.file);
     formData.append('dish', JSON.stringify(this.dish));
@@ -95,17 +102,22 @@ export class AddDishComponent implements OnInit {
   }
 
   addIngredient() {
+    console.log(parseFloat(String(this.newQuantity)))
+
+    this.newQuantitySubmitted = true;
     if (this.newIngredient.name
       && this.newIngredient.name.trim() != ''
-      && this.newQuantity != 0
+      && this.newQuantity == parseFloat(String(this.newQuantity))
     )
     {
+      this.newQuantity = parseFloat(String(this.newQuantity));
       this.dish.dishIngredients.push({
         quantity: this.newQuantity,
         ingredient: this.newIngredient
       });
       this.newIngredient = new Ingredient();
       this.newQuantity = 0;
+      this.newQuantitySubmitted = false
     }
 
   }

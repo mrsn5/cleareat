@@ -22,11 +22,11 @@
   </mat-card>
 
   <mat-card *ngSwitchCase="DishDisplayMode.Full" class="dish-card mat-card {{dish.isAvailable ? '' : 'hidden-card'}}">
-    <!--      -->
-    <button appOnlyForAdmin mat-icon-button [matMenuTriggerFor]="menu" class="menu">
+   <ng-template appOnlyForAdmin>
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu">
       <mat-icon>more_vert</mat-icon>
     </button>
-    <mat-menu appOnlyForAdmin  #menu="matMenu">
+    <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="edit()">
         <mat-icon>edit</mat-icon>
         <span>Edit</span>
@@ -46,7 +46,8 @@
         <span>Delete</span>
       </button>
     </mat-menu>
-
+   </ng-template>
+    
 
     <div class="header">
     <mat-card-title class="dish-name"> {{dish.name}} </mat-card-title>

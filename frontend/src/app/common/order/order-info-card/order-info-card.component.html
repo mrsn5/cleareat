@@ -4,7 +4,8 @@
     <span class="status">{{getStatus()}}</span>
   </mat-card-title>
   <mat-card-subtitle>
-    {{order.orderTime | date: 'dd/MM hh:mm':'+0200'}} <br>
+    {{order.orderTime | date: 'dd/MM hh:mm':'+0300'}} <br>
+    Бажаний час готовності {{order.readyTime | date: 'dd/MM hh:mm':'+0300'}} <br>
     {{order.total}} грн, {{getPaymentState()}}
   </mat-card-subtitle>
   <mat-card-content>

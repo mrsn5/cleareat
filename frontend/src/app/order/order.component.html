@@ -34,6 +34,15 @@
               <mat-label>Ваші побажання:</mat-label>
               <input matInput formControlName="prefs">
             </mat-form-field>
+            <mat-form-field style="width: 100%">
+              <mat-label>Буде виконано {{ReadyDate}} о: </mat-label>
+              <input  type="time"
+                      value="{{ DefaultReadyTime }}" 
+                      min="{{ DefaultReadyTime }}" 
+                      max="23:00" 
+                      matInput 
+                      formControlName="prefTime"/>
+            </mat-form-field>  
             <div style="display: flex; align-content: space-between">
               <button mat-button matStepperPrevious style="flex-grow: 1; margin-right: 5px" class="contract-bg">Назад</button>
               <button mat-button matStepperNext style="flex-grow: 1; margin-left: 5px" class="main-bg">Далі</button>

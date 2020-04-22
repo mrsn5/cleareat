@@ -46,8 +46,13 @@ export class LoginComponent implements OnInit {
       return;
     }
 
+    this.login(this.f.username.value, this.f.password.value)
+  }
+
+
+  login(username, password) {
     this.loading = true;
-    this.authenticationService.login(this.f.username.value, this.f.password.value)
+    this.authenticationService.login(username, password)
       .pipe(first())
       .subscribe(
         data => {
@@ -57,5 +62,14 @@ export class LoginComponent implements OnInit {
           this.error = error;
           this.loading = false;
         });
+  }
+
+
+  loginAsUser() {
+    this.login('san.nguen@gmail.com', '12345678')
+  }
+
+  loginAsAdmin() {
+    this.login('admin@gmail.com', '12345')
   }
 }

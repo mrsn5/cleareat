@@ -13,7 +13,6 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {OrderService} from "../_services/order.service";
 import {Order} from "../_models/order";
 import { Time } from '@angular/common';
-import { AmazingTimePickerService } from 'amazing-time-picker';
 
 @Component({
   selector: 'app-order',

@@ -4,6 +4,7 @@ import capprezy.ua.controller.exception.model.AlreadyExistsException;
 import capprezy.ua.controller.exception.model.NotValidDataException;
 import capprezy.ua.controller.exception.model.PermissionException;
 import capprezy.ua.model.AppUser;
+import capprezy.ua.model.Dish;
 import capprezy.ua.model.Order;
 import capprezy.ua.model.Portion;
 import capprezy.ua.repository.DishRepository;
@@ -41,7 +42,9 @@ public class DefaultOrderService implements OrderService {
 
         Double total = .0;
         for (Portion p: order.getPortions()) {
-            Double price = p.getQuantity() * dishRepository.findByUid(p.getDish().getUid()).getPrice();
+            Dish d = dishRepository.findByUid(p.getDish().getUid());
+            if (d == null) throw NotValidDataException.createWith("No such dish");
+            Double price = p.getQuantity() * d.getPrice();
             p.setPrice(price);
             total += price;
         }
@@ -95,17 +98,32 @@ public class DefaultOrderService implements OrderService {
             updatedOrder.setPreferences(order.getPreferences());
         }
 
-        if(order.getPortions() != null && !order.getPortions().isEmpty()) {
+        if(order.getPortions() != null) {
+            portionRepository.deleteAll(updatedOrder.getPortions());
+
             updatedOrder.getPortions().clear();
+            Double total = 0.0;
             for (Portion p: order.getPortions()) {
+                p.setOrder(order);
+
+                Dish d = dishRepository.findByUid(p.getDish().getUid());
+                if (d == null) throw NotValidDataException.createWith("No such dish");
+                Double price = p.getQuantity() * d.getPrice();
+                p.setPrice(price);
+                total += price;
                 updatedOrder.getPortions().add(portionRepository.save(p));
             }
+            updatedOrder.setTotal(total);
         }
 
         if (order.getPrefTime() != null) {
             updatedOrder.setPrefTime(order.getPrefTime());
         }
 
+        if (updatedOrder.getPortions().isEmpty()) {
+            orderRepository.delete(updatedOrder);
+            return null;
+        }
         return orderRepository.save(updatedOrder);
     }
 

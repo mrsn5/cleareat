@@ -12,6 +12,8 @@ import {User} from '../_models/user';
 import {DomSanitizer} from '@angular/platform-browser';
 import {OrderService} from "../_services/order.service";
 import {Order} from "../_models/order";
+import { Time } from '@angular/common';
+import { AmazingTimePickerService } from 'amazing-time-picker';
 
 @Component({
   selector: 'app-order',
@@ -31,12 +33,24 @@ export class OrderComponent implements OnInit {
     private router: Router,
     private api: ApiClientService,
     private authenticationService: AuthenticationService
-  ) {
+  ) { }
+
+  public get DefaultReadyTime(): string {
+    if(new Date().getHours() > 21 || new Date().getHours() < 9) {
+      return "09:00";
+    }
+    return (new Date(new Date().getTime() + 60*60*1000)).toTimeString().slice(0, 5);
   }
+
+  public get ReadyDate(): string {
+    return new Date().getHours() > 21 ? 'завтра' : 'сьогодні';
+  }
+
 
   ngOnInit() {
     this.preferForm = this.formBuilder.group({
-      prefs: ['', Validators.maxLength(150)]
+      prefs: ['', Validators.maxLength(150)],
+      prefTime: []
     });
     this.initializeDishes();
   }
@@ -66,6 +80,15 @@ export class OrderComponent implements OnInit {
     if (!this.loading) {
       console.log('conf')
       this.loading = true;
+      const prefDate = new Date();
+      if(this.ReadyDate == 'завтра'){
+        prefDate.setTime(prefDate.getTime() + 24+60*60*1000)
+      }
+      const time: string = this.preferForm.controls['prefTime'].value;
+      const h = Number(time.slice(0, 2));
+      const m = Number(time.slice(3, 5));
+      prefDate.setHours(h);
+      prefDate.setMinutes(m);
       this.api.post<Order>('api/order', {
         preferences: this.preferForm.controls['prefs'].value,
         portions: this.orderState.getDishes().map(
@@ -73,7 +96,8 @@ export class OrderComponent implements OnInit {
             dish: {uid: id},
             quantity: this.orderState.getSelected(id)
           },
-        )
+        ),
+        readyTime: prefDate
       }).subscribe(order => {
         this.orderState.clear();
         this.router.navigate(['order/confirm/' + order.uid, {card: card}]);

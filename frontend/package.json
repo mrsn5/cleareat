@@ -30,6 +30,7 @@
     "js-base64": "^2.5.2",
     "liqpay": "0.0.1",
     "liqpay-sdk": "^3.2.0",
+    "ngx-bootstrap": "^5.6.1",
     "rxjs": "~6.4.0",
     "rxjs-pausable": "latest",
     "tslib": "^1.11.1",

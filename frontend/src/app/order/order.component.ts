@@ -83,7 +83,7 @@ export class OrderComponent implements OnInit {
       if(this.ReadyDate == 'завтра'){
         prefDate.setTime(prefDate.getTime() + 24+60*60*1000)
       }
-      const time: string = this.preferForm.controls['prefTime'].value;
+      const time: string = this.preferForm.controls['prefTime'].value || this.DefaultReadyTime;
       const h = Number(time.slice(0, 2));
       const m = Number(time.slice(3, 5));
       prefDate.setHours(h);

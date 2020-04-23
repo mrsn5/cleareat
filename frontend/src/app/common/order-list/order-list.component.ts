@@ -1,13 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Order, OrderState} from "../../_models/order";
+import {Component, OnInit} from '@angular/core';
+import {Order} from "../../_models/order";
 import {OrderService} from "../../_services/order.service";
 import {PageFilter} from "../../_models/page-filter";
 import {OrderFilter} from "../../_models/order-filter";
-import {group} from "@angular/animations";
 import {forkJoin} from "rxjs";
-import {Dish} from "../../_models/dish";
-import {UserService} from "../../_services/user.service";
 import {AppComponent} from "../../app.component";
+import { OrderState } from 'src/app/_models/order-state';
 
 @Component({
   selector: 'app-order-list',
@@ -44,12 +42,16 @@ export class OrderListComponent implements OnInit {
   }
 
   pageEvent($event) {
-
     this.pageFilter.size = $event.pageSize;
     this.pageFilter.page = (this.pageFilter.size != $event.pageSize) ? 0 : $event.pageIndex;
     console.log($event);
     this.load();
   }
+
+  processOrderChanged(order: Order) {
+    this.orderService.updateState(order).subscribe(_ => this.load());
+  }
+
 
   load() {
     forkJoin(

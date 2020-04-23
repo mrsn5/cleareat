@@ -1,7 +1,7 @@
 import {User} from "./user";
 import {Portion} from "./portion";
 
-export enum OrderState {
+export enum OrderStatus {
   inCheck = "in_check",
   confirmed = "confirmed",
   inProgress = "in_progress",
@@ -25,9 +25,9 @@ export class Order {
   public total: number;
   public paid: number;
   public client: User;
-  public portions: [Portion];
+  public portions: Portion[];
 
   public paymentState: PaymentState;
-  public orderState: OrderState;
+  public orderState: OrderStatus;
 
 }

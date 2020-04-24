@@ -29,25 +29,25 @@
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="edit()">
         <mat-icon>edit</mat-icon>
-        <span>Edit</span>
+        <span>Редагувати</span>
       </button>
       <button mat-menu-item *ngIf="dish.isAvailable" (click)="hide()">
         <mat-icon>visibility_off</mat-icon>
-        <span>Hide</span>
+        <span>Сховати</span>
       </button>
 
       <button mat-menu-item *ngIf="!dish.isAvailable" (click)="show()">
         <mat-icon>visibility</mat-icon>
-        <span>Show</span>
+        <span>Показати</span>
       </button>
 
       <button mat-menu-item (click)="delete()">
         <mat-icon>delete</mat-icon>
-        <span>Delete</span>
+        <span>Видалити</span>
       </button>
     </mat-menu>
    </ng-template>
-    
+
 
     <div class="header">
     <mat-card-title class="dish-name"> {{dish.name}} </mat-card-title>
@@ -67,7 +67,7 @@
         <button class="quantity-arrow-minus contract-bg" (click)="minusOrdered()"> – </button>
         <input class="number"
           [value]="ordered"
-          (input)="ordered = $event.target.value; orderedChange.emit(ordered)"
+          (input)="processNumberInput($event)"
           matInput type="number" placeholder="Ex. 12" min="0">
         <button class="quantity-arrow-plus contract-bg"(click)="plusOrdered()"> + </button>
       </div>

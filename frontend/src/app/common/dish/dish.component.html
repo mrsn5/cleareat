@@ -29,25 +29,25 @@
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="edit()">
         <mat-icon>edit</mat-icon>
-        <span>Edit</span>
+        <span>Редагувати</span>
       </button>
       <button mat-menu-item *ngIf="dish.isAvailable" (click)="hide()">
         <mat-icon>visibility_off</mat-icon>
-        <span>Hide</span>
+        <span>Сховати</span>
       </button>
 
       <button mat-menu-item *ngIf="!dish.isAvailable" (click)="show()">
         <mat-icon>visibility</mat-icon>
-        <span>Show</span>
+        <span>Показати</span>
       </button>
 
       <button mat-menu-item (click)="delete()">
         <mat-icon>delete</mat-icon>
-        <span>Delete</span>
+        <span>Видалити</span>
       </button>
     </mat-menu>
    </ng-template>
-    
+
 
     <div class="header">
     <mat-card-title class="dish-name"> {{dish.name}} </mat-card-title>

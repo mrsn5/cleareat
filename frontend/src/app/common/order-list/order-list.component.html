@@ -30,7 +30,7 @@
 
 
 <div class="list-center" style="margin: auto; left: 0; right: 0;">
-  <app-order-info-card *ngFor="let order of orders"
+  <app-order-info-card *ngFor="let order of orders" (orderChanged)="processOrderChanged($event)"
     [order]="order"
   ></app-order-info-card>
 </div>

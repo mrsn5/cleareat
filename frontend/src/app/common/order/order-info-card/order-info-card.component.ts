@@ -1,9 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Order, OrderState, PaymentState} from "../../../_models/order";
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {Order, OrderStatus, PaymentState} from "../../../_models/order";
 import {OrderService} from "../../../_services/order.service";
 import { OrderStateService } from 'src/app/_services/order-state.service';
 import { Router } from '@angular/router';
-
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { OrderContentsComponent } from '../../order-contents/order-contents.component';
+import { OrderState } from 'src/app/_models/order-state';
 @Component({
   selector: 'app-order-info-card',
   templateUrl: './order-info-card.component.html',
@@ -12,11 +14,12 @@ import { Router } from '@angular/router';
 export class OrderInfoCardComponent implements OnInit {
 
   @Input() public order: Order;
-
+  @Output() public readonly orderChanged: EventEmitter<Order> = new EventEmitter<Order>();
   constructor(
     private orderService: OrderService,
     private orderStateService: OrderStateService,
-    private router: Router
+    private router: Router,
+    private modal: BsModalService
     ) { }
 
   ngOnInit() {
@@ -42,30 +45,50 @@ export class OrderInfoCardComponent implements OnInit {
     this.orderService.updateState(newOrder).pipe().subscribe(o => this.order = o);
   }
 
+  changeContents() {
+    let state: OrderState = {};
+    this.order.portions.forEach(p => state[p.dish.uid] = {price: p.dish.price, quantity: p.quantity})
+    const ref = this.modal.show(
+      OrderContentsComponent, 
+      {initialState: { orderStateOriginal: state, orderId: this.order.uid }, 
+      ignoreBackdropClick: true
+    });
+    (<OrderContentsComponent>ref.content).orderSaved.subscribe(os => {
+      const order = {...this.order};
+      order.portions = Object.keys(os).map(key => <any>{
+          dish: {
+              uid: key
+          },
+          quantity: os[key].quantity
+      });
+      this.orderChanged.emit(order)
+    });
+  }
+
 
   //update order state
-  updateState(state: OrderState) {
-    this.update({uid: this.order.uid, orderState: state});
+  updateState(status: OrderStatus) {
+    this.update({uid: this.order.uid, orderState: status});
   }
 
   confirm() {
-    this.updateState(OrderState.confirmed);
+    this.updateState(OrderStatus.confirmed);
   }
 
   cooking() {
-    this.updateState(OrderState.inProgress);
+    this.updateState(OrderStatus.inProgress);
   }
 
   ready() {
-    this.updateState(OrderState.ready);
+    this.updateState(OrderStatus.ready);
   }
 
   done() {
-    this.updateState(OrderState.tookAway);
+    this.updateState(OrderStatus.tookAway);
   }
 
   cancel() {
-    this.updateState(OrderState.cancelled);
+    this.updateState(OrderStatus.cancelled);
   }
 
 
@@ -73,23 +96,23 @@ export class OrderInfoCardComponent implements OnInit {
 
   // buttons visibility
   canBeCancelled() {
-    return this.order.orderState != OrderState.tookAway && this.order.orderState != OrderState.cancelled
+    return this.order.orderState != OrderStatus.tookAway && this.order.orderState != OrderStatus.cancelled
   }
 
   canBeConfirmed() {
-    return this.order.orderState == OrderState.inCheck
+    return this.order.orderState == OrderStatus.inCheck
   }
 
   canBeSetInProgress() {
-    return this.order.orderState == OrderState.confirmed
+    return this.order.orderState == OrderStatus.confirmed
   }
 
   canBeSetReady() {
-    return this.order.orderState == OrderState.inProgress
+    return this.order.orderState == OrderStatus.inProgress
   }
 
   canBeDone() {
-    return this.order.orderState == OrderState.ready
+    return this.order.orderState == OrderStatus.ready
   }
 
   //helper methods
@@ -99,17 +122,17 @@ export class OrderInfoCardComponent implements OnInit {
 
   getStatus() {
     switch (this.order.orderState) {
-      case OrderState.cancelled:
+      case OrderStatus.cancelled:
         return "Відмінено";
-      case OrderState.confirmed:
+      case OrderStatus.confirmed:
         return "Підтвердженно";
-      case OrderState.inCheck:
+      case OrderStatus.inCheck:
         return "Очікує підтвердження";
-      case OrderState.inProgress:
+      case OrderStatus.inProgress:
         return "Готується";
-      case OrderState.ready:
+      case OrderStatus.ready:
         return "Готово";
-      case OrderState.tookAway:
+      case OrderStatus.tookAway:
         return "Закрито";
     }
   }

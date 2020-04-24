@@ -45,7 +45,8 @@ import { AddCategoryComponent } from './common/dish/add-category/add-category.co
 import { AddPageComponent } from './add-page/add-page.component';
 import {MatMenuModule} from "@angular/material/menu";
 import { ConfirmedOrderComponent } from './confirmed-order/confirmed-order.component';
-
+import { OrderContentsComponent } from './common/order-contents/order-contents.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { ConfirmedOrderComponent } from './confirmed-order/confirmed-order.compo
     AddCategoryComponent,
     AddPageComponent,
     ConfirmedOrderComponent,
+    OrderContentsComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +93,8 @@ import { ConfirmedOrderComponent } from './confirmed-order/confirmed-order.compo
     MatButtonToggleModule,
     FormsModule,
     CdkTableModule,
-    MatMenuModule
+    MatMenuModule,
+    ModalModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -101,6 +104,7 @@ import { ConfirmedOrderComponent } from './confirmed-order/confirmed-order.compo
     OrderStateService,
     OrderGuard,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [OrderContentsComponent]
 })
 export class AppModule { }

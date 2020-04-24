@@ -44,7 +44,6 @@ public class Order {
     @JsonIgnoreProperties({"password", "role"})
     private AppUser client;
 
-    @NotEmpty
     @OneToMany(mappedBy = "order")
     @JsonIgnoreProperties({"order"})
     private List<Portion> portions = new ArrayList<>();

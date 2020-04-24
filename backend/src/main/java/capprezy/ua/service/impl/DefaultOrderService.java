@@ -98,7 +98,7 @@ public class DefaultOrderService implements OrderService {
             updatedOrder.setPreferences(order.getPreferences());
         }
 
-        if(order.getPortions() != null) {
+        if(order.getPortions() != null && !order.getPortions().isEmpty()) {
             portionRepository.deleteAll(updatedOrder.getPortions());
 
             updatedOrder.getPortions().clear();
@@ -114,16 +114,13 @@ public class DefaultOrderService implements OrderService {
                 updatedOrder.getPortions().add(portionRepository.save(p));
             }
             updatedOrder.setTotal(total);
+            updatedOrder.setPaymentState(total == updatedOrder.getPaid() ? Order.PaymentStateType.fully_paid : (updatedOrder.getPaid() != 0.0 ? Order.PaymentStateType.part_paid : Order.PaymentStateType.not_paid));
         }
 
         if (order.getPrefTime() != null) {
             updatedOrder.setPrefTime(order.getPrefTime());
         }
 
-        if (updatedOrder.getPortions().isEmpty()) {
-            orderRepository.delete(updatedOrder);
-            return null;
-        }
         return orderRepository.save(updatedOrder);
     }
 

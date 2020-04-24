@@ -67,7 +67,7 @@
         <button class="quantity-arrow-minus contract-bg" (click)="minusOrdered()"> – </button>
         <input class="number"
           [value]="ordered"
-          (input)="ordered = $event.target.value; orderedChange.emit(ordered)"
+          (input)="processNumberInput($event)"
           matInput type="number" placeholder="Ex. 12" min="0">
         <button class="quantity-arrow-plus contract-bg"(click)="plusOrdered()"> + </button>
       </div>

@@ -81,4 +81,14 @@ export class DishComponent {
     this.ordered++
     this.orderedChange.emit(this.ordered)
   }
+
+  processNumberInput(event) {
+    event.target.value = event.target.value.replace(/^0+/, '');
+    const ordered = Number(event.target.value);
+    if(Number.isNaN(ordered)) {
+      event.preventDefault();
+      return;
+    }
+    this.orderedChange.emit(Number(ordered))
+  }
 }

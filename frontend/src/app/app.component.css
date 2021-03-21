@@ -1,5 +1,5 @@
 nav {
-  background-color: #33FFB5;
+  background-color: #5f6283;
   margin-top: 24px;
   margin-bottom: 45px;
   z-index: 100;
@@ -47,7 +47,7 @@ nav {
   width: 20px;
   height: 20px;
   font-size: 15px;
-  background-color: #25A072;
+  background-color: #9FA2C4;
   border-radius: 50%;
   text-align: center;
 }

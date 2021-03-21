@@ -23,7 +23,7 @@ table {
 }
 
 .custom-file-label::after {
-  background-color: #33FFB5 !important;
+  background-color: #555877 !important;
   color: white !important;
   content: 'Обрати фото';
 }

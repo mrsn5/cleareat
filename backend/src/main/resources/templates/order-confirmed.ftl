@@ -130,7 +130,7 @@
     </style>
     <!-- [if gte mso 9]><style type=”text/css”>
         body {
-            font-family: 'Nerko One', cursive !important;
+            font-family: arial, sans-serif!important;
         }
     </style>
     <![endif]-->
@@ -142,7 +142,7 @@
 <table style="display:none!important;">
     <tr>
         <td>
-            <div style="overflow:hidden;display:none;font-size:1px;color:#ffffff;line-height:1px;font-family: 'Nerko One', cursive !important ;maxheight:0px;max-width:0px;opacity:0;">
+            <div style="overflow:hidden;display:none;font-size:1px;color:#ffffff;line-height:1px;font-family:Arial;maxheight:0px;max-width:0px;opacity:0;">
                 Your order
             </div>
         </td>
@@ -165,7 +165,7 @@
                     <td height="20" style="font-size: 20px; line-height: 20px;">&nbsp;</td>
                 </tr>
                 <tr>
-                    <td align="center" style="color: #343434; font-size: 24px; font-family: 'Nerko One', cursive !important; font-weight:700;letter-spacing: 3px; line-height: 35px;"
+                    <td align="center" style="color: #343434; font-size: 24px; font-family: Quicksand, Calibri, sans-serif; font-weight:700;letter-spacing: 3px; line-height: 35px;"
                         class="main-header">
 
 

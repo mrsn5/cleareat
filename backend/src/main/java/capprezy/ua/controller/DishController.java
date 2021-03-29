@@ -66,42 +66,42 @@ public class DishController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity add(@RequestParam("file") MultipartFile file,
-                              @RequestParam("dish") Dish dish) throws AlreadyExistsException, NotValidDataException {
-
-        dish = dishService.add(dish);
-        if (!file.isEmpty()) {
-            try {
-                dish = dishService.uploadPhotoToCloudinary(dish, file);
-                dishService.update(dish);
-            } catch (IOException e) {
-                dishService.delete(dish.getUid());
-                throw NotValidDataException.createWith("image uploading failed");
-            }
-        }
-        return ResponseEntity.ok(dish);
-    }
-
-
-    @PutMapping
-    public ResponseEntity edit(@RequestParam("dish") Dish dish,
-                               @RequestParam(value = "file", required=false) MultipartFile file) throws NotValidDataException {
-        if (file != null) {
-            try {
-                dish = dishService.uploadPhotoToCloudinary(dish, file);
-                dishService.update(dish);
-            } catch (IOException e) {
-                throw NotValidDataException.createWith("image uploading failed");
-            }
-        }
-        return ResponseEntity.ok(dishService.update(dish));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable("id") Integer id) {
-        dishService.delete(id);
-        return ResponseEntity.ok().build();
-    }
+//    @PostMapping
+//    public ResponseEntity add(@RequestParam("file") MultipartFile file,
+//                              @RequestParam("dish") Dish dish) throws AlreadyExistsException, NotValidDataException {
+//
+//        dish = dishService.add(dish);
+//        if (!file.isEmpty()) {
+//            try {
+//                dish = dishService.uploadPhotoToCloudinary(dish, file);
+//                dishService.update(dish);
+//            } catch (IOException e) {
+//                dishService.delete(dish.getUid());
+//                throw NotValidDataException.createWith("image uploading failed");
+//            }
+//        }
+//        return ResponseEntity.ok(dish);
+//    }
+//
+//
+//    @PutMapping
+//    public ResponseEntity edit(@RequestParam("dish") Dish dish,
+//                               @RequestParam(value = "file", required=false) MultipartFile file) throws NotValidDataException {
+//        if (file != null) {
+//            try {
+//                dish = dishService.uploadPhotoToCloudinary(dish, file);
+//                dishService.update(dish);
+//            } catch (IOException e) {
+//                throw NotValidDataException.createWith("image uploading failed");
+//            }
+//        }
+//        return ResponseEntity.ok(dishService.update(dish));
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity delete(@PathVariable("id") Integer id) {
+//        dishService.delete(id);
+//        return ResponseEntity.ok().build();
+//    }
 
 }

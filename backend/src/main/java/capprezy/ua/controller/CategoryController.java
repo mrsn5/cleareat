@@ -26,19 +26,19 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.getById(id));
     }
 
-    @PostMapping
-    public ResponseEntity add(@RequestBody @Valid Category category) throws AlreadyExistsException {
-        return ResponseEntity.ok(categoryService.add(category));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable("id") Integer id) {
-        categoryService.delete(id);
-        return ResponseEntity.ok().build();
-    }
-
-    @PutMapping
-    public ResponseEntity update(@RequestBody @Valid Category category) {
-        return ResponseEntity.ok(categoryService.update(category));
-    }
+//    @PostMapping
+//    public ResponseEntity add(@RequestBody @Valid Category category) throws AlreadyExistsException {
+//        return ResponseEntity.ok(categoryService.add(category));
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity delete(@PathVariable("id") Integer id) {
+//        categoryService.delete(id);
+//        return ResponseEntity.ok().build();
+//    }
+//
+//    @PutMapping
+//    public ResponseEntity update(@RequestBody @Valid Category category) {
+//        return ResponseEntity.ok(categoryService.update(category));
+//    }
 }

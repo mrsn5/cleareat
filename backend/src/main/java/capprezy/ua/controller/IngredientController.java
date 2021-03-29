@@ -21,8 +21,8 @@ public class IngredientController {
         return ResponseEntity.ok(ingredientService.getAll());
     }
 
-    @PostMapping
-    public ResponseEntity add(@RequestBody @Valid Ingredient ingredient) throws AlreadyExistsException {
-        return ResponseEntity.ok(ingredientService.add(ingredient));
-    }
+//    @PostMapping
+//    public ResponseEntity add(@RequestBody @Valid Ingredient ingredient) throws AlreadyExistsException {
+//        return ResponseEntity.ok(ingredientService.add(ingredient));
+//    }
 }
